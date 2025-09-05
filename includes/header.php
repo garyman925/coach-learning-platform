@@ -130,7 +130,15 @@ $currentLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : 'zh-TW
                              <!-- Logged in user -->
                              <div class="user-menu">
                                  <button class="user-menu-toggle" aria-expanded="false" aria-haspopup="true">
-                                     <span class="user-name"><?php echo e($currentUser['username']); ?></span>
+                                     <div class="user-info">
+                                         <div class="user-icon">
+                                             <i class="fas fa-user"></i>
+                                         </div>
+                                         <div class="user-details">
+                                             <span class="user-greeting">你好! 歡迎回來!</span>
+                                             <span class="user-name"><?php echo e($currentUser['username']); ?></span>
+                                         </div>
+                                     </div>
                                      <svg class="dropdown-arrow" width="12" height="8" viewBox="0 0 12 8">
                                          <path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="2" fill="none"/>
                                      </svg>
@@ -142,8 +150,14 @@ $currentLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : 'zh-TW
                                    <?php endif; ?>
                                    <li><a href="<?php echo BASE_URL; ?>/profile" role="menuitem">個人資料</a></li>
                                    <li><a href="<?php echo BASE_URL; ?>/my-courses" role="menuitem">我的課程</a></li>
+                                   <!-- 社區互動選項暫時隱藏 -->
+                                   <!--
                                    <li><a href="<?php echo BASE_URL; ?>/community" role="menuitem">社區互動</a></li>
+                                   -->
+                                   <!-- 搜索發現選項暫時隱藏 -->
+                                   <!--
                                    <li><a href="<?php echo BASE_URL; ?>/search" role="menuitem">搜索發現</a></li>
+                                   -->
                                    <li><hr class="dropdown-divider"></li>
                                    <li><a href="<?php echo BASE_URL; ?>/logout" role="menuitem">登出</a></li>
                                  </ul>

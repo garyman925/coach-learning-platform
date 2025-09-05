@@ -122,6 +122,21 @@ class UserManagement {
                     'phone' => '0934-567-890',
                     'avatar' => null
                 ]
+            ],
+            'user' => [
+                'username' => 'user',
+                'email' => 'user@example.com',
+                'password_hash' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // 密碼: user123
+                'role' => 'user',
+                'status' => 'active',
+                'created_at' => '2024-01-15',
+                'last_login' => null,
+                'profile' => [
+                    'first_name' => '用',
+                    'last_name' => '戶',
+                    'phone' => '0923-456-789',
+                    'avatar' => null
+                ]
             ]
         ];
     }

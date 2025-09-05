@@ -54,6 +54,51 @@ $mockUsers = [
             'phone' => '0923-456-789',
             'avatar' => null
         ]
+    ],
+    'admin@coach-platform.com' => [
+        'username' => 'admin',
+        'email' => 'admin@coach-platform.com',
+        'password' => 'admin123',
+        'role' => 'admin',
+        'status' => 'active',
+        'created_at' => '2024-01-01',
+        'last_login' => null,
+        'profile' => [
+            'first_name' => '系統',
+            'last_name' => '管理員',
+            'phone' => '0912-345-678',
+            'avatar' => null
+        ]
+    ],
+    'coach1@coach-platform.com' => [
+        'username' => 'coach1',
+        'email' => 'coach1@coach-platform.com',
+        'password' => 'coach123',
+        'role' => 'coach',
+        'status' => 'active',
+        'created_at' => '2024-01-15',
+        'last_login' => null,
+        'profile' => [
+            'first_name' => '張',
+            'last_name' => '教練',
+            'phone' => '0923-456-789',
+            'avatar' => null
+        ]
+    ],
+    'user1@example.com' => [
+        'username' => 'user1',
+        'email' => 'user1@example.com',
+        'password' => 'user123',
+        'role' => 'user',
+        'status' => 'active',
+        'created_at' => '2024-01-20',
+        'last_login' => null,
+        'profile' => [
+            'first_name' => '李',
+            'last_name' => '學員',
+            'phone' => '0934-567-890',
+            'avatar' => null
+        ]
     ]
 ];
 
@@ -72,7 +117,8 @@ if ($password !== $user['password']) {
 }
 
 // 登入成功，設置 session
-session_start();
+// 初始化用戶管理系統來處理 session
+$userManagement = new UserManagement();
 $_SESSION['user_id'] = $user['username']; // 使用 username 作為 key，與 user-management.php 一致
 $_SESSION['user'] = $user;
 $_SESSION['username'] = $user['username'];

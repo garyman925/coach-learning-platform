@@ -642,7 +642,7 @@ class CourseLearning {
 
         // 更新本地存儲
         const progressKey = `course_progress_${this.courseId}`;
-        let progress = JSON.parse(localStorage.getItem(progressKey) || '{}');
+        let progress = window.Storage ? window.Storage.get(progressKey, {}) : JSON.parse(window.Storage ? window.Storage.get(progressKey) : localStorage.getItem(progressKey) || '{}');
         
         if (!progress.lessons) {
             progress.lessons = {};
@@ -654,7 +654,7 @@ class CourseLearning {
             watchTime: this.currentTime
         };
 
-        localStorage.setItem(progressKey, JSON.stringify(progress));
+        window.Storage ? window.Storage.set(progressKey, progress) : localStorage.setItem(progressKey, JSON.stringify(progress));
 
         // 更新UI
         this.updateLessonStatus();
@@ -795,7 +795,7 @@ class CourseLearning {
         if (!this.video || !this.lessonId || !this.courseId) return;
 
         const progressKey = `course_progress_${this.courseId}`;
-        let progress = JSON.parse(localStorage.getItem(progressKey) || '{}');
+        let progress = window.Storage ? window.Storage.get(progressKey, {}) : JSON.parse(window.Storage ? window.Storage.get(progressKey) : localStorage.getItem(progressKey) || '{}');
         
         if (!progress.lessons) {
             progress.lessons = {};
@@ -809,7 +809,7 @@ class CourseLearning {
         progress.lessons[this.lessonId].lastWatched = new Date().toISOString();
         progress.lessTime = this.currentTime;
 
-        localStorage.setItem(progressKey, JSON.stringify(progress));
+        window.Storage ? window.Storage.set(progressKey, progress) : localStorage.setItem(progressKey, JSON.stringify(progress));
     }
 
     /**
@@ -819,7 +819,7 @@ class CourseLearning {
         if (!this.video || !this.lessonId || !this.courseId) return;
 
         const progressKey = `course_progress_${this.courseId}`;
-        const progress = JSON.parse(localStorage.getItem(progressKey) || '{}');
+        const progress = window.Storage ? window.Storage.get(progressKey, {}) : JSON.parse(window.Storage ? window.Storage.get(progressKey) : localStorage.getItem(progressKey) || '{}');
         
         if (progress.lessons && progress.lessons[this.lessonId]) {
             const lessonProgress = progress.lessons[this.lessonId];
@@ -934,7 +934,7 @@ class CourseLearning {
         if (!this.courseId) return;
 
         const progressKey = `course_progress_${this.courseId}`;
-        const progress = JSON.parse(localStorage.getItem(progressKey) || '{}');
+        const progress = window.Storage ? window.Storage.get(progressKey, {}) : JSON.parse(window.Storage ? window.Storage.get(progressKey) : localStorage.getItem(progressKey) || '{}');
         
         if (progress.lessons) {
             const totalLessons = document.querySelectorAll('.lesson-item').length;
@@ -1405,7 +1405,11 @@ class CourseLearning {
      */
     showHint(exerciseIndex) {
         // 這裡可以實現提示功能
-        alert('提示功能開發中...');
+        if (window.showNotification) {
+            window.showNotification('提示功能開發中...', 'info');
+        } else {
+            alert('提示功能開發中...');
+        }
     }
 
     /**
@@ -1453,7 +1457,7 @@ class CourseLearning {
         if (!this.courseId || !this.lessonId) return;
 
         const progressKey = `exercise_progress_${this.courseId}_${this.lessonId}`;
-        const savedProgress = localStorage.getItem(progressKey);
+        const savedProgress = window.Storage ? window.Storage.get(progressKey) : localStorage.getItem(progressKey);
         
         if (savedProgress) {
             const progress = JSON.parse(savedProgress);
@@ -1523,7 +1527,7 @@ class CourseLearning {
             savedAt: new Date().toISOString()
         };
 
-        localStorage.setItem(progressKey, JSON.stringify(progress));
+        window.Storage ? window.Storage.set(progressKey, progress) : localStorage.setItem(progressKey, JSON.stringify(progress));
     }
 
     /**

@@ -51,6 +51,8 @@ $userCourses = [
         'rating' => 5,
         'notes' => '非常實用的課程，推薦！'
     ],
+    // 家長教練基礎課程暫時隱藏
+    /*
     [
         'id' => 'parent',
         'title' => '家長教練基礎',
@@ -66,6 +68,7 @@ $userCourses = [
         'rating' => null,
         'notes' => ''
     ]
+    */
 ];
 
 // 模擬用戶服務數據
@@ -100,10 +103,10 @@ $userServices = [
 
 // 計算統計數據
 $totalCourses = count($userCourses);
-$completedCourses = count(array_filter($userCourses, fn($course) => $course['status'] === 'completed'));
-$inProgressCourses = count(array_filter($userCourses, fn($course) => $course['status'] === 'in_progress'));
+$completedCourses = count(array_filter($userCourses, function($course) { return $course['status'] === 'completed'; }));
+$inProgressCourses = count(array_filter($userCourses, function($course) { return $course['status'] === 'in_progress'; }));
 $totalServices = count($userServices);
-$completedServices = count(array_filter($userServices, fn($service) => $service['status'] === 'completed'));
+$completedServices = count(array_filter($userServices, function($service) { return $service['status'] === 'completed'; }));
 
 // 處理表單提交
 $message = '';
@@ -138,389 +141,408 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php require_once 'includes/header-user.php'; ?>
 
-            <?php if ($message): ?>
-                <div class="alert alert-<?php echo $messageType === 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show" role="alert">
-                    <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-triangle'; ?> me-2"></i>
-                    <?php echo e($message); ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>/">首頁</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">我的課程</li>
+                        </ol>
+                    </nav>
+                    <h1 class="hero-title">我的課程與服務</h1>
+                    <p class="hero-description">管理您的學習進度，查看課程狀態和服務預約</p>
                 </div>
-            <?php endif; ?>
+            </div>
+        </div>
+    </section>
 
-            <!-- Statistics Cards -->
-            <div class="row mb-5">
-                    <div class="col-md-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-graduation-cap"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number"><?php echo $totalCourses; ?></h3>
-                                <p class="stat-label">總課程數</p>
-                            </div>
-                        </div>
+    <!-- Main Content -->
+    <div class="container">
+        <?php if ($message): ?>
+            <div class="alert alert-<?php echo $messageType === 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show" role="alert">
+                <i class="fas fa-<?php echo $messageType === 'success' ? 'check-circle' : 'exclamation-triangle'; ?> me-2"></i>
+                <?php echo e($message); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        <?php endif; ?>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-5">
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-graduation-cap"></i>
                     </div>
-                    <div class="col-md-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number"><?php echo $completedCourses; ?></h3>
-                                <p class="stat-label">已完成</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number"><?php echo $inProgressCourses; ?></h3>
-                                <p class="stat-label">進行中</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="stat-card">
-                            <div class="stat-icon">
-                                <i class="fas fa-user-tie"></i>
-                            </div>
-                            <div class="stat-content">
-                                <h3 class="stat-number"><?php echo $totalServices; ?></h3>
-                                <p class="stat-label">教練服務</p>
-                            </div>
-                        </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number"><?php echo $totalCourses; ?></h3>
+                        <p class="stat-label">總課程數</p>
                     </div>
                 </div>
-
-                <!-- Navigation Tabs -->
-                <div class="content-tabs">
-                    <ul class="nav nav-pills nav-fill" id="coursesTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="my-courses-tab" data-bs-toggle="pill" data-bs-target="#my-courses" type="button" role="tab">
-                                <i class="fas fa-graduation-cap me-2"></i>我的課程
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="my-services-tab" data-bs-toggle="pill" data-bs-target="#my-services" type="button" role="tab">
-                                <i class="fas fa-user-tie me-2"></i>我的服務
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="progress-tab" data-bs-toggle="pill" data-bs-target="#progress" type="button" role="tab">
-                                <i class="fas fa-chart-line me-2"></i>學習進度
-                            </button>
-                        </li>
-                    </ul>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number"><?php echo $completedCourses; ?></h3>
+                        <p class="stat-label">已完成</p>
+                    </div>
                 </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number"><?php echo $inProgressCourses; ?></h3>
+                        <p class="stat-label">進行中</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number"><?php echo $totalServices; ?></h3>
+                        <p class="stat-label">教練服務</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                <!-- Tab Content -->
-                <div class="tab-content" id="coursesTabContent">
-                    <!-- My Courses Tab -->
-                    <div class="tab-pane fade show active" id="my-courses" role="tabpanel">
-                        <div class="content-card">
-                            <div class="card-header">
-                                <h4><i class="fas fa-graduation-cap me-2"></i>我的課程</h4>
-                                <p>管理您的課程學習進度</p>
+        <!-- Navigation Tabs -->
+        <div class="content-tabs">
+            <ul class="nav nav-pills nav-fill" id="coursesTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="my-courses-tab" data-bs-toggle="pill" data-bs-target="#my-courses" type="button" role="tab">
+                        <i class="fas fa-graduation-cap me-2"></i>我的課程
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="my-services-tab" data-bs-toggle="pill" data-bs-target="#my-services" type="button" role="tab">
+                        <i class="fas fa-user-tie me-2"></i>我的服務
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="progress-tab" data-bs-toggle="pill" data-bs-target="#progress" type="button" role="tab">
+                        <i class="fas fa-chart-line me-2"></i>學習進度
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="coursesTabContent">
+            <!-- My Courses Tab -->
+            <div class="tab-pane fade show active" id="my-courses" role="tabpanel">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-graduation-cap me-2"></i>我的課程</h4>
+                        <p>管理您的課程學習進度</p>
+                    </div>
+                    <div class="card-body">
+                        <?php if (empty($userCourses)): ?>
+                            <div class="empty-state">
+                                <div class="empty-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <h3 class="empty-title">還沒有報名任何課程</h3>
+                                <p class="empty-description">探索我們的課程，開始您的學習之旅</p>
+                                <a href="<?php echo BASE_URL; ?>/courses" class="btn btn-primary">
+                                    <i class="fas fa-search me-2"></i>瀏覽課程
+                                </a>
                             </div>
-                            <div class="card-body">
-                                <?php if (empty($userCourses)): ?>
-                                    <div class="empty-state">
-                                        <div class="empty-icon">
-                                            <i class="fas fa-graduation-cap"></i>
-                                        </div>
-                                        <h3 class="empty-title">還沒有報名任何課程</h3>
-                                        <p class="empty-description">探索我們的課程，開始您的學習之旅</p>
-                                        <a href="<?php echo BASE_URL; ?>/courses" class="btn btn-primary">
-                                            <i class="fas fa-search me-2"></i>瀏覽課程
-                                        </a>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="row">
-                                        <?php foreach ($userCourses as $course): ?>
-                                            <div class="col-lg-3 col-md-6 mb-4">
-                                                <div class="course-card">
-                                                <div class="course-header">
-                                                    <div class="course-status status-<?php echo $course['status']; ?>">
-                                                        <?php
-                                                        $statusText = [
-                                                            'enrolled' => '已報名',
-                                                            'in_progress' => '進行中',
-                                                            'completed' => '已完成'
-                                                        ];
-                                                        echo isset($statusText[$course['status']]) ? $statusText[$course['status']] : $course['status'];
-                                                        ?>
+                        <?php else: ?>
+                            <div class="row">
+                                <?php foreach ($userCourses as $course): ?>
+                                    <div class="col-lg-3 col-md-6 mb-4">
+                                        <div class="course-card">
+                                            <div class="course-header">
+                                                <div class="course-status status-<?php echo $course['status']; ?>">
+                                                    <?php
+                                                    $statusText = [
+                                                        'enrolled' => '已報名',
+                                                        'in_progress' => '進行中',
+                                                        'completed' => '已完成'
+                                                    ];
+                                                    echo isset($statusText[$course['status']]) ? $statusText[$course['status']] : $course['status'];
+                                                    ?>
+                                                </div>
+                                                <?php if ($course['certificate']): ?>
+                                                    <div class="course-certificate">
+                                                        <i class="fas fa-certificate"></i>
                                                     </div>
-                                                    <?php if ($course['certificate']): ?>
-                                                        <div class="course-certificate">
-                                                            <i class="fas fa-certificate"></i>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                </div>
-                                                
-                                                <div class="course-content">
-                                                    <h5 class="course-title"><?php echo e($course['title']); ?></h5>
-                                                    <p class="course-instructor">
-                                                        <i class="fas fa-user me-2"></i><?php echo e($course['instructor']); ?>
-                                                    </p>
-                                                    
-                                                    <div class="course-progress">
-                                                        <div class="progress-info">
-                                                            <span>進度</span>
-                                                            <span><?php echo $course['progress']; ?>%</span>
-                                                        </div>
-                                                        <div class="progress">
-                                                            <div class="progress-bar" style="width: <?php echo $course['progress']; ?>%"></div>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="course-sessions">
-                                                        <i class="fas fa-calendar-alt me-2"></i>
-                                                        已完成 <?php echo $course['completed_sessions']; ?>/<?php echo $course['total_sessions']; ?> 堂課
-                                                    </div>
-                                                    
-                                                    <?php if ($course['next_session']): ?>
-                                                        <div class="course-next">
-                                                            <i class="fas fa-clock me-2"></i>
-                                                            下次課程：<?php echo date('m/d H:i', strtotime($course['next_session'])); ?>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                    
-                                                    <?php if ($course['notes']): ?>
-                                                        <div class="course-notes">
-                                                            <i class="fas fa-sticky-note me-2"></i>
-                                                            <?php echo e($course['notes']); ?>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                </div>
-                                                
-                                                <div class="course-actions">
-                                                    <?php if ($course['status'] === 'enrolled' || $course['status'] === 'in_progress'): ?>
-                                                        <a href="<?php echo BASE_URL; ?>/course-learning?course=<?php echo $course['id']; ?>" class="btn btn-primary btn-sm">
-                                                            <i class="fas fa-play me-2"></i>
-                                                            <?php echo $course['progress'] > 0 ? '繼續學習' : '開始學習'; ?>
-                                                        </a>
-                                                        <button class="btn btn-outline-danger btn-sm" onclick="cancelCourse('<?php echo $course['id']; ?>')">
-                                                            <i class="fas fa-times me-2"></i>取消課程
-                                                        </button>
-                                                    <?php elseif ($course['status'] === 'completed'): ?>
-                                                        <a href="<?php echo BASE_URL; ?>/course-learning?course=<?php echo $course['id']; ?>" class="btn btn-outline-primary btn-sm">
-                                                            <i class="fas fa-redo me-2"></i>重新學習
-                                                        </a>
-                                                        <?php if ($course['certificate']): ?>
-                                                            <button class="btn btn-success btn-sm" onclick="downloadCertificate('<?php echo $course['id']; ?>')">
-                                                                <i class="fas fa-download me-2"></i>下載證書
-                                                            </button>
-                                                        <?php endif; ?>
-                                                        <?php if (!$course['rating']): ?>
-                                                            <button class="btn btn-warning btn-sm" onclick="rateCourse('<?php echo $course['id']; ?>')">
-                                                                <i class="fas fa-star me-2"></i>評價課程
-                                                            </button>
-                                                        <?php else: ?>
-                                                            <div class="course-rating">
-                                                                <?php for ($i = 1; $i <= 5; $i++): ?>
-                                                                    <i class="fas fa-star <?php echo $i <= $course['rating'] ? 'text-warning' : 'text-muted'; ?>"></i>
-                                                                <?php endfor; ?>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                    <?php endif; ?>
-                                                </div>
-                                                </div>
+                                                <?php endif; ?>
                                             </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- My Services Tab -->
-                    <div class="tab-pane fade" id="my-services" role="tabpanel">
-                        <div class="content-card">
-                            <div class="card-header">
-                                <h4><i class="fas fa-user-tie me-2"></i>我的服務</h4>
-                                <p>管理您的教練服務預約</p>
-                            </div>
-                            <div class="card-body">
-                                <?php if (empty($userServices)): ?>
-                                    <div class="empty-state">
-                                        <div class="empty-icon">
-                                            <i class="fas fa-user-tie"></i>
-                                        </div>
-                                        <h3 class="empty-title">還沒有預約任何服務</h3>
-                                        <p class="empty-description">探索我們的教練服務，獲得專業指導</p>
-                                        <a href="<?php echo BASE_URL; ?>/services" class="btn btn-primary">
-                                            <i class="fas fa-search me-2"></i>瀏覽服務
-                                        </a>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="services-list">
-                                        <?php foreach ($userServices as $service): ?>
-                                            <div class="service-item">
-                                                <div class="service-header">
-                                                    <div class="service-type">
-                                                        <i class="fas fa-<?php echo $service['type'] === 'personal_coaching' ? 'user' : 'users'; ?> me-2"></i>
-                                                        <?php echo e($service['title']); ?>
+                                            
+                                            <div class="course-content">
+                                                <h5 class="course-title"><?php echo e($course['title']); ?></h5>
+                                                <p class="course-instructor">
+                                                    <i class="fas fa-user me-2"></i><?php echo e($course['instructor']); ?>
+                                                </p>
+                                                
+                                                <div class="course-progress">
+                                                    <div class="progress-info">
+                                                        <span>進度</span>
+                                                        <span><?php echo $course['progress']; ?>%</span>
                                                     </div>
-                                                    <div class="service-status status-<?php echo $service['status']; ?>">
-                                                        <?php
-                                                        $statusText = [
-                                                            'scheduled' => '已預約',
-                                                            'completed' => '已完成',
-                                                            'cancelled' => '已取消'
-                                                        ];
-                                                        echo isset($statusText[$service['status']]) ? $statusText[$service['status']] : $service['status'];
-                                                        ?>
+                                                    <div class="progress">
+                                                        <div class="progress-bar" style="width: <?php echo $course['progress']; ?>%"></div>
                                                     </div>
                                                 </div>
                                                 
-                                                <div class="service-content">
-                                                    <div class="service-info">
-                                                        <div class="service-coach">
-                                                            <i class="fas fa-user-tie me-2"></i>
-                                                            教練：<?php echo e($service['coach']); ?>
-                                                        </div>
-                                                        <div class="service-datetime">
-                                                            <i class="fas fa-calendar-alt me-2"></i>
-                                                            <?php echo date('Y-m-d H:i', strtotime($service['scheduled_date'])); ?>
-                                                        </div>
-                                                        <div class="service-duration">
-                                                            <i class="fas fa-clock me-2"></i>
-                                                            <?php echo $service['duration']; ?> 分鐘
-                                                        </div>
-                                                        <div class="service-location">
-                                                            <i class="fas fa-map-marker-alt me-2"></i>
-                                                            <?php echo e($service['location']); ?>
-                                                        </div>
+                                                <div class="course-sessions">
+                                                    <i class="fas fa-calendar-alt me-2"></i>
+                                                    已完成 <?php echo $course['completed_sessions']; ?>/<?php echo $course['total_sessions']; ?> 堂課
+                                                </div>
+                                                
+                                                <?php if ($course['next_session']): ?>
+                                                    <div class="course-next">
+                                                        <i class="fas fa-clock me-2"></i>
+                                                        下次課程：<?php echo date('m/d H:i', strtotime($course['next_session'])); ?>
                                                     </div>
-                                                    
-                                                    <?php if ($service['notes']): ?>
-                                                        <div class="service-notes">
-                                                            <i class="fas fa-sticky-note me-2"></i>
-                                                            <?php echo e($service['notes']); ?>
-                                                        </div>
+                                                <?php endif; ?>
+                                                
+                                                <?php if ($course['notes']): ?>
+                                                    <div class="course-notes">
+                                                        <i class="fas fa-sticky-note me-2"></i>
+                                                        <?php echo e($course['notes']); ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                            
+                                            <div class="course-actions">
+                                                <?php if ($course['status'] === 'enrolled' || $course['status'] === 'in_progress'): ?>
+                                                    <a href="<?php echo BASE_URL; ?>/course-learning?course=<?php echo $course['id']; ?>" class="btn btn-primary btn-sm">
+                                                        <i class="fas fa-play me-2"></i>
+                                                        <?php echo $course['progress'] > 0 ? '繼續學習' : '開始學習'; ?>
+                                                    </a>
+                                                    <button class="btn btn-outline-danger btn-sm" onclick="cancelCourse('<?php echo $course['id']; ?>')">
+                                                        <i class="fas fa-times me-2"></i>取消課程
+                                                    </button>
+                                                <?php elseif ($course['status'] === 'completed'): ?>
+                                                    <a href="<?php echo BASE_URL; ?>/course-learning?course=<?php echo $course['id']; ?>" class="btn btn-outline-primary btn-sm">
+                                                        <i class="fas fa-redo me-2"></i>重新學習
+                                                    </a>
+                                                    <?php if ($course['certificate']): ?>
+                                                        <button class="btn btn-success btn-sm" onclick="downloadCertificate('<?php echo $course['id']; ?>')">
+                                                            <i class="fas fa-download me-2"></i>下載證書
+                                                        </button>
                                                     <?php endif; ?>
-                                                    
-                                                    <?php if ($service['rating']): ?>
-                                                        <div class="service-rating">
-                                                            <i class="fas fa-star me-2"></i>
-                                                            評價：
+                                                    <?php if (!$course['rating']): ?>
+                                                        <button class="btn btn-warning btn-sm" onclick="rateCourse('<?php echo $course['id']; ?>')">
+                                                            <i class="fas fa-star me-2"></i>評價課程
+                                                        </button>
+                                                    <?php else: ?>
+                                                        <div class="course-rating">
                                                             <?php for ($i = 1; $i <= 5; $i++): ?>
-                                                                <i class="fas fa-star <?php echo $i <= $service['rating'] ? 'text-warning' : 'text-muted'; ?>"></i>
+                                                                <i class="fas fa-star <?php echo $i <= $course['rating'] ? 'text-warning' : 'text-muted'; ?>"></i>
                                                             <?php endfor; ?>
                                                         </div>
                                                     <?php endif; ?>
-                                                    
-                                                    <?php if ($service['feedback']): ?>
-                                                        <div class="service-feedback">
-                                                            <i class="fas fa-comment me-2"></i>
-                                                            <?php echo e($service['feedback']); ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
+            <!-- My Services Tab -->
+            <div class="tab-pane fade" id="my-services" role="tabpanel">
+                <div class="content-card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-user-tie me-2"></i>我的服務</h4>
+                        <p>管理您的教練服務預約</p>
+                    </div>
+                    <div class="card-body">
+                        <?php if (empty($userServices)): ?>
+                            <div class="empty-state">
+                                <div class="empty-icon">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <h3 class="empty-title">還沒有預約任何服務</h3>
+                                <p class="empty-description">探索我們的教練服務，獲得專業指導</p>
+                                <a href="<?php echo BASE_URL; ?>/services" class="btn btn-primary">
+                                    <i class="fas fa-search me-2"></i>瀏覽服務
+                                </a>
+                            </div>
+                        <?php else: ?>
+                            <div class="services-list">
+                                <?php foreach ($userServices as $service): ?>
+                                    <div class="service-item">
+                                        <div class="service-header">
+                                            <div class="service-type">
+                                                <i class="fas fa-<?php echo $service['type'] === 'personal_coaching' ? 'user' : 'users'; ?> me-2"></i>
+                                                <?php echo e($service['title']); ?>
+                                            </div>
+                                            <div class="service-status status-<?php echo $service['status']; ?>">
+                                                <?php
+                                                $statusText = [
+                                                    'scheduled' => '已預約',
+                                                    'completed' => '已完成',
+                                                    'cancelled' => '已取消'
+                                                ];
+                                                echo isset($statusText[$service['status']]) ? $statusText[$service['status']] : $service['status'];
+                                                ?>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="service-content">
+                                            <div class="service-info">
+                                                <div class="service-coach">
+                                                    <i class="fas fa-user-tie me-2"></i>
+                                                    教練：<?php echo e($service['coach']); ?>
                                                 </div>
-                                                
-                                                <div class="service-actions">
-                                                    <?php if ($service['status'] === 'scheduled'): ?>
-                                                        <button class="btn btn-primary btn-sm" onclick="viewService('<?php echo $service['id']; ?>')">
-                                                            <i class="fas fa-eye me-2"></i>查看詳情
-                                                        </button>
-                                                        <button class="btn btn-outline-danger btn-sm" onclick="cancelService('<?php echo $service['id']; ?>')">
-                                                            <i class="fas fa-times me-2"></i>取消預約
-                                                        </button>
-                                                    <?php elseif ($service['status'] === 'completed'): ?>
-                                                        <?php if (!$service['rating']): ?>
-                                                            <button class="btn btn-warning btn-sm" onclick="rateService('<?php echo $service['id']; ?>')">
-                                                                <i class="fas fa-star me-2"></i>評價服務
-                                                            </button>
-                                                        <?php endif; ?>
-                                                        <button class="btn btn-outline-primary btn-sm" onclick="bookAgain('<?php echo $service['id']; ?>')">
-                                                            <i class="fas fa-redo me-2"></i>再次預約
-                                                        </button>
-                                                    <?php endif; ?>
+                                                <div class="service-datetime">
+                                                    <i class="fas fa-calendar-alt me-2"></i>
+                                                    <?php echo date('Y-m-d H:i', strtotime($service['scheduled_date'])); ?>
+                                                </div>
+                                                <div class="service-duration">
+                                                    <i class="fas fa-clock me-2"></i>
+                                                    <?php echo $service['duration']; ?> 分鐘
+                                                </div>
+                                                <div class="service-location">
+                                                    <i class="fas fa-map-marker-alt me-2"></i>
+                                                    <?php echo e($service['location']); ?>
                                                 </div>
                                             </div>
-                                        <?php endforeach; ?>
+                                            
+                                            <?php if ($service['notes']): ?>
+                                                <div class="service-notes">
+                                                    <i class="fas fa-sticky-note me-2"></i>
+                                                    <?php echo e($service['notes']); ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            
+                                            <?php if ($service['rating']): ?>
+                                                <div class="service-rating">
+                                                    <i class="fas fa-star me-2"></i>
+                                                    評價：
+                                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                                        <i class="fas fa-star <?php echo $i <= $service['rating'] ? 'text-warning' : 'text-muted'; ?>"></i>
+                                                    <?php endfor; ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            
+                                            <?php if ($service['feedback']): ?>
+                                                <div class="service-feedback">
+                                                    <i class="fas fa-comment me-2"></i>
+                                                    <?php echo e($service['feedback']); ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        
+                                        <div class="service-actions">
+                                            <?php if ($service['status'] === 'scheduled'): ?>
+                                                <button class="btn btn-primary btn-sm" onclick="viewService('<?php echo $service['id']; ?>')">
+                                                    <i class="fas fa-eye me-2"></i>查看詳情
+                                                </button>
+                                                <button class="btn btn-outline-danger btn-sm" onclick="cancelService('<?php echo $service['id']; ?>')">
+                                                    <i class="fas fa-times me-2"></i>取消預約
+                                                </button>
+                                            <?php elseif ($service['status'] === 'completed'): ?>
+                                                <?php if (!$service['rating']): ?>
+                                                    <button class="btn btn-warning btn-sm" onclick="rateService('<?php echo $service['id']; ?>')">
+                                                        <i class="fas fa-star me-2"></i>評價服務
+                                                    </button>
+                                                <?php endif; ?>
+                                                <button class="btn btn-outline-primary btn-sm" onclick="bookAgain('<?php echo $service['id']; ?>')">
+                                                    <i class="fas fa-redo me-2"></i>再次預約
+                                                </button>
+                                            <?php endif; ?>
+                                        </div>
                                     </div>
-                                <?php endif; ?>
+                                <?php endforeach; ?>
                             </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Tab -->
+            <div class="tab-pane fade" id="progress" role="tabpanel">
+                <!-- 統計概覽 -->
+                <div class="content-card mb-4">
+                    <div class="card-header">
+                        <h4><i class="fas fa-chart-line me-2"></i>學習統計</h4>
+                        <p>查看您的學習進度和成就統計</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="stats-grid" id="stats-grid">
+                            <!-- 統計卡片將通過JavaScript動態生成 -->
                         </div>
                     </div>
+                </div>
 
-                    <!-- Progress Tab -->
-                    <div class="tab-pane fade" id="progress" role="tabpanel">
-                        <!-- 統計概覽 -->
-                        <div class="content-card mb-4">
-                            <div class="card-header">
-                                <h4><i class="fas fa-chart-line me-2"></i>學習統計</h4>
-                                <p>查看您的學習進度和成就統計</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="stats-grid" id="stats-grid">
-                                    <!-- 統計卡片將通過JavaScript動態生成 -->
-                                </div>
-                            </div>
+                <!-- 成就系統 -->
+                <div class="content-card mb-4">
+                    <div class="card-header">
+                        <h4><i class="fas fa-trophy me-2"></i>成就徽章</h4>
+                        <p>解鎖更多成就，展示您的學習成果</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="achievements-grid" id="achievements-grid">
+                            <!-- 成就項目將通過JavaScript動態生成 -->
                         </div>
+                    </div>
+                </div>
 
-                        <!-- 成就系統 -->
-                        <div class="content-card mb-4">
-                            <div class="card-header">
-                                <h4><i class="fas fa-trophy me-2"></i>成就徽章</h4>
-                                <p>解鎖更多成就，展示您的學習成果</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="achievements-grid" id="achievements-grid">
-                                    <!-- 成就項目將通過JavaScript動態生成 -->
-                                </div>
-                            </div>
+                <!-- 課程進度 -->
+                <div class="content-card mb-4">
+                    <div class="card-header">
+                        <h4><i class="fas fa-book me-2"></i>課程進度</h4>
+                        <p>詳細的課程學習進度追蹤</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="course-progress-list">
+                            <!-- 課程進度將通過JavaScript動態生成 -->
                         </div>
+                    </div>
+                </div>
 
-                        <!-- 課程進度 -->
-                        <div class="content-card mb-4">
-                            <div class="card-header">
-                                <h4><i class="fas fa-book me-2"></i>課程進度</h4>
-                                <p>詳細的課程學習進度追蹤</p>
-                            </div>
-                            <div class="card-body">
-                                <div id="course-progress-list">
-                                    <!-- 課程進度將通過JavaScript動態生成 -->
-                                </div>
-                            </div>
+                <!-- 數據導出 -->
+                <div class="content-card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-download me-2"></i>數據管理</h4>
+                        <p>導出您的學習數據和成就記錄</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="export-buttons">
+                            <button class="btn btn-primary me-3" onclick="exportLearningData('progress')">
+                                <i class="fas fa-file-export me-2"></i>導出學習數據
+                            </button>
+                            <button class="btn btn-success me-3" onclick="exportLearningData('achievements')">
+                                <i class="fas fa-trophy me-2"></i>導出成就記錄
+                            </button>
+                            <button class="btn btn-info me-3" onclick="exportLearningData('stats')">
+                                <i class="fas fa-chart-bar me-2"></i>導出統計數據
+                            </button>
+                            <button class="btn btn-warning" onclick="clearAllLearningData()">
+                                <i class="fas fa-trash me-2"></i>清除所有數據
+                            </button>
                         </div>
-
-                        <!-- 數據導出 -->
-                        <div class="content-card">
-                            <div class="card-header">
-                                <h4><i class="fas fa-download me-2"></i>數據管理</h4>
-                                <p>導出您的學習數據和成就記錄</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="export-buttons">
-                                    <button class="btn btn-primary me-3" onclick="exportLearningData('progress')">
-                                        <i class="fas fa-file-export me-2"></i>導出學習數據
-                                    </button>
-                                    <button class="btn btn-success me-3" onclick="exportLearningData('achievements')">
-                                        <i class="fas fa-trophy me-2"></i>導出成就記錄
-                                    </button>
-                                    <button class="btn btn-info me-3" onclick="exportLearningData('stats')">
-                                        <i class="fas fa-chart-bar me-2"></i>導出統計數據
-                                    </button>
-                                    <button class="btn btn-warning" onclick="clearAllLearningData()">
-                                        <i class="fas fa-trash me-2"></i>清除所有數據
-                                    </button>
-                                </div>
-                                <div class="mt-3">
-                                    <small class="text-muted">
-                                        <i class="fas fa-info-circle me-1"></i>
-                                        導出的數據將以JSON格式下載，可用於備份或分析您的學習進度
-                                    </small>
-                                </div>
-                            </div>
+                        <div class="mt-3">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                導出的數據將以JSON格式下載，可用於備份或分析您的學習進度
+                            </small>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
     <!-- 成就通知容器 -->
     <div id="achievement-notifications"></div>
@@ -644,17 +666,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>/assets/js/main.js"></script>
-    <script src="<?php echo BASE_URL; ?>/assets/js/learning-progress.js"></script>
+    <!-- JavaScript 由 footer-user.php 處理 -->
     
     <script>
         // 頁面載入完成後隱藏載入動畫
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
-                document.getElementById('page-loader').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
+                const pageLoader = document.getElementById('page-loader');
+                const mainContent = document.getElementById('main-content');
+                
+                if (pageLoader) {
+                    pageLoader.style.display = 'none';
+                }
+                if (mainContent) {
+                    mainContent.style.display = 'block';
+                }
             }, 500);
             
             // 初始化學習進度功能
@@ -687,14 +713,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 取消服務
         function cancelService(serviceId) {
-            document.getElementById('cancelServiceId').value = serviceId;
-            new bootstrap.Modal(document.getElementById('cancelServiceModal')).show();
+            const cancelServiceIdElement = document.getElementById('cancelServiceId');
+            if (cancelServiceIdElement) {
+                cancelServiceIdElement.value = serviceId;
+            }
+            const cancelServiceModal = document.getElementById('cancelServiceModal');
+            if (cancelServiceModal) {
+                new bootstrap.Modal(cancelServiceModal).show();
+            }
         }
 
         // 評價服務
         function rateService(serviceId) {
-            document.getElementById('rateServiceId').value = serviceId;
-            new bootstrap.Modal(document.getElementById('rateServiceModal')).show();
+            const rateServiceIdElement = document.getElementById('rateServiceId');
+            if (rateServiceIdElement) {
+                rateServiceIdElement.value = serviceId;
+            }
+            const rateServiceModal = document.getElementById('rateServiceModal');
+            if (rateServiceModal) {
+                new bootstrap.Modal(rateServiceModal).show();
+            }
         }
 
         // 查看課程詳情

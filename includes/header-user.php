@@ -3,15 +3,15 @@
  * 教練學習平台 - 個人頁面專用 Header
  */
 
-// 檢查是否已登入
-if (!isset($_SESSION['user_id'])) {
+// 檢查是否已登入 - 使用 userManagement 系統
+if (!isset($userManagement) || !$userManagement->isLoggedIn()) {
     header('Location: ' . BASE_URL . '/login-page');
     exit;
 }
 
 // 獲取當前用戶信息
-$currentUser = isset($_SESSION['user']) ? $_SESSION['user'] : null;
-$isLoggedIn = isset($_SESSION['user_id']);
+$currentUser = $userManagement->getCurrentUser();
+$isLoggedIn = $userManagement->isLoggedIn();
 ?>
 <!DOCTYPE html>
 <html lang="zh-TW">
@@ -56,10 +56,6 @@ $isLoggedIn = isset($_SESSION['user_id']);
         <div class="user-header-container">
             <!-- Logo 和返回主頁 -->
             <div class="user-header-left">
-                <a href="<?php echo BASE_URL; ?>/" class="back-to-main">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>返回主頁</span>
-                </a>
                 <div class="user-logo">
                     <img src="<?php echo BASE_URL; ?>/assets/images/logos/logo-main.svg" alt="<?php echo SITE_NAME; ?>" class="logo-img">
                 </div>
@@ -74,10 +70,15 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <div class="user-header-right">
                 <div class="user-menu">
                     <button class="user-menu-toggle" aria-expanded="false" aria-haspopup="true">
-                        <div class="user-avatar">
-                            <img src="<?php echo BASE_URL; ?>/assets/images/default-avatar.svg" alt="用戶頭像" class="avatar-img">
+                        <div class="user-info">
+                            <div class="user-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="user-details">
+                                <span class="user-greeting">你好! 歡迎回來!</span>
+                                <span class="user-name"><?php echo e(isset($currentUser['username']) ? $currentUser['username'] : '用戶'); ?></span>
+                            </div>
                         </div>
-                        <span class="user-name"><?php echo e(isset($currentUser['username']) ? $currentUser['username'] : '用戶'); ?></span>
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <ul class="user-dropdown" role="menu">
@@ -87,12 +88,18 @@ $isLoggedIn = isset($_SESSION['user_id']);
                         <li><a href="<?php echo BASE_URL; ?>/my-courses" role="menuitem">
                             <i class="fas fa-book"></i> 我的課程
                         </a></li>
+                        <!-- 社區互動選項暫時隱藏 -->
+                        <!--
                         <li><a href="<?php echo BASE_URL; ?>/community" role="menuitem">
                             <i class="fas fa-users"></i> 社區互動
                         </a></li>
+                        -->
+                        <!-- 搜索發現選項暫時隱藏 -->
+                        <!--
                         <li><a href="<?php echo BASE_URL; ?>/search" role="menuitem">
                             <i class="fas fa-search"></i> 搜索發現
                         </a></li>
+                        -->
                         <li><hr class="dropdown-divider"></li>
                         <li><a href="<?php echo BASE_URL; ?>/logout" role="menuitem">
                             <i class="fas fa-sign-out-alt"></i> 登出
@@ -106,31 +113,43 @@ $isLoggedIn = isset($_SESSION['user_id']);
     <!-- 用戶導航欄 -->
     <nav class="user-nav">
         <div class="user-nav-container">
-            <ul class="user-nav-list">
+            <!-- 移動端導航切換按鈕 -->
+            <button class="user-nav-toggle d-md-none" aria-expanded="false" aria-controls="user-nav-list">
+                <i class="fas fa-bars"></i>
+                <span class="sr-only">切換導航菜單</span>
+            </button>
+            
+            <ul class="user-nav-list" id="user-nav-list">
+                <li class="user-nav-item">
+                    <a href="<?php echo BASE_URL; ?>/my-courses" class="user-nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'my-courses.php' || basename($_SERVER['PHP_SELF']) == 'course-learning.php') ? 'active' : ''; ?>">
+                        <i class="fas fa-book"></i>
+                        <span>我的課程</span>
+                    </a>
+                </li>
                 <li class="user-nav-item">
                     <a href="<?php echo BASE_URL; ?>/profile" class="user-nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'profile.php') ? 'active' : ''; ?>">
                         <i class="fas fa-user"></i>
                         <span>個人資料</span>
                     </a>
                 </li>
-                <li class="user-nav-item">
-                    <a href="<?php echo BASE_URL; ?>/my-courses" class="user-nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'my-courses.php') ? 'active' : ''; ?>">
-                        <i class="fas fa-book"></i>
-                        <span>我的課程</span>
-                    </a>
-                </li>
+                <!-- 社區互動導航項目暫時隱藏 -->
+                <!--
                 <li class="user-nav-item">
                     <a href="<?php echo BASE_URL; ?>/community" class="user-nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'community.php') ? 'active' : ''; ?>">
                         <i class="fas fa-users"></i>
                         <span>社區互動</span>
                     </a>
                 </li>
+                -->
+                <!-- 搜索發現導航項目暫時隱藏 -->
+                <!--
                 <li class="user-nav-item">
                     <a href="<?php echo BASE_URL; ?>/search" class="user-nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'search.php') ? 'active' : ''; ?>">
                         <i class="fas fa-search"></i>
                         <span>搜索發現</span>
                     </a>
                 </li>
+                -->
             </ul>
         </div>
     </nav>

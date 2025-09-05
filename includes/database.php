@@ -150,6 +150,7 @@ class Database {
 }
 
 // 創建數據庫實例（暫時禁用，避免數據庫連接錯誤）
+// 注意：在生產環境中，請確保數據庫配置正確
 /*
 try {
     $db = Database::getInstance();

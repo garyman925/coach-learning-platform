@@ -3,11 +3,20 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化頁面
-    initializeMyCourses();
-    
-    // 設置事件監聽器
-    setupEventListeners();
+    try {
+        // 初始化頁面
+        initializeMyCourses();
+        
+        // 設置事件監聽器
+        setupEventListeners();
+        
+        console.log('My Courses page initialized successfully');
+    } catch (error) {
+        console.error('Error initializing My Courses page:', error);
+        if (window.showNotification) {
+            window.showNotification('頁面初始化失敗，請刷新頁面重試', 'error');
+        }
+    }
 });
 
 function initializeMyCourses() {
@@ -100,22 +109,43 @@ function updateServiceStatus() {
 function continueCourse(courseId) {
     // 繼續課程邏輯
     console.log('繼續課程:', courseId);
+    
+    if (window.showNotification) {
+        window.showNotification('正在跳轉到課程學習頁面...', 'info');
+    }
+    
     // 這裡可以跳轉到課程學習頁面
-    window.location.href = `/course/${courseId}/learn`;
+    setTimeout(() => {
+        window.location.href = `/course-learning?course=${courseId}`;
+    }, 1000);
 }
 
 function startCourse(courseId) {
     // 開始課程邏輯
     console.log('開始課程:', courseId);
+    
+    if (window.showNotification) {
+        window.showNotification('正在開始新課程...', 'success');
+    }
+    
     // 這裡可以跳轉到課程開始頁面
-    window.location.href = `/course/${courseId}/start`;
+    setTimeout(() => {
+        window.location.href = `/course-learning?course=${courseId}`;
+    }, 1000);
 }
 
 function reviewCourse(courseId) {
     // 複習課程邏輯
     console.log('複習課程:', courseId);
+    
+    if (window.showNotification) {
+        window.showNotification('正在跳轉到課程複習頁面...', 'info');
+    }
+    
     // 這裡可以跳轉到課程複習頁面
-    window.location.href = `/course/${courseId}/review`;
+    setTimeout(() => {
+        window.location.href = `/course-learning?course=${courseId}`;
+    }, 1000);
 }
 
 function viewService(serviceId) {

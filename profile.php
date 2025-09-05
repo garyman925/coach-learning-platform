@@ -8,27 +8,34 @@ $userManagement = new UserManagement();
 
 // 檢查用戶是否已登入
 if (!$userManagement->isLoggedIn()) {
-    header('Location: login.php');
+    header('Location: ' . BASE_URL . '/login-page');
     exit;
 }
 $currentUser = $userManagement->getCurrentUser();
 $message = '';
 $messageType = '';
 
+// 設置頁面特定變數
+$pageTitle = '個人資料 - ' . SITE_NAME;
+$pageDescription = '管理您的個人資料和帳戶設置';
+$pageKeywords = '個人資料,帳戶設置,用戶管理,個人中心';
+$pageCSS = ['pages/profile.css', 'pages/user-layout.css'];
+$pageJS = ['profile.js'];
+
 // 處理表單提交
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['update_profile'])) {
         // 更新個人資料
         $profileData = [
-            'first_name' => trim($_POST['first_name'] ?? ''),
-            'last_name' => trim($_POST['last_name'] ?? ''),
-            'phone' => trim($_POST['phone'] ?? ''),
-            'bio' => trim($_POST['bio'] ?? ''),
-            'company' => trim($_POST['company'] ?? ''),
-            'position' => trim($_POST['position'] ?? ''),
-            'website' => trim($_POST['website'] ?? ''),
-            'location' => trim($_POST['location'] ?? ''),
-            'interests' => trim($_POST['interests'] ?? '')
+            'first_name' => trim(isset($_POST['first_name']) ? $_POST['first_name'] : ''),
+            'last_name' => trim(isset($_POST['last_name']) ? $_POST['last_name'] : ''),
+            'phone' => trim(isset($_POST['phone']) ? $_POST['phone'] : ''),
+            'bio' => trim(isset($_POST['bio']) ? $_POST['bio'] : ''),
+            'company' => trim(isset($_POST['company']) ? $_POST['company'] : ''),
+            'position' => trim(isset($_POST['position']) ? $_POST['position'] : ''),
+            'website' => trim(isset($_POST['website']) ? $_POST['website'] : ''),
+            'location' => trim(isset($_POST['location']) ? $_POST['location'] : ''),
+            'interests' => trim(isset($_POST['interests']) ? $_POST['interests'] : '')
         ];
         
         $result = $userManagement->updateUserProfile($currentUser['username'], $profileData);
@@ -40,14 +47,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // 重新獲取用戶資料
             $currentUser = $userManagement->getCurrentUser();
         } else {
-            $message = $result['message'] ?? '更新失敗，請重試';
+            $message = isset($result['message']) ? $result['message'] : '更新失敗，請重試';
             $messageType = 'error';
         }
     } elseif (isset($_POST['change_password'])) {
         // 修改密碼
-        $currentPassword = $_POST['current_password'] ?? '';
-        $newPassword = $_POST['new_password'] ?? '';
-        $confirmPassword = $_POST['confirm_password'] ?? '';
+        $currentPassword = isset($_POST['current_password']) ? $_POST['current_password'] : '';
+        $newPassword = isset($_POST['new_password']) ? $_POST['new_password'] : '';
+        $confirmPassword = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
         
         if ($newPassword !== $confirmPassword) {
             $message = '新密碼與確認密碼不符';
@@ -63,15 +70,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // 記錄活動
                 $userManagement->logActivity($currentUser['username'], 'password_change', '修改密碼', '成功更改登入密碼');
             } else {
-                $message = $result['message'] ?? '密碼修改失敗，請重試';
+                $message = isset($result['message']) ? $result['message'] : '密碼修改失敗，請重試';
                 $messageType = 'error';
             }
         }
     } elseif (isset($_POST['update_preferences'])) {
         // 更新偏好設定
         $preferences = [
-            'language' => $_POST['language'] ?? 'zh-TW',
-            'theme' => $_POST['theme'] ?? 'light',
+            'language' => isset($_POST['language']) ? $_POST['language'] : 'zh-TW',
+            'theme' => isset($_POST['theme']) ? $_POST['theme'] : 'light',
             'notifications' => [
                 'email' => isset($_POST['notifications']['email']),
                 'sms' => isset($_POST['notifications']['sms']),
@@ -109,13 +116,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // 獲取用戶的完整資料
-$userProfile = $currentUser['profile'] ?? [];
-$userPreferences = json_decode($_COOKIE['user_preferences'] ?? '{}', true) ?: [
+$userProfile = isset($currentUser['profile']) ? $currentUser['profile'] : array();
+$userPreferences = json_decode(isset($_COOKIE['user_preferences']) ? $_COOKIE['user_preferences'] : '{}', true);
+if (!$userPreferences) {
+    $userPreferences = array(
     'language' => 'zh-TW',
     'theme' => 'light',
     'notifications' => ['email' => true, 'sms' => false, 'push' => true],
     'privacy' => ['profile_visible' => true, 'show_email' => false, 'show_phone' => false]
-];
+    );
+}
 
 // 獲取活動日誌數據
 $activities = $userManagement->getUserActivities($currentUser['username']);
@@ -161,57 +171,9 @@ $notificationTypes = [
     'promotion' => ['icon' => 'fas fa-gift', 'color' => 'danger', 'label' => '優惠活動']
 ];
 
-$pageTitle = '個人資料管理';
-$pageDescription = '管理您的個人資料、密碼和偏好設定';
+// 包含用戶頁面 header
+require_once 'includes/header-user.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <!-- SEO Meta Tags -->
-    <title><?php echo e($pageTitle); ?> - <?php echo e(SITE_NAME); ?></title>
-    <meta name="description" content="<?php echo e($pageDescription); ?>">
-    <meta name="keywords" content="個人資料, 用戶管理, 密碼修改, 偏好設定">
-    <meta name="author" content="<?php echo e(SITE_NAME); ?>">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="<?php echo e($pageTitle); ?> - <?php echo e(SITE_NAME); ?>">
-    <meta property="og:description" content="<?php echo e($pageDescription); ?>">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="<?php echo $_SERVER['REQUEST_URI']; ?>">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-    <link rel="alternate icon" href="assets/images/favicon.ico">
-    
-    <!-- CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/profile.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-</head>
-<body class="profile-page">
-    <!-- 頁面載入動畫 -->
-    <div id="page-loader" class="page-loader">
-        <div class="loader-content">
-            <div class="spinner"></div>
-            <p>載入中...</p>
-        </div>
-    </div>
-
-    <!-- 主要內容 -->
-    <div id="main-content" class="main-content" style="display: none;">
-        <?php include 'includes/header.php'; ?>
 
         <!-- 頁面標題區域 -->
         <section class="page-hero">
@@ -220,8 +182,8 @@ $pageDescription = '管理您的個人資料、密碼和偏好設定';
                     <div class="col-lg-8">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.php">首頁</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">個人資料</a></li>
+                                <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>/">首頁</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">個人資料</li>
                             </ol>
                         </nav>
                         <h1 class="page-title">個人資料管理</h1>
@@ -229,7 +191,7 @@ $pageDescription = '管理您的個人資料、密碼和偏好設定';
                     </div>
                     <div class="col-lg-4 text-end">
                         <div class="user-avatar">
-                            <img src="<?php echo e($userProfile['avatar'] ?? 'assets/images/default-avatar.svg'); ?>" 
+                            <img src="<?php echo e(isset($userProfile['avatar']) ? $userProfile['avatar'] : 'assets/images/default-avatar.svg'); ?>" 
                                  alt="<?php echo e($currentUser['username']); ?>" 
                                  class="avatar-img">
                             <div class="avatar-status online"></div>
@@ -346,14 +308,14 @@ $pageDescription = '管理您的個人資料、密碼和偏好設定';
                                                     <div class="form-group">
                                                         <label for="first_name">名字 <span class="text-danger">*</span></label>
                                                         <input type="text" id="first_name" name="first_name" class="form-control" 
-                                                               value="<?php echo e($userProfile['first_name'] ?? ''); ?>" required>
+                                                               value="<?php echo e(isset($userProfile['first_name']) ? $userProfile['first_name'] : ''); ?>" required>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="last_name">姓氏 <span class="text-danger">*</span></label>
                                                         <input type="text" id="last_name" name="last_name" class="form-control" 
-                                                               value="<?php echo e($userProfile['last_name'] ?? ''); ?>" required>
+                                                               value="<?php echo e(isset($userProfile['last_name']) ? $userProfile['last_name'] : ''); ?>" required>
                                                     </div>
                                                 </div>
                                             </div>
@@ -363,14 +325,14 @@ $pageDescription = '管理您的個人資料、密碼和偏好設定';
                                                     <div class="form-group">
                                                         <label for="phone">電話號碼</label>
                                                         <input type="tel" id="phone" name="phone" class="form-control" 
-                                                               value="<?php echo e($userProfile['phone'] ?? ''); ?>">
+                                                               value="<?php echo e(isset($userProfile['phone']) ? $userProfile['phone'] : ''); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="location">所在地</label>
                                                         <input type="text" id="location" name="location" class="form-control" 
-                                                               value="<?php echo e($userProfile['location'] ?? ''); ?>">
+                                                               value="<?php echo e(isset($userProfile['location']) ? $userProfile['location'] : ''); ?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -380,14 +342,14 @@ $pageDescription = '管理您的個人資料、密碼和偏好設定';
                                                     <div class="form-group">
                                                         <label for="company">公司/組織</label>
                                                         <input type="text" id="company" name="company" class="form-control" 
-                                                               value="<?php echo e($userProfile['company'] ?? ''); ?>">
+                                                               value="<?php echo e(isset($userProfile['company']) ? $userProfile['company'] : ''); ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="position">職位</label>
                                                         <input type="text" id="position" name="position" class="form-control" 
-                                                               value="<?php echo e($userProfile['position'] ?? ''); ?>">
+                                                               value="<?php echo e(isset($userProfile['position']) ? $userProfile['position'] : ''); ?>">
                                                     </div>
                                                 </div>
                                             </div>
@@ -395,20 +357,20 @@ $pageDescription = '管理您的個人資料、密碼和偏好設定';
                                             <div class="form-group">
                                                 <label for="website">個人網站</label>
                                                 <input type="url" id="website" name="website" class="form-control" 
-                                                       value="<?php echo e($userProfile['website'] ?? ''); ?>" 
+                                                       value="<?php echo e(isset($userProfile['website']) ? $userProfile['website'] : ''); ?>" 
                                                        placeholder="https://example.com">
                                             </div>
                                             
                                             <div class="form-group">
                                                 <label for="interests">興趣專長</label>
                                                 <textarea id="interests" name="interests" class="form-control" rows="3" 
-                                                          placeholder="請描述您的興趣和專長領域"><?php echo e($userProfile['interests'] ?? ''); ?></textarea>
+                                                          placeholder="請描述您的興趣和專長領域"><?php echo e(isset($userProfile['interests']) ? $userProfile['interests'] : ''); ?></textarea>
                                             </div>
                                             
                                             <div class="form-group">
                                                 <label for="bio">個人簡介</label>
                                                 <textarea id="bio" name="bio" class="form-control" rows="4" 
-                                                          placeholder="請簡短介紹您自己"><?php echo e($userProfile['bio'] ?? ''); ?></textarea>
+                                                          placeholder="請簡短介紹您自己"><?php echo e(isset($userProfile['bio']) ? $userProfile['bio'] : ''); ?></textarea>
                                             </div>
                                             
                                             <div class="form-actions">
@@ -525,9 +487,9 @@ $pageDescription = '管理您的個人資料、密碼和偏好設定';
                                                         <div class="form-group">
                                                             <label for="language">介面語言</label>
                                                             <select id="language" name="language" class="form-select">
-                                                                <option value="zh-TW" <?php echo $userPreferences['language'] === 'zh-TW' ? 'selected' : ''; ?>>繁體中文</option>
-                                                                <option value="zh-CN" <?php echo $userPreferences['language'] === 'zh-CN' ? 'selected' : ''; ?>>簡體中文</option>
-                                                                <option value="en" <?php echo $userPreferences['language'] === 'en' ? 'selected' : ''; ?>>English</option>
+                                                                <option value="zh-TW" <?php echo (isset($userPreferences['language']) && $userPreferences['language'] === 'zh-TW') ? 'selected' : ''; ?>>繁體中文</option>
+                                                                <option value="zh-CN" <?php echo (isset($userPreferences['language']) && $userPreferences['language'] === 'zh-CN') ? 'selected' : ''; ?>>簡體中文</option>
+                                                                <option value="en" <?php echo (isset($userPreferences['language']) && $userPreferences['language'] === 'en') ? 'selected' : ''; ?>>English</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -537,9 +499,9 @@ $pageDescription = '管理您的個人資料、密碼和偏好設定';
                                                         <div class="form-group">
                                                             <label for="theme">主題</label>
                                                             <select id="theme" name="theme" class="form-select">
-                                                                <option value="light" <?php echo $userPreferences['theme'] === 'light' ? 'selected' : ''; ?>>淺色主題</option>
-                                                                <option value="dark" <?php echo $userPreferences['theme'] === 'dark' ? 'selected' : ''; ?>>深色主題</option>
-                                                                <option value="auto" <?php echo $userPreferences['theme'] === 'auto' ? 'selected' : ''; ?>>跟隨系統</option>
+                                                                <option value="light" <?php echo (isset($userPreferences['theme']) && $userPreferences['theme'] === 'light') ? 'selected' : ''; ?>>淺色主題</option>
+                                                                <option value="dark" <?php echo (isset($userPreferences['theme']) && $userPreferences['theme'] === 'dark') ? 'selected' : ''; ?>>深色主題</option>
+                                                                <option value="auto" <?php echo (isset($userPreferences['theme']) && $userPreferences['theme'] === 'auto') ? 'selected' : ''; ?>>跟隨系統</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -552,19 +514,19 @@ $pageDescription = '管理您的個人資料、密碼和偏好設定';
                                                             <div class="form-check">
                                                                 <input type="checkbox" id="notify_email" name="notifications[email]" 
                                                                        class="form-check-input" 
-                                                                       <?php echo $userPreferences['notifications']['email'] ? 'checked' : ''; ?>>
+                                                                       <?php echo (isset($userPreferences['notifications']['email']) && $userPreferences['notifications']['email']) ? 'checked' : ''; ?>>
                                                                 <label for="notify_email" class="form-check-label">電子郵件通知</label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input type="checkbox" id="notify_sms" name="notifications[sms]" 
                                                                        class="form-check-input" 
-                                                                       <?php echo $userPreferences['notifications']['sms'] ? 'checked' : ''; ?>>
+                                                                       <?php echo (isset($userPreferences['notifications']['sms']) && $userPreferences['notifications']['sms']) ? 'checked' : ''; ?>>
                                                                 <label for="notify_sms" class="form-check-label">簡訊通知</label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input type="checkbox" id="notify_push" name="notifications[push]" 
                                                                        class="form-check-input" 
-                                                                       <?php echo $userPreferences['notifications']['push'] ? 'checked' : ''; ?>>
+                                                                       <?php echo (isset($userPreferences['notifications']['push']) && $userPreferences['notifications']['push']) ? 'checked' : ''; ?>>
                                                                 <label for="notify_push" class="form-check-label">推播通知</label>
                                                             </div>
                                                         </div>
@@ -576,19 +538,19 @@ $pageDescription = '管理您的個人資料、密碼和偏好設定';
                                                             <div class="form-check">
                                                                 <input type="checkbox" id="profile_visible" name="privacy[profile_visible]" 
                                                                        class="form-check-input" 
-                                                                       <?php echo $userPreferences['privacy']['profile_visible'] ? 'checked' : ''; ?>>
+                                                                       <?php echo (isset($userPreferences['privacy']['profile_visible']) && $userPreferences['privacy']['profile_visible']) ? 'checked' : ''; ?>>
                                                                 <label for="profile_visible" class="form-check-label">個人資料可見</label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input type="checkbox" id="show_email" name="privacy[show_email]" 
                                                                        class="form-check-input" 
-                                                                       <?php echo $userPreferences['privacy']['show_email'] ? 'checked' : ''; ?>>
+                                                                       <?php echo (isset($userPreferences['privacy']['show_email']) && $userPreferences['privacy']['show_email']) ? 'checked' : ''; ?>>
                                                                 <label for="show_email" class="form-check-label">顯示電子郵件</label>
                                                             </div>
                                                             <div class="form-check">
                                                                 <input type="checkbox" id="show_phone" name="privacy[show_phone]" 
                                                                        class="form-check-input" 
-                                                                       <?php echo $userPreferences['privacy']['show_phone'] ? 'checked' : ''; ?>>
+                                                                       <?php echo (isset($userPreferences['privacy']['show_phone']) && $userPreferences['privacy']['show_phone']) ? 'checked' : ''; ?>>
                                                                 <label for="show_phone" class="form-check-label">顯示電話號碼</label>
                                                             </div>
                                                         </div>
@@ -1037,223 +999,4 @@ $pageDescription = '管理您的個人資料、密碼和偏好設定';
             </div>
         </section>
 
-        <?php include 'includes/footer.php'; ?>
-    </div>
-
-    <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/components/UserAuth.js"></script>
-    <script src="assets/js/components/ProfileManager.js"></script>
-    
-    <script>
-        // 頁面載入完成後隱藏載入動畫
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                document.getElementById('page-loader').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-            }, 500);
-        });
-
-        // 數據導出功能
-        function exportData(format) {
-            if (format === 'json') {
-                exportUserDataJSON();
-            } else if (format === 'csv') {
-                exportActivityDataCSV();
-            }
-        }
-
-        // 導出完整用戶數據 (JSON)
-        function exportUserDataJSON() {
-            const userData = {
-                profile: <?php echo json_encode($currentUser); ?>,
-                activities: <?php echo json_encode($activities); ?>,
-                notifications: <?php echo json_encode($notifications); ?>,
-                preferences: <?php echo json_encode($userPreferences); ?>,
-                exportDate: new Date().toISOString(),
-                exportVersion: '1.0'
-            };
-
-            const dataStr = JSON.stringify(userData, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
-            const url = URL.createObjectURL(dataBlob);
-            
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `user-data-${new Date().toISOString().split('T')[0]}.json`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-
-            showNotification('數據導出成功！', 'success');
-        }
-
-        // 導出活動數據 (CSV)
-        function exportActivityDataCSV() {
-            const activities = <?php echo json_encode($activities); ?>;
-            if (activities.length === 0) {
-                showNotification('沒有活動記錄可導出', 'warning');
-                return;
-            }
-
-            const headers = ['時間', '類型', '標題', '描述', 'IP地址', '狀態'];
-            const csvContent = [
-                headers.join(','),
-                ...activities.map(activity => [
-                    activity.timestamp,
-                    activity.type,
-                    `"${activity.title}"`,
-                    `"${activity.description}"`,
-                    activity.ip_address,
-                    activity.status
-                ].join(','))
-            ].join('\n');
-
-            const dataBlob = new Blob([csvContent], {type: 'text/csv;charset=utf-8;'});
-            const url = URL.createObjectURL(dataBlob);
-            
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `activity-log-${new Date().toISOString().split('T')[0]}.csv`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            URL.revokeObjectURL(url);
-
-            showNotification('活動記錄導出成功！', 'success');
-        }
-
-        // 清除活動記錄
-        function clearActivityLog() {
-            if (confirm('確定要清除所有活動記錄嗎？此操作無法復原。')) {
-                // 在實際應用中，這裡會發送 AJAX 請求到後端
-                const activityTimeline = document.querySelector('.activity-timeline');
-                if (activityTimeline) {
-                    activityTimeline.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-icon">
-                                <i class="fas fa-search"></i>
-                            </div>
-                            <h3 class="empty-title">沒有活動記錄</h3>
-                            <p class="empty-description">您還沒有任何活動記錄</p>
-                        </div>
-                    `;
-                }
-                
-                // 更新統計
-                updateActivityStats(0, 0, 0, 0);
-                showNotification('活動記錄已清除', 'success');
-            }
-        }
-
-        // 清除通知記錄
-        function clearNotifications() {
-            if (confirm('確定要清除所有通知記錄嗎？此操作無法復原。')) {
-                // 在實際應用中，這裡會發送 AJAX 請求到後端
-                const notificationsList = document.querySelector('.notifications-list');
-                if (notificationsList) {
-                    notificationsList.innerHTML = `
-                        <div class="empty-state">
-                            <div class="empty-icon">
-                                <i class="fas fa-bell-slash"></i>
-                            </div>
-                            <h3 class="empty-title">沒有通知</h3>
-                            <p class="empty-description">您還沒有收到任何通知</p>
-                        </div>
-                    `;
-                }
-                
-                // 更新統計
-                updateNotificationStats(0, 0, 0, 0);
-                showNotification('通知記錄已清除', 'success');
-            }
-        }
-
-        // 請求刪除帳戶
-        function requestAccountDeletion() {
-            const confirmText = 'DELETE';
-            const userInput = prompt(`警告：此操作將永久刪除您的帳戶和所有相關數據，無法復原！\n\n如果您確定要刪除帳戶，請輸入 "${confirmText}" 來確認：`);
-            
-            if (userInput === confirmText) {
-                if (confirm('最後確認：您真的要永久刪除帳戶嗎？')) {
-                    // 在實際應用中，這裡會發送 AJAX 請求到後端
-                    showNotification('帳戶刪除請求已提交，我們將在 24 小時內處理', 'info');
-                }
-            } else if (userInput !== null) {
-                showNotification('輸入不正確，操作已取消', 'warning');
-            }
-        }
-
-        // 更新活動統計
-        function updateActivityStats(total, today, week, month) {
-            const statNumbers = document.querySelectorAll('#activity-log .stat-number');
-            if (statNumbers.length >= 4) {
-                statNumbers[0].textContent = total;
-                statNumbers[1].textContent = today;
-                statNumbers[2].textContent = week;
-                statNumbers[3].textContent = month;
-            }
-        }
-
-        // 更新通知統計
-        function updateNotificationStats(total, unread, today, week) {
-            const statNumbers = document.querySelectorAll('#notifications .stat-number');
-            if (statNumbers.length >= 4) {
-                statNumbers[0].textContent = total;
-                statNumbers[1].textContent = unread;
-                statNumbers[2].textContent = today;
-                statNumbers[3].textContent = week;
-            }
-        }
-
-        // 顯示通知消息
-        function showNotification(message, type = 'info') {
-            // 創建通知元素
-            const notification = document.createElement('div');
-            notification.className = `notification-toast notification-${type}`;
-            notification.innerHTML = `
-                <div class="notification-content">
-                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i>
-                    <span>${message}</span>
-                </div>
-            `;
-            
-            // 添加樣式
-            notification.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: ${type === 'success' ? '#10b981' : type === 'warning' ? '#f59e0b' : type === 'error' ? '#ef4444' : '#3b82f6'};
-                color: white;
-                padding: 12px 16px;
-                border-radius: 8px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                z-index: 1000;
-                opacity: 0;
-                transform: translateX(100%);
-                transition: all 0.3s ease;
-            `;
-            
-            // 添加到頁面
-            document.body.appendChild(notification);
-            
-            // 顯示動畫
-            setTimeout(() => {
-                notification.style.opacity = '1';
-                notification.style.transform = 'translateX(0)';
-            }, 100);
-            
-            // 自動隱藏
-            setTimeout(() => {
-                notification.style.opacity = '0';
-                notification.style.transform = 'translateX(100%)';
-                setTimeout(() => {
-                    document.body.removeChild(notification);
-                }, 300);
-            }, 3000);
-        }
-    </script>
-</body>
-</html>
+<?php require_once 'includes/footer-user.php'; ?>

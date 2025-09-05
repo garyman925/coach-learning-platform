@@ -12,12 +12,19 @@ if (session_status() === PHP_SESSION_NONE) {
 // 檢查用戶是否已登入
 $userManagement = new UserManagement();
 if (!$userManagement->isLoggedIn()) {
-    header('Location: ' . BASE_URL . '/login');
+    header('Location: ' . BASE_URL . '/login-page');
     exit;
 }
 
 // 獲取當前用戶信息
 $currentUser = $userManagement->getCurrentUser();
+
+// 設置頁面特定變數
+$pageTitle = '課程學習 - ' . SITE_NAME;
+$pageDescription = '在線學習專業教練課程';
+$pageKeywords = '課程學習,在線教育,教練培訓,學習進度';
+$pageCSS = ['course-learning.css', 'pages/user-layout.css'];
+$pageJS = ['course-learning.js', 'learning-progress.js'];
 
 // 獲取課程ID
 $courseId = isset($_GET['course']) ? $_GET['course'] : '';
@@ -224,6 +231,299 @@ $courseData = [
             ]
         ]
     ],
+    // 家長教練基礎課程暫時隱藏
+    /*
+    'parent' => [
+        'id' => 'parent',
+        'title' => '家長教練基礎',
+        'description' => '專為家長設計的教練基礎課程，幫助家長掌握有效的教練技巧，提升親子溝通和家庭教育效果。',
+        'instructor' => '王教練',
+        'duration' => '6週',
+        'lessons' => 8,
+        'progress' => 0,
+        'status' => 'enrolled',
+        'lessons_data' => [
+            [
+                'id' => 'parent_lesson_1',
+                'title' => '第一課：家長教練的基本概念',
+                'duration' => '40分鐘',
+                'video_url' => 'videos/parent_lesson_1.mp4',
+                'completed' => false,
+                'exercises' => 2,
+                'exercises_data' => [
+                    [
+                        'id' => 'parent_ex_1_1',
+                        'type' => 'mc',
+                        'question' => '家長教練的核心目標是什麼？',
+                        'options' => [
+                            'A. 控制孩子的行為',
+                            'B. 幫助孩子發現自己的潛能',
+                            'C. 提供標準答案',
+                            'D. 批評孩子的錯誤'
+                        ],
+                        'correct_answer' => 1,
+                        'explanation' => '家長教練的核心目標是通過引導和提問，幫助孩子發現自己的潛能和解決問題的能力。',
+                        'points' => 10
+                    ],
+                    [
+                        'id' => 'parent_ex_1_2',
+                        'type' => 'text',
+                        'question' => '請簡述家長教練與傳統教育方式的區別？',
+                        'placeholder' => '請輸入您的答案...',
+                        'correct_answers' => ['引導', '提問', '自主', '發現', '潛能', '解決問題'],
+                        'explanation' => '家長教練注重引導和提問，讓孩子自主發現答案，而不是直接給出答案或控制行為。',
+                        'points' => 15
+                    ]
+                ]
+            ],
+            [
+                'id' => 'parent_lesson_2',
+                'title' => '第二課：有效的親子溝通技巧',
+                'duration' => '45分鐘',
+                'video_url' => 'videos/parent_lesson_2.mp4',
+                'completed' => false,
+                'exercises' => 3,
+                'exercises_data' => [
+                    [
+                        'id' => 'parent_ex_2_1',
+                        'type' => 'mc',
+                        'question' => '以下哪種溝通方式最符合教練式溝通？',
+                        'options' => [
+                            'A. "你應該這樣做"',
+                            'B. "你覺得這樣做會怎麼樣？"',
+                            'C. "聽我的就對了"',
+                            'D. "你錯了"'
+                        ],
+                        'correct_answer' => 1,
+                        'explanation' => '教練式溝通注重提問和引導，讓孩子自己思考和發現答案。',
+                        'points' => 10
+                    ],
+                    [
+                        'id' => 'parent_ex_2_2',
+                        'type' => 'mc',
+                        'question' => '傾聽在親子溝通中的重要性是什麼？',
+                        'options' => [
+                            'A. 讓孩子知道你在關注',
+                            'B. 了解孩子的真實想法',
+                            'C. 建立信任關係',
+                            'D. 以上都是'
+                        ],
+                        'correct_answer' => 3,
+                        'explanation' => '傾聽不僅能讓孩子感受到關注，還能了解真實想法，建立信任關係。',
+                        'points' => 10
+                    ],
+                    [
+                        'id' => 'parent_ex_2_3',
+                        'type' => 'text',
+                        'question' => '請描述一個有效的傾聽技巧？',
+                        'placeholder' => '請輸入您的答案...',
+                        'correct_answers' => ['眼神接觸', '點頭', '重複', '總結', '不插話', '專注'],
+                        'explanation' => '有效的傾聽包括眼神接觸、點頭示意、重複關鍵詞、總結內容、不插話等技巧。',
+                        'points' => 15
+                    ]
+                ]
+            ],
+            [
+                'id' => 'parent_lesson_3',
+                'title' => '第三課：設定親子目標',
+                'duration' => '35分鐘',
+                'video_url' => 'videos/parent_lesson_3.mp4',
+                'completed' => false,
+                'exercises' => 2,
+                'exercises_data' => [
+                    [
+                        'id' => 'parent_ex_3_1',
+                        'type' => 'mc',
+                        'question' => 'SMART目標中的S代表什麼？',
+                        'options' => [
+                            'A. Simple（簡單）',
+                            'B. Specific（具體）',
+                            'C. Smart（聰明）',
+                            'D. Strong（強壯）'
+                        ],
+                        'correct_answer' => 1,
+                        'explanation' => 'SMART目標中的S代表Specific（具體），目標要明確具體。',
+                        'points' => 10
+                    ],
+                    [
+                        'id' => 'parent_ex_3_2',
+                        'type' => 'text',
+                        'question' => '請為孩子設定一個SMART目標的例子？',
+                        'placeholder' => '請輸入您的答案...',
+                        'correct_answers' => ['具體', '可衡量', '可達成', '相關', '有時限'],
+                        'explanation' => 'SMART目標應該包含：具體、可衡量、可達成、相關、有時限五個要素。',
+                        'points' => 20
+                    ]
+                ]
+            ],
+            [
+                'id' => 'parent_lesson_4',
+                'title' => '第四課：處理親子衝突',
+                'duration' => '50分鐘',
+                'video_url' => 'videos/parent_lesson_4.mp4',
+                'completed' => false,
+                'exercises' => 2,
+                'exercises_data' => [
+                    [
+                        'id' => 'parent_ex_4_1',
+                        'type' => 'mc',
+                        'question' => '處理親子衝突的第一步是什麼？',
+                        'options' => [
+                            'A. 立即解決問題',
+                            'B. 冷靜下來',
+                            'C. 批評孩子',
+                            'D. 忽略問題'
+                        ],
+                        'correct_answer' => 1,
+                        'explanation' => '處理衝突的第一步是讓自己和對方都冷靜下來，避免情緒化反應。',
+                        'points' => 10
+                    ],
+                    [
+                        'id' => 'parent_ex_4_2',
+                        'type' => 'text',
+                        'question' => '請描述一個處理親子衝突的步驟？',
+                        'placeholder' => '請輸入您的答案...',
+                        'correct_answers' => ['冷靜', '傾聽', '理解', '溝通', '解決', '共識'],
+                        'explanation' => '處理衝突的步驟包括：冷靜、傾聽、理解對方、有效溝通、尋找解決方案、達成共識。',
+                        'points' => 15
+                    ]
+                ]
+            ],
+            [
+                'id' => 'parent_lesson_5',
+                'title' => '第五課：培養孩子的自主性',
+                'duration' => '40分鐘',
+                'video_url' => 'videos/parent_lesson_5.mp4',
+                'completed' => false,
+                'exercises' => 2,
+                'exercises_data' => [
+                    [
+                        'id' => 'parent_ex_5_1',
+                        'type' => 'mc',
+                        'question' => '培養孩子自主性的關鍵是什麼？',
+                        'options' => [
+                            'A. 完全放手不管',
+                            'B. 給予適當的選擇權',
+                            'C. 嚴格控制',
+                            'D. 替孩子做決定'
+                        ],
+                        'correct_answer' => 1,
+                        'explanation' => '培養自主性的關鍵是給予孩子適當的選擇權，讓他們學會自己做決定。',
+                        'points' => 10
+                    ],
+                    [
+                        'id' => 'parent_ex_5_2',
+                        'type' => 'text',
+                        'question' => '如何幫助孩子建立責任感？',
+                        'placeholder' => '請輸入您的答案...',
+                        'correct_answers' => ['責任', '後果', '選擇', '承擔', '學習'],
+                        'explanation' => '幫助孩子建立責任感需要讓他們理解選擇的後果，並承擔相應的責任。',
+                        'points' => 15
+                    ]
+                ]
+            ],
+            [
+                'id' => 'parent_lesson_6',
+                'title' => '第六課：建立積極的家庭氛圍',
+                'duration' => '45分鐘',
+                'video_url' => 'videos/parent_lesson_6.mp4',
+                'completed' => false,
+                'exercises' => 2,
+                'exercises_data' => [
+                    [
+                        'id' => 'parent_ex_6_1',
+                        'type' => 'mc',
+                        'question' => '積極家庭氛圍的核心是什麼？',
+                        'options' => [
+                            'A. 嚴格的家規',
+                            'B. 無條件的愛和支持',
+                            'C. 物質獎勵',
+                            'D. 完美主義'
+                        ],
+                        'correct_answer' => 1,
+                        'explanation' => '積極家庭氛圍的核心是無條件的愛和支持，讓孩子感受到安全和被接納。',
+                        'points' => 10
+                    ],
+                    [
+                        'id' => 'parent_ex_6_2',
+                        'type' => 'text',
+                        'question' => '如何創造積極的家庭氛圍？',
+                        'placeholder' => '請輸入您的答案...',
+                        'correct_answers' => ['愛', '支持', '鼓勵', '溝通', '尊重', '理解'],
+                        'explanation' => '創造積極家庭氛圍需要：表達愛意、提供支持、給予鼓勵、保持溝通、相互尊重、理解包容。',
+                        'points' => 15
+                    ]
+                ]
+            ],
+            [
+                'id' => 'parent_lesson_7',
+                'title' => '第七課：教練式提問技巧',
+                'duration' => '50分鐘',
+                'video_url' => 'videos/parent_lesson_7.mp4',
+                'completed' => false,
+                'exercises' => 3,
+                'exercises_data' => [
+                    [
+                        'id' => 'parent_ex_7_1',
+                        'type' => 'mc',
+                        'question' => '以下哪個是開放式問題？',
+                        'options' => [
+                            'A. "你今天開心嗎？"',
+                            'B. "你覺得今天發生了什麼有趣的事？"',
+                            'C. "你吃飯了嗎？"',
+                            'D. "你作業做完了嗎？"'
+                        ],
+                        'correct_answer' => 1,
+                        'explanation' => '開放式問題鼓勵孩子思考和表達，而不是簡單的是非回答。',
+                        'points' => 10
+                    ],
+                    [
+                        'id' => 'parent_ex_7_2',
+                        'type' => 'mc',
+                        'question' => '教練式提問的目的是什麼？',
+                        'options' => [
+                            'A. 獲取信息',
+                            'B. 幫助孩子自己發現答案',
+                            'C. 測試孩子',
+                            'D. 控制對話'
+                        ],
+                        'correct_answer' => 1,
+                        'explanation' => '教練式提問的目的是幫助孩子自己思考和發現答案，而不是直接給出答案。',
+                        'points' => 10
+                    ],
+                    [
+                        'id' => 'parent_ex_7_3',
+                        'type' => 'text',
+                        'question' => '請舉例說明一個有效的教練式問題？',
+                        'placeholder' => '請輸入您的答案...',
+                        'correct_answers' => ['你覺得', '你認為', '你如何', '什麼', '如何', '為什麼'],
+                        'explanation' => '有效的教練式問題通常以「你覺得」、「你認為」、「你如何」等開頭，鼓勵孩子思考。',
+                        'points' => 15
+                    ]
+                ]
+            ],
+            [
+                'id' => 'parent_lesson_8',
+                'title' => '第八課：實踐與總結',
+                'duration' => '60分鐘',
+                'video_url' => 'videos/parent_lesson_8.mp4',
+                'completed' => false,
+                'exercises' => 1,
+                'exercises_data' => [
+                    [
+                        'id' => 'parent_ex_8_1',
+                        'type' => 'text',
+                        'question' => '請總結你在本課程中學到的最重要的三點？',
+                        'placeholder' => '請輸入您的答案...',
+                        'correct_answers' => ['教練', '溝通', '引導', '提問', '傾聽', '目標', '衝突', '自主'],
+                        'explanation' => '本課程涵蓋了家長教練的基本概念、溝通技巧、目標設定、衝突處理、自主性培養、家庭氛圍和提問技巧等核心內容。',
+                        'points' => 30
+                    ]
+                ]
+            ]
+        ]
+    ],
+    */
     'team' => [
         'id' => 'team',
         'title' => '團隊教練培訓課程',
@@ -280,48 +580,9 @@ if (!$currentLesson) {
     $currentLessonId = $currentLesson['id'];
 }
 
-// 設置頁面標題
-$pageTitle = $currentCourse['title'] . ' - ' . $currentLesson['title'];
+// 包含用戶頁面 header
+require_once 'includes/header-user.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="zh-TW">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
-    <!-- SEO Meta Tags -->
-    <title><?php echo e($pageTitle); ?> - 教練學習平台</title>
-    <meta name="description" content="<?php echo e($currentCourse['description']); ?>">
-    <meta name="keywords" content="教練培訓, 專業認證, 在線學習, <?php echo e($currentCourse['title']); ?>">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="<?php echo e($pageTitle); ?>">
-    <meta property="og:description" content="<?php echo e($currentCourse['description']); ?>">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="<?php echo BASE_URL; ?>/course-learning?course=<?php echo $courseId; ?>">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="<?php echo BASE_URL; ?>/assets/images/favicon.svg">
-    <link rel="alternate icon" href="<?php echo BASE_URL; ?>/assets/images/favicon.ico">
-    
-    <!-- CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/main.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/course-learning.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/achievements.css">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-
-<body>
-    <!-- Header -->
-    <?php include 'includes/header.php'; ?>
 
     <!-- Main Content -->
     <main class="course-learning-main">
@@ -334,6 +595,9 @@ $pageTitle = $currentCourse['title'] . ' - ' . $currentLesson['title'];
                             <!-- Breadcrumb -->
                             <nav aria-label="breadcrumb" class="course-breadcrumb">
                                 <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a href="<?php echo BASE_URL; ?>/">首頁</a>
+                                    </li>
                                     <li class="breadcrumb-item">
                                         <a href="<?php echo BASE_URL; ?>/my-courses">
                                             <i class="fas fa-graduation-cap me-1"></i>我的課程
@@ -811,13 +1075,5 @@ $pageTitle = $currentCourse['title'] . ' - ' . $currentLesson['title'];
         </section>
     </main>
 
-    <!-- Footer -->
-    <?php include 'includes/footer.php'; ?>
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="<?php echo BASE_URL; ?>/assets/js/main.js"></script>
-    <script src="<?php echo BASE_URL; ?>/assets/js/learning-progress.js"></script>
-    <script src="<?php echo BASE_URL; ?>/assets/js/course-learning.js"></script>
-</body>
-</html>
+<?php require_once 'includes/footer-user.php'; ?>
+    <!-- JavaScript 由 footer-user.php 處理 -->

@@ -7,12 +7,14 @@
     padding-top: 80px;
 }
 
-/* Course Header */
+/* Course Header - 統一 Dashboard 樣式 */
 .course-header {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
-    padding: 2rem 0;
-    margin-bottom: 2rem;
+    padding: 60px 0 40px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
 }
 
 .course-header-content {

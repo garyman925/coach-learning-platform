@@ -151,7 +151,10 @@ $pageKeywords = '登入,用戶登入,教練平台,學習平台';
                 // 目前使用模擬數據
                 const mockUsers = [
                     { email: 'admin@example.com', password: 'admin123', name: '管理員' },
-                    { email: 'user@example.com', password: 'user123', name: '用戶' }
+                    { email: 'user@example.com', password: 'user123', name: '用戶' },
+                    { email: 'admin@coach-platform.com', password: 'admin123', name: '系統管理員' },
+                    { email: 'coach1@coach-platform.com', password: 'coach123', name: '張教練' },
+                    { email: 'user1@example.com', password: 'user123', name: '李學員' }
                 ];
                 
                 const user = mockUsers.find(u => u.email === email && u.password === password);
