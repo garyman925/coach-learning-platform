@@ -3,7 +3,7 @@
 /* Contact Hero Section */
 .contact-hero {
     position: relative;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: transparent;
     color: white;
     padding: 120px 0 80px;
     overflow: hidden;
@@ -15,8 +15,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('/coach-learning-platform-mainpage/assets/images/contact/hero-pattern.svg') center/cover;
-    opacity: 0.1;
+    background: url('/coach-learning-platform-mainpage/assets/images/contact/contact-hero-bg.png') center/cover;
+    opacity: 1;
 }
 
 .contact-hero .hero-overlay {
@@ -34,6 +34,7 @@
     text-align: center;
     max-width: 900px;
     margin: 0 auto;
+    color: white;
 }
 
 .contact-hero .hero-title {
@@ -41,6 +42,7 @@
     font-weight: 700;
     margin-bottom: 1rem;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    color: #fff;
 }
 
 .contact-hero .hero-subtitle {
@@ -48,6 +50,7 @@
     margin-bottom: 1.5rem;
     opacity: 0.9;
     line-height: 1.4;
+    color: #fff;
 }
 
 .contact-hero .hero-description {
@@ -60,6 +63,7 @@
     opacity: 0.9;
     max-width: 700px;
     margin: 0 auto;
+    color: #fff;
 }
 
 /* Contact Information */
@@ -142,9 +146,9 @@
 }
 
 .contact-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 1.5rem;
+    width: 20px;
+    height: 20px;
+    margin: 0;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     border-radius: 50%;
     display: flex;
@@ -531,16 +535,43 @@
 
 /* Contact CTA */
 .contact-cta {
+    position: relative;
     padding: 80px 0;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: transparent;
     color: white;
     text-align: center;
+    overflow: hidden;
+}
+
+.contact-cta .cta-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/coach-learning-platform-mainpage/assets/images/contact/contact-cta-bg.png') center/cover;
+    opacity: 1;
+}
+
+.contact-cta .cta-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.contact-cta .container {
+    position: relative;
+    z-index: 2;
 }
 
 .contact-cta .cta-title {
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 700;
     margin-bottom: 1rem;
+    color: #fff;
 }
 
 .contact-cta .cta-description {
@@ -550,6 +581,7 @@
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
+    color: #fff;
 }
 
 .contact-cta .cta-actions {

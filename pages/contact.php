@@ -77,9 +77,9 @@ $pageKeywords = '聯絡我們,聯繫方式,教練培訓,服務諮詢,地址,電�
                     </div>
                     <h3>實體地址</h3>
                     <div class="contact-details">
-                        <p class="contact-main">台北市信義區信義路五段7號</p>
-                        <p class="contact-sub">台北101大樓附近</p>
-                        <p class="contact-sub">捷運信義安和站步行5分鐘</p>
+                        <p class="contact-main">深圳市福田區福華一路國際商會大廈A座15樓</p>
+                        <p class="contact-sub">福田CBD核心區域</p>
+                        <p class="contact-sub">地鐵會展中心站A出口步行3分鐘</p>
                     </div>
                     <a href="#map-section" class="contact-action">
                         <i class="fas fa-map"></i>
@@ -188,16 +188,16 @@ $pageKeywords = '聯絡我們,聯繫方式,教練培訓,服務諮詢,地址,電�
                 <div class="map-placeholder">
                     <div class="map-content">
                         <i class="fas fa-map-marked-alt"></i>
-                        <h3>台北市信義區信義路五段7號</h3>
-                        <p>台北101大樓附近，交通便利</p>
+                        <h3>深圳市福田區福華一路國際商會大廈A座15樓</h3>
+                        <p>福田CBD核心區域，交通便利</p>
                         <div class="map-info">
                             <div class="info-item">
                                 <i class="fas fa-subway"></i>
-                                <span>捷運信義安和站步行5分鐘</span>
+                                <span>地鐵會展中心站A出口步行3分鐘</span>
                             </div>
                             <div class="info-item">
                                 <i class="fas fa-bus"></i>
-                                <span>公車信義行政中心站</span>
+                                <span>公車會展中心站</span>
                             </div>
                             <div class="info-item">
                                 <i class="fas fa-car"></i>
@@ -287,10 +287,12 @@ $pageKeywords = '聯絡我們,聯繫方式,教練培訓,服務諮詢,地址,電�
 
     <!-- Call to Action -->
     <section class="contact-cta">
+        <div class="cta-background"></div>
+        <div class="cta-overlay"></div>
         <div class="container">
             <div class="cta-content">
-                <h2>準備好開始您的教練之旅了嗎？</h2>
-                <p>立即聯繫我們，獲取專業的諮詢和建議</p>
+                <h2 class="cta-title">準備好開始您的教練之旅了嗎？</h2>
+                <p class="cta-description">立即聯繫我們，獲取專業的諮詢和建議</p>
                 <div class="cta-actions">
                     <a href="tel:+886212345678" class="btn btn-primary btn-large">
                         <i class="fas fa-phone"></i>

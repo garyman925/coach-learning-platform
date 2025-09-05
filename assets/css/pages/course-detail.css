@@ -3,7 +3,7 @@
 /* Course Hero Section */
 .course-hero {
     position: relative;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: transparent;
     color: white;
     padding: 120px 0 80px;
     overflow: hidden;
@@ -16,7 +16,7 @@
     right: 0;
     bottom: 0;
     background: url('/coach-learning-platform-mainpage/assets/images/courses/professional-coaching.jpg') center/cover;
-    opacity: 0.3;
+    opacity: 1;
 }
 
 .course-hero .hero-overlay {
@@ -53,6 +53,7 @@
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 700;
     margin-bottom: 1rem;
+    color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 

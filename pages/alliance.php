@@ -155,7 +155,7 @@ $pageKeywords = '教練聯盟,教練合作,資源共享,專業發展,教練社�
             <div class="members-grid">
                 <div class="member-card" data-animate="fadeInUp">
                     <div class="member-avatar">
-                        <img src="/coach-learning-platform-mainpage/assets/images/alliance/member-1.jpg" alt="聯盟成員" loading="lazy">
+                        <img src="/coach-learning-platform-mainpage/assets/images/alliance/member-1.png" alt="聯盟成員" loading="lazy">
                     </div>
                     <div class="member-info">
                         <h3 class="member-name">張美玲</h3>
@@ -176,7 +176,7 @@ $pageKeywords = '教練聯盟,教練合作,資源共享,專業發展,教練社�
 
                 <div class="member-card" data-animate="fadeInUp" data-delay="200">
                     <div class="member-avatar">
-                        <img src="/coach-learning-platform-mainpage/assets/images/alliance/member-2.jpg" alt="聯盟成員" loading="lazy">
+                        <img src="/coach-learning-platform-mainpage/assets/images/alliance/member-2.png" alt="聯盟成員" loading="lazy">
                     </div>
                     <div class="member-info">
                         <h3 class="member-name">陳志強</h3>
@@ -197,7 +197,7 @@ $pageKeywords = '教練聯盟,教練合作,資源共享,專業發展,教練社�
 
                 <div class="member-card" data-animate="fadeInUp" data-delay="400">
                     <div class="member-avatar">
-                        <img src="/coach-learning-platform-mainpage/assets/images/alliance/member-3.jpg" alt="聯盟成員" loading="lazy">
+                        <img src="/coach-learning-platform-mainpage/assets/images/alliance/member-3.png" alt="聯盟成員" loading="lazy">
                     </div>
                     <div class="member-info">
                         <h3 class="member-name">林雅芳</h3>
@@ -218,7 +218,7 @@ $pageKeywords = '教練聯盟,教練合作,資源共享,專業發展,教練社�
 
                 <div class="member-card" data-animate="fadeInUp" data-delay="600">
                     <div class="member-avatar">
-                        <img src="/coach-learning-platform-mainpage/assets/images/alliance/member-4.jpg" alt="聯盟成員" loading="lazy">
+                        <img src="/coach-learning-platform-mainpage/assets/images/alliance/member-4.png" alt="聯盟成員" loading="lazy">
                     </div>
                     <div class="member-info">
                         <h3 class="member-name">王偉傑</h3>

@@ -21,12 +21,16 @@ class CoachCarousel {
             return;
         }
         
-        this.cacheElements();
-        this.setupEventListeners();
-        this.updateControls();
-        this.updateIndicators();
-        
-        console.log('CoachCarousel initialized');
+        try {
+            this.cacheElements();
+            this.setupEventListeners();
+            this.updateControls();
+            this.updateIndicators();
+            
+            console.log('CoachCarousel initialized successfully');
+        } catch (error) {
+            console.error('CoachCarousel initialization error:', error);
+        }
     }
     
     cacheElements() {
@@ -36,20 +40,40 @@ class CoachCarousel {
         this.nextBtn = this.container.querySelector('.coach-carousel-next');
         this.indicators = Array.from(this.container.querySelectorAll('.coach-carousel-indicator'));
         
+        console.log('CoachCarousel elements found:', {
+            track: !!this.track,
+            cards: this.cards.length,
+            prevBtn: !!this.prevBtn,
+            nextBtn: !!this.nextBtn,
+            indicators: this.indicators.length
+        });
+        
         this.totalSlides = Math.ceil(this.cards.length / this.cardsPerSlide);
     }
     
     setupEventListeners() {
         if (this.prevBtn) {
-            this.prevBtn.addEventListener('click', () => this.prevSlide());
+            this.prevBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Prev button clicked');
+                this.prevSlide();
+            });
         }
         
         if (this.nextBtn) {
-            this.nextBtn.addEventListener('click', () => this.nextSlide());
+            this.nextBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Next button clicked');
+                this.nextSlide();
+            });
         }
         
         this.indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => this.goToSlide(index));
+            indicator.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('Indicator clicked:', index);
+                this.goToSlide(index);
+            });
         });
         
         // 觸摸滑動支持
@@ -131,25 +155,66 @@ class CoachCarousel {
     }
     
     nextSlide() {
-        if (this.isAnimating || this.currentSlide >= this.totalSlides - 1) return;
+        console.log('nextSlide called:', {
+            isAnimating: this.isAnimating,
+            currentSlide: this.currentSlide,
+            totalSlides: this.totalSlides
+        });
+        
+        if (this.isAnimating || this.currentSlide >= this.totalSlides - 1) {
+            console.log('nextSlide blocked:', {
+                isAnimating: this.isAnimating,
+                atEnd: this.currentSlide >= this.totalSlides - 1
+            });
+            return;
+        }
         
         this.goToSlide(this.currentSlide + 1);
     }
     
     prevSlide() {
-        if (this.isAnimating || this.currentSlide <= 0) return;
+        console.log('prevSlide called:', {
+            isAnimating: this.isAnimating,
+            currentSlide: this.currentSlide,
+            totalSlides: this.totalSlides
+        });
+        
+        if (this.isAnimating || this.currentSlide <= 0) {
+            console.log('prevSlide blocked:', {
+                isAnimating: this.isAnimating,
+                atStart: this.currentSlide <= 0
+            });
+            return;
+        }
         
         this.goToSlide(this.currentSlide - 1);
     }
     
     goToSlide(slideIndex) {
-        if (this.isAnimating || slideIndex < 0 || slideIndex >= this.totalSlides) return;
+        console.log('goToSlide called:', {
+            slideIndex,
+            isAnimating: this.isAnimating,
+            totalSlides: this.totalSlides,
+            track: !!this.track
+        });
+        
+        if (this.isAnimating || slideIndex < 0 || slideIndex >= this.totalSlides) {
+            console.log('goToSlide blocked:', {
+                isAnimating: this.isAnimating,
+                invalidIndex: slideIndex < 0 || slideIndex >= this.totalSlides
+            });
+            return;
+        }
         
         this.isAnimating = true;
         this.currentSlide = slideIndex;
         
         const translateX = -(slideIndex * this.cardsPerSlide * (280 + 24)); // 卡片寬度 + gap
-        this.track.style.transform = `translateX(${translateX}px)`;
+        console.log('Applying transform:', translateX);
+        
+        if (this.track) {
+            this.track.style.transform = `translateX(${translateX}px)`;
+        }
         
         // 更新控制按鈕狀態
         this.updateControls();
@@ -160,6 +225,7 @@ class CoachCarousel {
         // 動畫完成後重置狀態
         setTimeout(() => {
             this.isAnimating = false;
+            console.log('Animation completed');
         }, 500);
     }
     
@@ -256,21 +322,48 @@ class CoachCarousel {
     }
 }
 
-// 創建全局實例
-const coachCarousel = new CoachCarousel();
-
 // 導出到全局
 window.CoachCarousel = CoachCarousel;
 
 // 頁面加載完成後初始化
 document.addEventListener('DOMContentLoaded', () => {
-    if (window.coachCarousel) {
-        // 響應式調整
-        window.addEventListener('resize', () => {
-            window.coachCarousel.updateCardsPerSlide();
-        });
-        
-        // 可選：啟動自動播放
-        // window.coachCarousel.startAutoPlay();
-    }
+    // 延遲初始化以確保所有元素都已加載
+    setTimeout(() => {
+        // 確保輪播組件正確初始化
+        if (typeof CoachCarousel !== 'undefined') {
+            const carousel = new CoachCarousel('.coach-carousel-container');
+            
+            // 測試按鈕點擊
+            const prevBtn = document.querySelector('.coach-carousel-prev');
+            const nextBtn = document.querySelector('.coach-carousel-next');
+            
+            if (prevBtn) {
+                console.log('Prev button found, adding test listener');
+                prevBtn.addEventListener('click', () => {
+                    console.log('Test: Prev button clicked directly');
+                });
+            }
+            
+            if (nextBtn) {
+                console.log('Next button found, adding test listener');
+                nextBtn.addEventListener('click', () => {
+                    console.log('Test: Next button clicked directly');
+                });
+            }
+            
+            // 響應式調整
+            window.addEventListener('resize', () => {
+                if (carousel) {
+                    carousel.updateCardsPerSlide();
+                }
+            });
+            
+            // 可選：啟動自動播放
+            // carousel.startAutoPlay();
+            
+            console.log('CoachCarousel initialized successfully');
+        } else {
+            console.error('CoachCarousel class not found');
+        }
+    }, 100);
 });

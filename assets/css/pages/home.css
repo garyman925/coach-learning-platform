@@ -1454,6 +1454,18 @@
     padding: var(--spacing-2) var(--spacing-3);
 }
 
+.coach-actions .btn-outline {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.coach-actions .btn-outline:hover {
+    background-color: var(--primary-600);
+    border-color: var(--primary-600);
+    color: white;
+}
+
 /* 輪播控制按鈕 */
 .coach-carousel-controls {
     display: flex;
@@ -1464,18 +1476,20 @@
 }
 
 .coach-carousel-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: white;
-    border: 2px solid var(--primary-200);
-    color: var(--primary-600);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-md);
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 50% !important;
+    background: var(--primary-color) !important;
+    border: 2px solid var(--primary-color) !important;
+    color: white !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.3s ease !important;
+    box-shadow: var(--shadow-md) !important;
+    position: relative !important;
+    z-index: 10 !important;
 }
 
 .coach-carousel-btn:hover {
@@ -1583,45 +1597,7 @@
     }
 }
 
-/* Coach Carousel Controls */
-.coach-carousel-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.coach-carousel-btn {
-    background: var(--color-primary);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-}
-
-.coach-carousel-btn:hover {
-    background: var(--color-primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
-}
-
-.coach-carousel-btn:active {
-    transform: translateY(0);
-}
-
-.coach-carousel-indicators {
-    display: flex;
-    gap: 0.5rem;
-}
-
+/* Coach Carousel Indicators */
 .coach-carousel-indicator {
     width: 12px;
     height: 12px;

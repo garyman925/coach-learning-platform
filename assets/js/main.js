@@ -23,7 +23,6 @@ class MainApp {
         this.setupConfig();
         this.initializeComponents();
         this.bindGlobalEvents();
-        this.setupLazyLoading();
         this.setupPerformanceMonitoring();
         
         this.isInitialized = true;
