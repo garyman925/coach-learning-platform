@@ -31,7 +31,7 @@ class MainApp {
 
     setupConfig() {
         // 從localStorage或環境變量獲取配置
-        const savedConfig = Storage.get('app_config');
+        const savedConfig = localStorage.getItem('coach_platform_app_config') ? JSON.parse(localStorage.getItem('coach_platform_app_config')) : null;
         if (savedConfig) {
             this.config = { ...this.config, ...savedConfig };
         }
@@ -231,7 +231,7 @@ class MainApp {
     }
 
     checkAuthStatus() {
-        const userData = Storage.get('user_data');
+        const userData = localStorage.getItem('coach_platform_user_data') ? JSON.parse(localStorage.getItem('coach_platform_user_data')) : null;
         if (userData) {
             this.updateAuthUI(userData);
         }
@@ -301,7 +301,7 @@ class MainApp {
             role: 'user'
         };
         
-        Storage.set('user_data', userData);
+        localStorage.setItem('coach_platform_user_data', JSON.stringify(userData));
         this.updateAuthUI(userData);
         this.showMessage('登錄成功！', 'success');
         
@@ -466,7 +466,7 @@ class MainApp {
             }
             
             // 保存性能數據
-            Storage.set('performance_metrics', metrics);
+            localStorage.setItem('coach_platform_performance_metrics', JSON.stringify(metrics));
         }
     }
 
@@ -481,7 +481,7 @@ class MainApp {
 
     updateConfig(newConfig) {
         this.config = { ...this.config, ...newConfig };
-        Storage.set('app_config', this.config);
+        localStorage.setItem('coach_platform_app_config', JSON.stringify(this.config));
         
         if (this.config.debug) {
             console.log('Config updated:', this.config);

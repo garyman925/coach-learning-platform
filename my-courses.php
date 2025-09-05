@@ -663,14 +663,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 取消課程
         function cancelCourse(courseId) {
-            document.getElementById('cancelCourseId').value = courseId;
-            new bootstrap.Modal(document.getElementById('cancelCourseModal')).show();
+            const cancelCourseIdElement = document.getElementById('cancelCourseId');
+            if (cancelCourseIdElement) {
+                cancelCourseIdElement.value = courseId;
+            }
+            const cancelModal = document.getElementById('cancelCourseModal');
+            if (cancelModal) {
+                new bootstrap.Modal(cancelModal).show();
+            }
         }
 
         // 評價課程
         function rateCourse(courseId) {
-            document.getElementById('rateCourseId').value = courseId;
-            new bootstrap.Modal(document.getElementById('rateCourseModal')).show();
+            const rateCourseIdElement = document.getElementById('rateCourseId');
+            if (rateCourseIdElement) {
+                rateCourseIdElement.value = courseId;
+            }
+            const rateModal = document.getElementById('rateCourseModal');
+            if (rateModal) {
+                new bootstrap.Modal(rateModal).show();
+            }
         }
 
         // 取消服務
@@ -823,7 +835,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const achievementsGrid = document.getElementById('achievements-grid');
             if (!achievementsGrid || !learningProgressInstance) return;
 
-            const achievements = learningProgressInstance.achievements;
+            const achievements = learningProgressInstance.achievements || {};
             let achievementsHTML = '';
 
             for (const [key, achievement] of Object.entries(achievements)) {
@@ -850,7 +862,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             const courseProgressList = document.getElementById('course-progress-list');
             if (!courseProgressList || !learningProgressInstance) return;
 
-            const progress = learningProgressInstance.progress;
+            const progress = learningProgressInstance.progress || {};
             let progressHTML = '';
 
             for (const [courseId, courseProgress] of Object.entries(progress)) {
