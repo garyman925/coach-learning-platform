@@ -1,0 +1,708 @@
+/* Community Page Styles */
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
+    color: white;
+    padding: 80px 0;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../images/hero-bg.svg') center/cover;
+    opacity: 0.1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+/* Main Content */
+.main-content {
+    padding: 60px 0;
+    background: var(--neutral-50);
+}
+
+/* Content Tabs */
+.content-tabs {
+    margin-bottom: 30px;
+}
+
+.content-tabs .nav-pills {
+    background: white;
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.content-tabs .nav-link {
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 500;
+    color: var(--neutral-600);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.content-tabs .nav-link:hover {
+    color: var(--primary-600);
+    background: var(--primary-50);
+}
+
+.content-tabs .nav-link.active {
+    background: var(--primary-600);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Content Card */
+.content-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card-header {
+    background: var(--neutral-50);
+    padding: 24px 30px;
+    border-bottom: 1px solid var(--neutral-200);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.card-header h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 8px;
+}
+
+.card-header p {
+    color: var(--neutral-600);
+    margin-bottom: 0;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--neutral-100);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: var(--neutral-400);
+    font-size: 32px;
+}
+
+.empty-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 12px;
+}
+
+.empty-description {
+    color: var(--neutral-600);
+    margin-bottom: 24px;
+}
+
+/* Users List */
+.users-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.user-item {
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+
+.user-item:hover {
+    border-color: var(--primary-300);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-avatar {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.online-indicator {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 16px;
+    height: 16px;
+    background: var(--success-500);
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 4px;
+}
+
+.user-title {
+    color: var(--neutral-600);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.user-stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+.user-stats span {
+    color: var(--neutral-500);
+    font-size: 12px;
+}
+
+.user-status {
+    font-size: 12px;
+}
+
+.status-online {
+    color: var(--success-600);
+    font-weight: 500;
+}
+
+.status-offline {
+    color: var(--neutral-500);
+}
+
+.user-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Messages */
+.messages-tabs {
+    margin-bottom: 20px;
+}
+
+.messages-tabs .nav-tabs {
+    border-bottom: 2px solid var(--neutral-200);
+}
+
+.messages-tabs .nav-link {
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--neutral-600);
+    font-weight: 500;
+    padding: 12px 20px;
+    transition: all 0.3s ease;
+}
+
+.messages-tabs .nav-link:hover {
+    border-bottom-color: var(--primary-300);
+    color: var(--primary-600);
+}
+
+.messages-tabs .nav-link.active {
+    border-bottom-color: var(--primary-600);
+    color: var(--primary-600);
+    background: none;
+}
+
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.message-item {
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+
+.message-item.unread {
+    border-left: 4px solid var(--primary-500);
+    background: var(--primary-50);
+}
+
+.message-item:hover {
+    border-color: var(--primary-300);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.message-avatar {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+}
+
+.message-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.message-content {
+    flex: 1;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.message-sender,
+.message-recipient {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 0;
+}
+
+.message-time {
+    color: var(--neutral-500);
+    font-size: 12px;
+}
+
+.message-subject {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 8px;
+}
+
+.message-preview {
+    color: var(--neutral-600);
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.message-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Groups Grid */
+.groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+}
+
+.group-card {
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: 12px;
+    padding: 24px;
+    transition: all 0.3s ease;
+}
+
+.group-card:hover {
+    border-color: var(--primary-300);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+
+.group-info {
+    flex: 1;
+}
+
+.group-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 8px;
+}
+
+.group-description {
+    color: var(--neutral-600);
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.group-badge {
+    flex-shrink: 0;
+}
+
+.group-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    color: var(--neutral-600);
+    font-size: 14px;
+}
+
+.group-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Discussions List */
+.discussions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.discussion-item {
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.discussion-item.pinned {
+    border-left: 4px solid var(--warning-500);
+    background: var(--warning-50);
+}
+
+.discussion-item:hover {
+    border-color: var(--primary-300);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.discussion-pin {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    color: var(--warning-600);
+    font-size: 16px;
+}
+
+.discussion-content {
+    padding-right: 40px;
+}
+
+.discussion-header {
+    margin-bottom: 12px;
+}
+
+.discussion-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.discussion-title a {
+    color: var(--neutral-900);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.discussion-title a:hover {
+    color: var(--primary-600);
+}
+
+.discussion-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.discussion-category {
+    background: var(--primary-100);
+    color: var(--primary-700);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.discussion-time {
+    color: var(--neutral-500);
+    font-size: 12px;
+}
+
+.discussion-body {
+    margin-bottom: 16px;
+}
+
+.discussion-body p {
+    color: var(--neutral-600);
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.discussion-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--neutral-100);
+}
+
+.discussion-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.discussion-author img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.discussion-author span {
+    color: var(--neutral-600);
+    font-size: 12px;
+}
+
+.discussion-stats {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.discussion-stats span {
+    color: var(--neutral-500);
+    font-size: 12px;
+}
+
+.btn-like {
+    background: none;
+    border: none;
+    color: var(--neutral-500);
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-like:hover {
+    background: var(--neutral-100);
+    color: var(--danger-500);
+}
+
+.btn-like.liked {
+    color: var(--danger-500);
+    background: var(--danger-50);
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--neutral-200);
+    padding: 20px 24px;
+}
+
+.modal-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+}
+
+.modal-body {
+    padding: 24px;
+}
+
+.modal-footer {
+    border-top: 1px solid var(--neutral-200);
+    padding: 16px 24px;
+}
+
+/* Form Styles */
+.form-label {
+    font-weight: 500;
+    color: var(--neutral-700);
+    margin-bottom: 8px;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid var(--neutral-300);
+    border-radius: 8px;
+    padding: 12px 16px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Badge Styles */
+.badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .user-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .user-actions {
+        justify-content: center;
+    }
+    
+    .message-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .message-actions {
+        justify-content: center;
+    }
+    
+    .groups-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .discussion-footer {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+    
+    .discussion-stats {
+        align-self: stretch;
+        justify-content: space-between;
+    }
+    
+    .content-tabs .nav-pills {
+        flex-direction: column;
+    }
+    
+    .content-tabs .nav-link {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 40px 0;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .user-item,
+    .message-item,
+    .group-card,
+    .discussion-item {
+        padding: 16px;
+    }
+    
+    .modal-dialog {
+        margin: 16px;
+    }
+}

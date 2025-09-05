@@ -1,0 +1,298 @@
+/* 表單組件樣式 */
+
+/* 基礎表單樣式已在 main.css 中定義 */
+/* 這裡添加額外的表單組件樣式 */
+
+/* 表單佈局 */
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-6);
+}
+
+.form-col {
+    display: flex;
+    flex-direction: column;
+}
+
+/* 表單標籤變體 */
+.form-label-required::after {
+    content: ' *';
+    color: var(--error);
+}
+
+.form-label-optional::after {
+    content: ' (可選)';
+    color: var(--neutral-500);
+    font-weight: var(--font-normal);
+}
+
+/* 表單輸入變體 */
+.form-input-success {
+    border-color: var(--success);
+}
+
+.form-input-success:focus {
+    border-color: var(--success);
+    box-shadow: 0 0 0 3px var(--success-100);
+}
+
+.form-input-error {
+    border-color: var(--error);
+}
+
+.form-input-error:focus {
+    border-color: var(--error);
+    box-shadow: 0 0 0 3px var(--error-100);
+}
+
+.form-input-warning {
+    border-color: var(--warning);
+}
+
+.form-input-warning:focus {
+    border-color: var(--warning);
+    box-shadow: 0 0 0 3px var(--warning-100);
+}
+
+/* 表單驗證消息 */
+.form-message {
+    margin-top: var(--spacing-2);
+    font-size: var(--text-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+}
+
+.form-message::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.form-message-success {
+    color: var(--success);
+}
+
+.form-message-success::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%2310b981'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd' /%3E%3C/svg%3E");
+}
+
+.form-message-error {
+    color: var(--error);
+}
+
+.form-message-error::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23ef4444'%3E%3Cpath fill-rule='evenodd' d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z' clip-rule='evenodd' /%3E%3C/svg%3E");
+}
+
+.form-message-warning {
+    color: var(--warning);
+}
+
+.form-message-warning::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23f59e0b'%3E%3Cpath fill-rule='evenodd' d='M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z' clip-rule='evenodd' /%3E%3C/svg%3E");
+}
+
+/* 表單輸入組 */
+.form-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.form-input-group .form-input {
+    padding-left: 40px;
+}
+
+.form-input-group-icon {
+    position: absolute;
+    left: var(--spacing-3);
+    color: var(--neutral-500);
+    pointer-events: none;
+}
+
+.form-input-group .form-input:focus + .form-input-group-icon {
+    color: var(--primary-color);
+}
+
+/* 表單輸入後綴 */
+.form-input-suffix {
+    position: absolute;
+    right: var(--spacing-3);
+    color: var(--neutral-500);
+    pointer-events: none;
+}
+
+/* 表單選擇 */
+.form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%236b7280'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-3) center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+/* 表單複選框和單選框 */
+.form-checkbox,
+.form-radio {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    cursor: pointer;
+    margin-bottom: var(--spacing-3);
+}
+
+.form-checkbox input[type="checkbox"],
+.form-checkbox input[type="radio"],
+.form-radio input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+}
+
+.form-checkbox-label,
+.form-radio-label {
+    font-size: var(--text-sm);
+    color: var(--neutral-700);
+    cursor: pointer;
+}
+
+/* 表單開關 */
+.form-switch {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-3);
+    cursor: pointer;
+    margin-bottom: var(--spacing-3);
+}
+
+.form-switch-input {
+    position: relative;
+    width: 44px;
+    height: 24px;
+    background-color: var(--neutral-300);
+    border-radius: 12px;
+    transition: background-color var(--transition-fast);
+    cursor: pointer;
+}
+
+.form-switch-input::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform var(--transition-fast);
+}
+
+.form-switch input:checked + .form-switch-input {
+    background-color: var(--primary-color);
+}
+
+.form-switch input:checked + .form-switch-input::after {
+    transform: translateX(20px);
+}
+
+.form-switch-label {
+    font-size: var(--text-sm);
+    color: var(--neutral-700);
+    cursor: pointer;
+}
+
+/* 表單文本區域 */
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+/* 表單文件上傳 */
+.form-file {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.form-file-input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.form-file-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 2px dashed var(--neutral-300);
+    border-radius: var(--radius-lg);
+    background-color: var(--neutral-50);
+    color: var(--neutral-600);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+.form-file:hover .form-file-label {
+    border-color: var(--primary-color);
+    background-color: var(--primary-50);
+    color: var(--primary-color);
+}
+
+.form-file-input:focus + .form-file-label {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-100);
+}
+
+/* 表單驗證狀態 */
+.form-group.is-valid .form-input {
+    border-color: var(--success);
+}
+
+.form-group.is-valid .form-input:focus {
+    box-shadow: 0 0 0 3px var(--success-100);
+}
+
+.form-group.is-invalid .form-input {
+    border-color: var(--error);
+}
+
+.form-group.is-invalid .form-input:focus {
+    box-shadow: 0 0 0 3px var(--error-100);
+}
+
+/* 響應式表單 */
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-4);
+    }
+    
+    .form-input-group .form-input {
+        padding-left: 36px;
+    }
+    
+    .form-input-group-icon {
+        left: var(--spacing-2);
+    }
+}
+
+@media (max-width: 480px) {
+    .form-group {
+        margin-bottom: var(--spacing-4);
+    }
+    
+    .form-input,
+    .form-select,
+    .form-textarea {
+        font-size: var(--text-base);
+    }
+}

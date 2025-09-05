@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# 禁止訪問管理後台和敏感文件
+Disallow: /admin/
+Disallow: /includes/
+Disallow: /api/
+Disallow: /cache/
+Disallow: /logs/
+Disallow: /vendor/
+Disallow: /uploads/
+Disallow: /*.log
+Disallow: /*.env
+Disallow: /*.sql
+
+# 允許訪問圖片和CSS/JS文件
+Allow: /assets/images/
+Allow: /assets/css/
+Allow: /assets/js/
+Allow: /assets/fonts/
+
+# 網站地圖
+Sitemap: https://yoursite.com/sitemap.xml

@@ -1,0 +1,508 @@
+/* 導航組件樣式 */
+
+/* 頂部橫條 */
+.top-bar {
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
+    color: white;
+    padding: var(--spacing-3) 0;
+    box-shadow: var(--shadow-sm);
+}
+
+.top-bar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-4);
+}
+
+/* 公司信息 */
+.company-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
+.slogan {
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    opacity: 0.9;
+}
+
+/* 用戶操作 */
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+}
+
+.auth-buttons {
+    display: flex;
+    gap: var(--spacing-2);
+}
+
+/* 用戶菜單 */
+.user-menu {
+    position: relative;
+}
+
+.user-menu-toggle {
+    background: none;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    cursor: pointer;
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-lg);
+    transition: background-color var(--transition-fast);
+}
+
+.user-menu-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.user-name {
+    font-weight: var(--font-medium);
+}
+
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-normal);
+    z-index: var(--z-dropdown);
+    margin-top: var(--spacing-2);
+}
+
+.user-menu:hover .user-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.user-dropdown li {
+    list-style: none;
+    margin: 0;
+}
+
+.user-dropdown a {
+    display: block;
+    padding: var(--spacing-3) var(--spacing-4);
+    color: var(--neutral-700);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+}
+
+.user-dropdown a:hover {
+    background-color: var(--neutral-100);
+    color: var(--primary-color);
+}
+
+/* 語言切換器 */
+.language-switcher {
+    position: relative;
+}
+
+.language-toggle {
+    background: none;
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    cursor: pointer;
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-lg);
+    transition: background-color var(--transition-fast);
+}
+
+.language-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.current-language {
+    font-weight: var(--font-medium);
+}
+
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    min-width: 150px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-normal);
+    z-index: var(--z-modal);
+    margin-top: var(--spacing-2);
+}
+
+.language-switcher:hover .language-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.language-dropdown li {
+    list-style: none;
+    margin: 0;
+}
+
+.language-dropdown a {
+    display: block;
+    padding: var(--spacing-3) var(--spacing-4);
+    color: var(--neutral-700);
+    text-decoration: none;
+    transition: background-color var(--transition-fast);
+}
+
+.language-dropdown a:hover {
+    background-color: var(--neutral-100);
+    color: var(--primary-color);
+}
+
+/* 下拉箭頭 */
+.dropdown-arrow {
+    transition: transform var(--transition-fast);
+}
+
+.language-switcher:hover .dropdown-arrow,
+.user-menu:hover .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+/* 主導航 */
+.main-navigation {
+    background: white;
+    border-bottom: 1px solid var(--neutral-200);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    box-shadow: var(--shadow-sm);
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-4) 0;
+}
+
+/* 導航菜單 */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: var(--spacing-8);
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-link {
+    color: var(--neutral-700);
+    text-decoration: none;
+    font-weight: var(--font-medium);
+    padding: var(--spacing-2) 0;
+    transition: color var(--transition-fast);
+    position: relative;
+}
+
+.nav-link:hover {
+    color: var(--primary-color);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-color);
+    transition: width var(--transition-normal);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* 下拉菜單 */
+.dropdown-toggle {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) 0;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    min-width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-normal);
+    z-index: var(--z-dropdown);
+    margin-top: var(--spacing-2);
+    padding: var(--spacing-2) 0;
+}
+
+.nav-item.has-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    list-style: none;
+    margin: 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: var(--spacing-3) var(--spacing-4);
+    color: var(--neutral-700);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+}
+
+.dropdown-menu a:hover {
+    background-color: var(--primary-50);
+    color: var(--primary-color);
+    padding-left: calc(var(--spacing-4) + var(--spacing-2));
+}
+
+/* 搜尋容器 */
+.search-container {
+    flex-shrink: 0;
+}
+
+.search-form {
+    display: flex;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    padding: var(--spacing-3) var(--spacing-4);
+    padding-right: 50px;
+    border: 2px solid var(--neutral-300);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    min-width: 250px;
+    transition: all var(--transition-fast);
+}
+
+.search-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-100);
+    outline: none;
+}
+
+.search-button {
+    position: absolute;
+    right: var(--spacing-2);
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    padding: var(--spacing-2);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.search-button:hover {
+    background-color: var(--primary-dark);
+}
+
+/* 移動端菜單切換 */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-2);
+    flex-direction: column;
+    gap: 4px;
+}
+
+.hamburger-line {
+    width: 24px;
+    height: 2px;
+    background-color: var(--neutral-700);
+    transition: all var(--transition-normal);
+}
+
+/* 移動菜單 */
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: var(--shadow-lg);
+    border-top: 1px solid var(--neutral-200);
+    z-index: var(--z-dropdown);
+    /* 調試樣式 */
+    border: 2px solid red;
+    min-height: 200px;
+}
+
+.mobile-menu.active {
+    display: block !important;
+    /* 調試樣式 */
+    background: yellow;
+}
+
+.mobile-menu-list {
+    list-style: none;
+    margin: 0;
+    padding: var(--spacing-4);
+}
+
+.mobile-menu-item {
+    border-bottom: 1px solid var(--neutral-200);
+}
+
+.mobile-menu-item:last-child {
+    border-bottom: none;
+}
+
+.mobile-menu-link {
+    display: block;
+    padding: var(--spacing-3) 0;
+    color: var(--neutral-700);
+    text-decoration: none;
+    font-weight: var(--font-medium);
+    transition: color var(--transition-fast);
+}
+
+.mobile-menu-link:hover {
+    color: var(--primary-color);
+}
+
+/* 響應式設計 */
+@media (max-width: 1024px) {
+    .nav-menu {
+        gap: var(--spacing-6);
+    }
+    
+    .search-input {
+        min-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-bar-content {
+        flex-direction: column;
+        gap: var(--spacing-3);
+    }
+    
+    .company-info {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-2);
+    }
+    
+    .slogan {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: flex;
+    }
+    
+    .nav-menu {
+        display: none;
+    }
+    
+    .mobile-menu {
+        display: none;
+    }
+    
+    .mobile-menu.active {
+        display: block;
+    }
+    
+    .nav-item {
+        width: 100%;
+    }
+    
+    .nav-link {
+        padding: var(--spacing-3) 0;
+        border-bottom: 1px solid var(--neutral-200);
+    }
+    
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        margin-top: var(--spacing-2);
+        margin-left: var(--spacing-4);
+        border-left: 2px solid var(--neutral-200);
+    }
+    
+    .search-container {
+        width: 100%;
+        order: -1;
+    }
+    
+    .search-input {
+        min-width: auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-actions {
+        flex-direction: column;
+        gap: var(--spacing-2);
+    }
+    
+    .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .auth-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

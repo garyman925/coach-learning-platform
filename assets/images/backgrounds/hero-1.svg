@@ -1,0 +1,60 @@
+<svg width="1920" height="800" viewBox="0 0 1920 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- 主要漸變背景 -->
+    <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- 幾何圖案漸變 -->
+    <linearGradient id="patternGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.05" />
+    </linearGradient>
+    
+    <!-- 圓形裝飾漸變 -->
+    <radialGradient id="circleGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- 主要背景 -->
+  <rect width="1920" height="800" fill="url(#heroGradient)"/>
+  
+  <!-- 幾何圖案層 -->
+  <g opacity="0.3">
+    <!-- 六邊形圖案 -->
+    <g transform="translate(100, 100)">
+      <polygon points="0,-20 17.32,-10 17.32,10 0,20 -17.32,10 -17.32,-10" 
+                fill="url(#patternGradient)" opacity="0.6"/>
+    </g>
+    <g transform="translate(300, 200)">
+      <polygon points="0,-15 13,-7.5 13,7.5 0,15 -13,7.5 -13,-7.5" 
+                fill="url(#patternGradient)" opacity="0.4"/>
+    </g>
+    <g transform="translate(500, 150)">
+      <polygon points="0,-25 21.65,-12.5 21.65,12.5 0,25 -21.65,12.5 -21.65,-12.5" 
+                fill="url(#patternGradient)" opacity="0.5"/>
+    </g>
+    
+    <!-- 圓形裝飾 -->
+    <circle cx="1500" cy="300" r="80" fill="url(#circleGradient)"/>
+    <circle cx="1600" cy="500" r="60" fill="url(#circleGradient)"/>
+    <circle cx="1400" cy="600" r="100" fill="url(#circleGradient)"/>
+    
+    <!-- 線條裝飾 -->
+    <line x1="0" y1="400" x2="400" y2="400" stroke="url(#patternGradient)" stroke-width="2" opacity="0.3"/>
+    <line x1="1600" y1="200" x2="1920" y2="200" stroke="url(#patternGradient)" stroke-width="2" opacity="0.3"/>
+    <line x1="1200" y1="700" x2="1600" y2="700" stroke="url(#patternGradient)" stroke-width="2" opacity="0.3"/>
+  </g>
+  
+  <!-- 頂部光暈效果 -->
+  <ellipse cx="960" cy="0" rx="800" ry="200" fill="url(#circleGradient)"/>
+  
+  <!-- 底部裝飾 -->
+  <g transform="translate(0, 750)">
+    <rect width="1920" height="50" fill="url(#patternGradient)" opacity="0.2"/>
+  </g>
+</svg>

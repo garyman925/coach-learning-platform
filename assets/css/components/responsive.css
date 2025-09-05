@@ -1,0 +1,523 @@
+/* 響應式設計組件樣式 */
+
+/* 響應式容器 */
+.container-fluid {
+    width: 100%;
+    padding: 0 var(--spacing-4);
+}
+
+.container-sm {
+    max-width: var(--container-sm);
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+}
+
+.container-md {
+    max-width: var(--container-md);
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+}
+
+.container-lg {
+    max-width: var(--container-lg);
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+}
+
+.container-xl {
+    max-width: var(--container-xl);
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+}
+
+.container-2xl {
+    max-width: var(--container-2xl);
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+}
+
+/* 響應式網格 */
+.grid-responsive {
+    display: grid;
+    gap: var(--spacing-6);
+}
+
+/* 小屏幕 (640px 以下) */
+@media (max-width: 639px) {
+    .grid-responsive {
+        grid-template-columns: 1fr;
+    }
+    
+    .container-fluid,
+    .container-sm,
+    .container-md,
+    .container-lg,
+    .container-xl,
+    .container-2xl {
+        padding: 0 var(--spacing-3);
+    }
+}
+
+/* 中等屏幕 (640px - 767px) */
+@media (min-width: 640px) and (max-width: 767px) {
+    .grid-responsive {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .container-fluid,
+    .container-sm,
+    .container-md,
+    .container-lg,
+    .container-xl,
+    .container-2xl {
+        padding: 0 var(--spacing-4);
+    }
+}
+
+/* 大屏幕 (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .grid-responsive {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .container-fluid,
+    .container-sm,
+    .container-md,
+    .container-lg,
+    .container-xl,
+    .container-2xl {
+        padding: 0 var(--spacing-6);
+    }
+}
+
+/* 超大屏幕 (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .grid-responsive {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .container-fluid,
+    .container-sm,
+    .container-md,
+    .container-lg,
+    .container-xl,
+    .container-2xl {
+        padding: 0 var(--spacing-8);
+    }
+}
+
+/* 超大屏幕 (1280px 以上) */
+@media (min-width: 1280px) {
+    .grid-responsive {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .container-fluid,
+    .container-sm,
+    .container-md,
+    .container-lg,
+    .container-xl,
+    .container-2xl {
+        padding: 0 var(--spacing-8);
+    }
+}
+
+/* 響應式工具類 */
+.hidden-xs {
+    display: none !important;
+}
+
+.hidden-sm {
+    display: none !important;
+}
+
+.hidden-md {
+    display: none !important;
+}
+
+.hidden-lg {
+    display: none !important;
+}
+
+.hidden-xl {
+    display: none !important;
+}
+
+.visible-xs {
+    display: block !important;
+}
+
+.visible-sm {
+    display: block !important;
+}
+
+.visible-md {
+    display: block !important;
+}
+
+.visible-lg {
+    display: block !important;
+}
+
+.visible-xl {
+    display: block !important;
+}
+
+/* 小屏幕顯示 */
+@media (max-width: 639px) {
+    .hidden-xs {
+        display: block !important;
+    }
+    
+    .visible-xs {
+        display: none !important;
+    }
+}
+
+/* 中等屏幕顯示 */
+@media (min-width: 640px) and (max-width: 767px) {
+    .hidden-sm {
+        display: block !important;
+    }
+    
+    .visible-sm {
+        display: none !important;
+    }
+}
+
+/* 大屏幕顯示 */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .hidden-md {
+        display: block !important;
+    }
+    
+    .visible-md {
+        display: none !important;
+    }
+}
+
+/* 超大屏幕顯示 */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .hidden-lg {
+        display: block !important;
+    }
+    
+    .visible-lg {
+        display: none !important;
+    }
+}
+
+/* 超大屏幕顯示 */
+@media (min-width: 1280px) {
+    .hidden-xl {
+        display: block !important;
+    }
+    
+    .visible-xl {
+        display: none !important;
+    }
+}
+
+/* 響應式文字 */
+.text-responsive-xs {
+    font-size: var(--text-sm);
+}
+
+.text-responsive-sm {
+    font-size: var(--text-base);
+}
+
+.text-responsive-md {
+    font-size: var(--text-lg);
+}
+
+.text-responsive-lg {
+    font-size: var(--text-xl);
+}
+
+.text-responsive-xl {
+    font-size: var(--text-2xl);
+}
+
+@media (max-width: 639px) {
+    .text-responsive-xs {
+        font-size: var(--text-xs);
+    }
+    
+    .text-responsive-sm {
+        font-size: var(--text-sm);
+    }
+    
+    .text-responsive-md {
+        font-size: var(--text-base);
+    }
+    
+    .text-responsive-lg {
+        font-size: var(--text-lg);
+    }
+    
+    .text-responsive-xl {
+        font-size: var(--text-xl);
+    }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+    .text-responsive-xs {
+        font-size: var(--text-sm);
+    }
+    
+    .text-responsive-sm {
+        font-size: var(--text-base);
+    }
+    
+    .text-responsive-md {
+        font-size: var(--text-lg);
+    }
+    
+    .text-responsive-lg {
+        font-size: var(--text-xl);
+    }
+    
+    .text-responsive-xl {
+        font-size: var(--text-2xl);
+    }
+}
+
+@media (min-width: 768px) {
+    .text-responsive-xs {
+        font-size: var(--text-base);
+    }
+    
+    .text-responsive-sm {
+        font-size: var(--text-lg);
+    }
+    
+    .text-responsive-md {
+        font-size: var(--text-xl);
+    }
+    
+    .text-responsive-lg {
+        font-size: var(--text-2xl);
+    }
+    
+    .text-responsive-xl {
+        font-size: var(--text-3xl);
+    }
+}
+
+/* 響應式間距 */
+.spacing-responsive-xs {
+    padding: var(--spacing-2);
+    margin: var(--spacing-2);
+}
+
+.spacing-responsive-sm {
+    padding: var(--spacing-4);
+    margin: var(--spacing-4);
+}
+
+.spacing-responsive-md {
+    padding: var(--spacing-6);
+    margin: var(--spacing-6);
+}
+
+.spacing-responsive-lg {
+    padding: var(--spacing-8);
+    margin: var(--spacing-8);
+}
+
+.spacing-responsive-xl {
+    padding: var(--spacing-10);
+    margin: var(--spacing-10);
+}
+
+@media (max-width: 639px) {
+    .spacing-responsive-xs {
+        padding: var(--spacing-1);
+        margin: var(--spacing-1);
+    }
+    
+    .spacing-responsive-sm {
+        padding: var(--spacing-2);
+        margin: var(--spacing-2);
+    }
+    
+    .spacing-responsive-md {
+        padding: var(--spacing-3);
+        margin: var(--spacing-3);
+    }
+    
+    .spacing-responsive-lg {
+        padding: var(--spacing-4);
+        margin: var(--spacing-4);
+    }
+    
+    .spacing-responsive-xl {
+        padding: var(--spacing-5);
+        margin: var(--spacing-5);
+    }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+    .spacing-responsive-xs {
+        padding: var(--spacing-2);
+        margin: var(--spacing-2);
+    }
+    
+    .spacing-responsive-sm {
+        padding: var(--spacing-3);
+        margin: var(--spacing-3);
+    }
+    
+    .spacing-responsive-md {
+        padding: var(--spacing-4);
+        margin: var(--spacing-4);
+    }
+    
+    .spacing-responsive-lg {
+        padding: var(--spacing-5);
+        margin: var(--spacing-5);
+    }
+    
+    .spacing-responsive-xl {
+        padding: var(--spacing-6);
+        margin: var(--spacing-6);
+    }
+}
+
+@media (min-width: 768px) {
+    .spacing-responsive-xs {
+        padding: var(--spacing-3);
+        margin: var(--spacing-3);
+    }
+    
+    .spacing-responsive-sm {
+        padding: var(--spacing-4);
+        margin: var(--spacing-4);
+    }
+    
+    .spacing-responsive-md {
+        padding: var(--spacing-6);
+        margin: var(--spacing-6);
+    }
+    
+    .spacing-responsive-lg {
+        padding: var(--spacing-8);
+        margin: var(--spacing-8);
+    }
+    
+    .spacing-responsive-xl {
+        padding: var(--spacing-10);
+        margin: var(--spacing-10);
+    }
+}
+
+/* 響應式圖片 */
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+.img-responsive-sm {
+    max-width: 100%;
+    height: auto;
+}
+
+.img-responsive-md {
+    max-width: 100%;
+    height: auto;
+}
+
+.img-responsive-lg {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (min-width: 640px) {
+    .img-responsive-sm {
+        max-width: 50%;
+    }
+}
+
+@media (min-width: 768px) {
+    .img-responsive-md {
+        max-width: 75%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .img-responsive-lg {
+        max-width: 100%;
+    }
+}
+
+/* 響應式表格 */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive table {
+    min-width: 600px;
+}
+
+@media (max-width: 767px) {
+    .table-responsive table {
+        min-width: 400px;
+    }
+}
+
+/* 響應式導航 */
+.nav-responsive {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width: 767px) {
+    .nav-responsive {
+        flex-direction: column;
+    }
+}
+
+/* 響應式側邊欄 */
+.sidebar-responsive {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    background: white;
+    box-shadow: var(--shadow-xl);
+    transition: left var(--transition-normal);
+    z-index: var(--z-modal);
+}
+
+.sidebar-responsive.active {
+    left: 0;
+}
+
+@media (min-width: 1024px) {
+    .sidebar-responsive {
+        position: static;
+        width: auto;
+        height: auto;
+        box-shadow: none;
+    }
+}
+
+/* 響應式模態框 */
+.modal-responsive {
+    padding: var(--spacing-4);
+}
+
+@media (min-width: 640px) {
+    .modal-responsive {
+        padding: var(--spacing-6);
+    }
+}
+
+@media (min-width: 768px) {
+    .modal-responsive {
+        padding: var(--spacing-8);
+    }
+}

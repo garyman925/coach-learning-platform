@@ -1,0 +1,41 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ceoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ceoIconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:0.7" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="300" fill="url(#ceoGradient)" rx="20"/>
+  
+  <!-- CEO icon -->
+  <g transform="translate(100,80)">
+    <!-- Person/leader icon -->
+    <circle cx="50" cy="30" r="30" fill="url(#ceoIconGradient)"/>
+    
+    <!-- Body -->
+    <rect x="30" y="60" width="40" height="60" fill="url(#ceoIconGradient)" rx="20"/>
+    
+    <!-- Leadership crown -->
+    <path d="M30 30 L50 15 L70 30 L65 25 L50 20 L35 25 Z" fill="#F59E0B"/>
+    
+    <!-- Business elements -->
+    <rect x="20" y="80" width="60" height="8" fill="rgba(79,70,229,0.3)" rx="4"/>
+    <rect x="25" y="95" width="50" height="6" fill="rgba(79,70,229,0.3)" rx="3"/>
+    <rect x="30" y="105" width="40" height="6" fill="rgba(79,70,229,0.3)" rx="3"/>
+    
+    <!-- Growth arrows -->
+    <path d="M10 100 L20 90 L30 100" stroke="white" stroke-width="2" fill="none" opacity="0.8"/>
+    <path d="M70 100 L80 90 L90 100" stroke="white" stroke-width="2" fill="none" opacity="0.8"/>
+  </g>
+  
+  <!-- Text overlay -->
+  <text x="150" y="280" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="600">
+    執行長 / 創始人
+  </text>
+</svg>

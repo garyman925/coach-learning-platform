@@ -1,0 +1,879 @@
+/* My Courses & Services Page Styles */
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
+    color: white;
+    padding: 80px 0;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../images/hero-bg.svg') center/cover;
+    opacity: 0.1;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-description {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+/* Main Content */
+.main-content {
+    padding: 60px 0;
+    background: var(--neutral-50);
+}
+
+/* Statistics Cards */
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary-100);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-600);
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+    margin-bottom: 4px;
+    line-height: 1;
+}
+
+.stat-label {
+    color: var(--neutral-600);
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+/* Content Tabs */
+.content-tabs {
+    margin-bottom: 30px;
+}
+
+.content-tabs .nav-pills {
+    background: white;
+    border-radius: 12px;
+    padding: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.content-tabs .nav-link {
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: 500;
+    color: var(--neutral-600);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.content-tabs .nav-link:hover {
+    color: var(--primary-600);
+    background: var(--primary-50);
+}
+
+.content-tabs .nav-link.active {
+    background: var(--primary-600);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Content Card */
+.content-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card-header {
+    background: var(--neutral-50);
+    padding: 24px 30px;
+    border-bottom: 1px solid var(--neutral-200);
+}
+
+.card-header h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 8px;
+}
+
+.card-header p {
+    color: var(--neutral-600);
+    margin-bottom: 0;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--neutral-100);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    color: var(--neutral-400);
+    font-size: 32px;
+}
+
+.empty-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 12px;
+}
+
+.empty-description {
+    color: var(--neutral-600);
+    margin-bottom: 24px;
+}
+
+/* Courses Grid */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 24px;
+}
+
+.course-card {
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.course-card:hover {
+    border-color: var(--primary-300);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.course-header {
+    padding: 16px 20px;
+    background: var(--neutral-50);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--neutral-200);
+}
+
+.course-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.course-status.status-enrolled {
+    background: var(--info-100);
+    color: var(--info-700);
+}
+
+.course-status.status-in_progress {
+    background: var(--warning-100);
+    color: var(--warning-700);
+}
+
+.course-status.status-completed {
+    background: var(--success-100);
+    color: var(--success-700);
+}
+
+.course-certificate {
+    color: var(--warning-500);
+    font-size: 18px;
+}
+
+.course-content {
+    padding: 20px;
+}
+
+.course-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 12px;
+}
+
+.course-instructor {
+    color: var(--neutral-600);
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.course-progress {
+    margin-bottom: 16px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--neutral-600);
+}
+
+.progress {
+    height: 8px;
+    background: var(--neutral-200);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: var(--primary-500);
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.course-sessions,
+.course-next,
+.course-notes {
+    color: var(--neutral-600);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.course-actions {
+    padding: 16px 20px;
+    background: var(--neutral-50);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.course-rating {
+    display: flex;
+    gap: 2px;
+}
+
+/* Services List */
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.service-item {
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.service-item:hover {
+    border-color: var(--primary-300);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.service-header {
+    padding: 16px 20px;
+    background: var(--neutral-50);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--neutral-200);
+}
+
+.service-type {
+    font-weight: 600;
+    color: var(--neutral-900);
+}
+
+.service-status {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.service-status.status-scheduled {
+    background: var(--info-100);
+    color: var(--info-700);
+}
+
+.service-status.status-completed {
+    background: var(--success-100);
+    color: var(--success-700);
+}
+
+.service-status.status-cancelled {
+    background: var(--danger-100);
+    color: var(--danger-700);
+}
+
+.service-content {
+    padding: 20px;
+}
+
+.service-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.service-coach,
+.service-datetime,
+.service-duration,
+.service-location {
+    color: var(--neutral-600);
+    font-size: 14px;
+}
+
+.service-notes,
+.service-feedback {
+    color: var(--neutral-600);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.service-rating {
+    color: var(--neutral-600);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.service-actions {
+    padding: 16px 20px;
+    background: var(--neutral-50);
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Progress Overview */
+.progress-overview {
+    margin-bottom: 40px;
+}
+
+.progress-chart,
+.learning-stats {
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.progress-chart h5,
+.learning-stats h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(var(--primary-500) 0deg, var(--primary-500) 65%, var(--neutral-200) 65%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.progress-circle::before {
+    content: '';
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+}
+
+.progress-value {
+    position: relative;
+    z-index: 1;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--neutral-900);
+}
+
+.stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--neutral-100);
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    color: var(--neutral-600);
+    font-size: 14px;
+}
+
+.stat-value {
+    font-weight: 600;
+    color: var(--neutral-900);
+}
+
+/* Achievements Section */
+.achievements-section {
+    margin-top: 40px;
+}
+
+.achievements-section h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 20px;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.achievement-item {
+    background: white;
+    border: 1px solid var(--neutral-200);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+}
+
+.achievement-item.earned {
+    opacity: 1;
+    border-color: var(--warning-300);
+    background: var(--warning-50);
+}
+
+.achievement-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--neutral-100);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--neutral-400);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.achievement-item.earned .achievement-icon {
+    background: var(--warning-100);
+    color: var(--warning-600);
+}
+
+.achievement-info h6 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--neutral-900);
+    margin-bottom: 4px;
+}
+
+.achievement-info p {
+    font-size: 12px;
+    color: var(--neutral-600);
+    margin-bottom: 0;
+}
+
+/* Star Rating */
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 4px;
+    margin-top: 8px;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--neutral-300);
+    transition: color 0.2s ease;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: var(--warning-500);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .stat-icon {
+        align-self: center;
+    }
+    
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .course-actions,
+    .service-actions {
+        flex-direction: column;
+    }
+    
+    .content-tabs .nav-pills {
+        flex-direction: column;
+    }
+    
+    .content-tabs .nav-link {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content {
+        padding: 40px 0;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .stat-card {
+        padding: 16px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
+    }
+}
+
+/* Learning Progress Styles */
+.stats-grid {
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card .stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.stat-card:nth-child(1) .stat-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.stat-card:nth-child(2) .stat-icon {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.stat-card:nth-child(3) .stat-icon {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.stat-card:nth-child(4) .stat-icon {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.stat-card:nth-child(5) .stat-icon {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.stat-card:nth-child(6) .stat-icon {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+}
+
+.stat-content h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-600);
+    margin-bottom: 0.5rem;
+}
+
+.stat-content p {
+    color: #6c757d;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.achievement-item {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.achievement-item.earned {
+    border-color: var(--accent-color);
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+}
+
+.achievement-item.locked {
+    opacity: 0.6;
+}
+
+.achievement-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.achievement-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.achievement-item.earned .achievement-icon {
+    background: linear-gradient(135deg, var(--accent-color) 0%, #f7d700 100%);
+}
+
+.achievement-item.locked .achievement-icon {
+    background: #6c757d;
+}
+
+.achievement-info {
+    flex: 1;
+}
+
+.achievement-info h6 {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: var(--primary-600);
+}
+
+.achievement-info p {
+    color: #6c757d;
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+.achievement-status {
+    font-size: 1.2rem;
+}
+
+.course-progress-item {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.course-progress-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.course-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.course-progress-header h6 {
+    font-weight: 600;
+    color: var(--primary-600);
+    margin-bottom: 0;
+}
+
+.progress-badge {
+    background: var(--primary-600);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.progress {
+    height: 8px;
+    border-radius: 4px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-600) 100%);
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+.course-progress-stats {
+    margin-top: 0.5rem;
+}
+
+.export-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.export-buttons .btn {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Mobile adjustments for learning progress */
+@media (max-width: 768px) {
+    .achievements-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .achievement-item {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .export-buttons {
+        flex-direction: column;
+    }
+    
+    .export-buttons .btn {
+        min-width: unset;
+    }
+}

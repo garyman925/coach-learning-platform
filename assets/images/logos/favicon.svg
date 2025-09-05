@@ -1,0 +1,20 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="faviconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- 圓形背景 -->
+  <circle cx="16" cy="16" r="15" fill="url(#faviconGradient)" stroke="#ffffff" stroke-width="1"/>
+  
+  <!-- 教練圖標 -->
+  <path d="M16 8c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z" fill="white"/>
+  <path d="M10 22c0-1.3 1.1-2.4 2.4-2.4h7.2c1.3 0 2.4 1.1 2.4 2.4v4c0 1.3-1.1 2.4-2.4 2.4h-7.2c-1.3 0-2.4-1.1-2.4-2.4v-4z" fill="white"/>
+  
+  <!-- 書本圖標 -->
+  <rect x="20" y="12" width="4" height="6" rx="0.5" fill="white" opacity="0.9"/>
+  <line x1="21" y1="13" x2="23" y2="13" stroke="white" stroke-width="0.5"/>
+  <line x1="21" y1="14.5" x2="23" y2="14.5" stroke="white" stroke-width="0.5"/>
+</svg>
