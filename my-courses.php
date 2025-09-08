@@ -16,7 +16,7 @@ $username = $currentUser['username'];
 $pageTitle = '我的課程與服務 - ' . SITE_NAME;
 $pageDescription = '管理您的學習進度和課程服務';
 $pageKeywords = '我的課程,學習進度,課程服務,個人中心';
-$pageCSS = ['pages/my-courses.css', 'pages/user-layout.css'];
+$pageCSS = ['my-courses.css', 'pages/my-courses.css', 'pages/user-layout.css'];
 $pageJS = ['my-courses.js', 'learning-progress.js'];
 
 // 模擬用戶課程數據
@@ -141,23 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php require_once 'includes/header-user.php'; ?>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="<?php echo BASE_URL; ?>/">首頁</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">我的課程</li>
-                        </ol>
-                    </nav>
-                    <h1 class="hero-title">我的課程與服務</h1>
-                    <p class="hero-description">管理您的學習進度，查看課程狀態和服務預約</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Hero Section 移除：my-courses 不需要 hero 區塊 -->
 
     <!-- Main Content -->
     <div class="container">
@@ -170,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <!-- Statistics Cards -->
-        <div class="row mb-5">
+        <div class="row">
             <div class="col-md-3">
                 <div class="stat-card">
                     <div class="stat-icon">
@@ -243,10 +227,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- My Courses Tab -->
             <div class="tab-pane fade show active" id="my-courses" role="tabpanel">
                 <div class="content-card">
-                    <div class="card-header">
-                        <h4><i class="fas fa-graduation-cap me-2"></i>我的課程</h4>
-                        <p>管理您的課程學習進度</p>
-                    </div>
                     <div class="card-body">
                         <?php if (empty($userCourses)): ?>
                             <div class="empty-state">
@@ -361,10 +341,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <!-- My Services Tab -->
             <div class="tab-pane fade" id="my-services" role="tabpanel">
                 <div class="content-card">
-                    <div class="card-header">
-                        <h4><i class="fas fa-user-tie me-2"></i>我的服務</h4>
-                        <p>管理您的教練服務預約</p>
-                    </div>
                     <div class="card-body">
                         <?php if (empty($userServices)): ?>
                             <div class="empty-state">

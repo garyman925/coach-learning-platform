@@ -3,8 +3,8 @@
 /* Main Layout */
 .course-learning-main {
     min-height: 100vh;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    padding-top: 80px;
+    background: #fff;
+    padding-top: 0;
 }
 
 /* Course Header - 統一 Dashboard 樣式 */
@@ -133,7 +133,7 @@
 
 /* Learning Content */
 .learning-content {
-    padding: 0 0 3rem 0;
+    padding: 0;
 }
 
 /* Course Sidebar */
@@ -149,9 +149,9 @@
 }
 
 .sidebar-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: var(--primary-color);
     color: white;
-    padding: 1.5rem;
+    padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -196,7 +196,6 @@
 
 .lesson-item.active {
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
-    border-left: 4px solid var(--primary-color);
 }
 
 .lesson-item.completed {
@@ -206,15 +205,15 @@
 .lesson-link {
     display: flex;
     align-items: center;
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem .5rem;
     text-decoration: none;
     color: inherit;
     transition: all 0.3s ease;
 }
 
 .lesson-number {
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -245,12 +244,17 @@
     flex: 1;
 }
 
+/* 移除 lesson-content 區塊中的 lesson-meta 顯示 */
+.lesson-content .lesson-meta {
+    display: none;
+}
+
 .lesson-title {
     font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     color: #1f2937;
-    line-height: 1.4;
+    line-height: 1.6;
 }
 
 .lesson-meta {
@@ -281,7 +285,7 @@
 
 /* Lesson Header */
 .lesson-header {
-    padding: 2rem 2rem 1rem 2rem;
+    padding: 1rem;
     border-bottom: 1px solid #f1f3f4;
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
 }
@@ -290,7 +294,7 @@
     font-size: 1.8rem;
     font-weight: 700;
     color: #1f2937;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
 }
 
 .lesson-header .lesson-meta {
@@ -851,7 +855,7 @@
 
 /* Exercise Section */
 .exercise-section {
-    padding: 2rem;
+    padding: 0;
     border-bottom: 1px solid #f1f3f4;
 }
 
@@ -903,9 +907,7 @@
 
 /* Exercise Navigation */
 .exercise-navigation {
-    background: #f8f9fa;
-    padding: 1rem;
-    border-bottom: 1px solid #e9ecef;
+    display: none;
 }
 
 .exercise-tabs {
@@ -1022,7 +1024,7 @@
 
 /* Question Content */
 .question-content {
-    margin-bottom: 2rem;
+    margin-bottom: 0;
 }
 
 .question-text {
@@ -1623,8 +1625,8 @@
     }
     
     .lesson-number {
-        width: 35px;
-        height: 35px;
+        width: 20px;
+        height: 20px;
         margin-right: 0.75rem;
     }
     

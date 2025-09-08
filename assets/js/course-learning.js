@@ -1004,6 +1004,7 @@ class CourseLearning {
             const textInput = question.querySelector('.text-answer-input');
             const submitBtn = question.querySelector(`#submit-btn-${index}`);
             const hintBtn = question.querySelector(`#hint-btn-${index}`);
+            const type = question.dataset.exerciseType;
 
             // MC選項點擊事件
             optionInputs.forEach(input => {
@@ -1024,6 +1025,10 @@ class CourseLearning {
                 submitBtn.addEventListener('click', () => {
                     this.submitAnswer(index);
                 });
+                // 對於 video/audio/text_block 類型，預先啟用提交（完成）
+                if (['video','audio','text_block'].includes(type)) {
+                    submitBtn.disabled = false;
+                }
             }
 
             // 提示按鈕事件
@@ -1112,14 +1117,24 @@ class CourseLearning {
      * 提交答案
      */
     submitAnswer(exerciseIndex) {
-        const answer = this.exerciseAnswers[exerciseIndex];
-        if (answer === undefined || answer === '') return;
+        const type = this.getExerciseType(exerciseIndex);
+        let answer = this.exerciseAnswers[exerciseIndex];
+        // 對於 video/audio/text_block 類型，不需要答案即可提交
+        if (!['video','audio','text_block'].includes(type)) {
+            if (answer === undefined || answer === '') return;
+        } else {
+            // 填入預設完成標記
+            if (answer === undefined) {
+                answer = true;
+                this.exerciseAnswers[exerciseIndex] = answer;
+            }
+        }
 
         // 獲取題目類型
         const exerciseElement = document.getElementById(`exercise-${exerciseIndex}`);
         const exerciseId = exerciseElement.dataset.exerciseId;
-        const exerciseType = this.getExerciseType(exerciseIndex);
-        
+        const exerciseType = type;
+
         let isCorrect = false;
         let correctAnswer = null;
         let score = 0;
@@ -1135,6 +1150,10 @@ class CourseLearning {
             isCorrect = result.isCorrect;
             score = result.score;
             correctAnswer = result.correctAnswer;
+        } else if (['video','audio','text_block'].includes(exerciseType)) {
+            // 直接視為完成，不評分
+            isCorrect = true;
+            score = 0;
         }
         
         // 保存結果
@@ -1147,7 +1166,31 @@ class CourseLearning {
         };
 
         // 顯示反饋
-        this.showAnswerFeedback(exerciseIndex, isCorrect, answer, correctAnswer, score);
+        if (['video','audio','text_block'].includes(exerciseType)) {
+            // 直接跳下一題
+            this.updateTabStatus(exerciseIndex, true);
+            this.updateExerciseProgress();
+            this.saveExerciseProgress();
+            const totalQuestions = document.querySelectorAll('.exercise-question').length;
+            if (exerciseIndex >= totalQuestions - 1) {
+                this.showExerciseSummary();
+            } else {
+                this.switchToExercise(exerciseIndex + 1);
+            }
+            return;
+        } else {
+            this.showAnswerFeedback(exerciseIndex, isCorrect, answer, correctAnswer, score);
+            // 若為選擇題且回答錯誤，鎖定所有選項，避免再次更改
+            if (exerciseType === 'mc' && !isCorrect) {
+                const questionElement = document.getElementById(`exercise-${exerciseIndex}`);
+                if (questionElement) {
+                    const optionInputs = questionElement.querySelectorAll('.option-input');
+                    optionInputs.forEach(input => {
+                        input.disabled = true;
+                    });
+                }
+            }
+        }
         
         // 更新標籤狀態
         this.updateTabStatus(exerciseIndex, isCorrect);
@@ -1166,6 +1209,47 @@ class CourseLearning {
         
         // 追蹤練習題完成
         this.trackExerciseComplete(exerciseId, score);
+
+        // 顯示「下一題」按鈕
+        this.showNextQuestionButton(exerciseIndex);
+    }
+
+    /**
+     * 提交後顯示下一題按鈕
+     */
+    showNextQuestionButton(exerciseIndex) {
+        const questionElement = document.getElementById(`exercise-${exerciseIndex}`);
+        if (!questionElement) return;
+
+        const actions = questionElement.parentElement ? questionElement.parentElement.querySelector('.question-actions') : questionElement.querySelector('.question-actions');
+        // 優先在當前 exercise-question 內尋找
+        const actionsInQuestion = questionElement.querySelector('.question-actions');
+        const actionsContainer = actionsInQuestion || actions;
+        if (!actionsContainer) return;
+
+        let nextBtn = document.getElementById(`next-question-${exerciseIndex}`);
+        if (!nextBtn) {
+            nextBtn = document.createElement('button');
+            nextBtn.className = 'btn btn-outline-primary';
+            nextBtn.id = `next-question-${exerciseIndex}`;
+            nextBtn.style.marginLeft = 'auto';
+            actionsContainer.appendChild(nextBtn);
+        }
+
+        const totalQuestions = document.querySelectorAll('.exercise-question').length;
+        const isLast = exerciseIndex >= totalQuestions - 1;
+        nextBtn.textContent = isLast ? '完成' : '下一題';
+        nextBtn.disabled = false;
+        nextBtn.style.display = 'inline-flex';
+
+        // 綁定點擊事件（確保不重複綁定）
+        nextBtn.onclick = () => {
+            if (isLast) {
+                this.showExerciseSummary();
+            } else {
+                this.switchToExercise(exerciseIndex + 1);
+            }
+        };
     }
 
     /**
@@ -1173,12 +1257,12 @@ class CourseLearning {
      */
     getExerciseType(exerciseIndex) {
         const exerciseElement = document.getElementById(`exercise-${exerciseIndex}`);
-        if (exerciseElement.querySelector('.option-input')) {
-            return 'mc';
-        } else if (exerciseElement.querySelector('.text-answer-input')) {
-            return 'text';
-        }
-        return 'mc'; // 默認
+        if (!exerciseElement) return 'mc';
+        const datasetType = exerciseElement.dataset.exerciseType;
+        if (datasetType) return datasetType;
+        if (exerciseElement.querySelector('.option-input')) return 'mc';
+        if (exerciseElement.querySelector('.text-answer-input')) return 'text';
+        return 'mc';
     }
 
     /**

@@ -32,6 +32,7 @@ $isLoggedIn = $userManagement->isLoggedIn();
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/components/buttons.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/components/cards.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/components/forms.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/components/search.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/components/modal.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/components/themes.css">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/components/responsive.css">

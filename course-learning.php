@@ -47,8 +47,17 @@ $courseData = [
                 'duration' => '45分鐘',
                 'video_url' => 'videos/lesson_1.mp4',
                 'completed' => true,
-                'exercises' => 3,
+                'exercises' => 5,
                 'exercises_data' => [
+                    // 類型1：只有影片 + 完成
+                    [
+                        'id' => 'ex_1_v1',
+                        'type' => 'video',
+                        'media_url' => 'videos/exercise_intro_1.mp4',
+                        'question' => '請觀看以下短片，準備進入下一題。',
+                        'explanation' => '',
+                        'points' => 0
+                    ],
                     [
                         'id' => 'ex_1_1',
                         'type' => 'mc',
@@ -62,6 +71,24 @@ $courseData = [
                         'correct_answer' => 1,
                         'explanation' => '教練的核心目標是通過提問和引導，幫助學員自己發現答案和解決方案，而不是直接給出答案。',
                         'points' => 10
+                    ],
+                    // 類型3：只有聲音 + 完成
+                    [
+                        'id' => 'ex_1_a1',
+                        'type' => 'audio',
+                        'media_url' => 'audios/exercise_audio_1.mp3',
+                        'question' => '請聆聽以下音檔，準備進入下一題。',
+                        'explanation' => '',
+                        'points' => 0
+                    ],
+                    // 類型4：問題文字 + 完成
+                    [
+                        'id' => 'ex_1_t1',
+                        'type' => 'text_block',
+                        'text' => '想一想：在教練對話中，如何通過提問讓學員更聚焦？',
+                        'question' => '閱讀上述文字後，點擊完成進入下一題。',
+                        'explanation' => '',
+                        'points' => 0
                     ],
                     [
                         'id' => 'ex_1_2',
@@ -586,67 +613,6 @@ require_once 'includes/header-user.php';
 
     <!-- Main Content -->
     <main class="course-learning-main">
-        <!-- Course Header -->
-        <section class="course-header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="course-header-content">
-                            <!-- Breadcrumb -->
-                            <nav aria-label="breadcrumb" class="course-breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="<?php echo BASE_URL; ?>/">首頁</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="<?php echo BASE_URL; ?>/my-courses">
-                                            <i class="fas fa-graduation-cap me-1"></i>我的課程
-                                        </a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">
-                                        <?php echo e($currentCourse['title']); ?>
-                                    </li>
-                                </ol>
-                            </nav>
-                            
-                            <!-- Course Info -->
-                            <div class="course-info">
-                                <div class="course-title-section">
-                                    <h1 class="course-title"><?php echo e($currentCourse['title']); ?></h1>
-                                    <div class="course-meta">
-                                        <span class="course-instructor">
-                                            <i class="fas fa-user-tie me-1"></i>
-                                            指導教練：<?php echo e($currentCourse['instructor']); ?>
-                                        </span>
-                                        <span class="course-duration">
-                                            <i class="fas fa-clock me-1"></i>
-                                            課程時長：<?php echo e($currentCourse['duration']); ?>
-                                        </span>
-                                        <span class="course-lessons">
-                                            <i class="fas fa-play-circle me-1"></i>
-                                            共 <?php echo e($currentCourse['lessons']); ?> 個章節
-                                        </span>
-                                    </div>
-                                </div>
-                                
-                                <!-- Progress Section -->
-                                <div class="course-progress-section">
-                                    <div class="progress-info">
-                                        <span class="progress-label">學習進度</span>
-                                        <span class="progress-percentage"><?php echo e($currentCourse['progress']); ?>%</span>
-                                    </div>
-                                    <div class="progress-bar-container">
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: <?php echo e($currentCourse['progress']); ?>%"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
         <!-- Learning Content -->
         <section class="learning-content">
@@ -725,6 +691,18 @@ require_once 'includes/header-user.php';
                             </div>
 
                             <!-- Video Player Area -->
+                            <?php
+                            $embedVideoInExercises = false;
+                            if (isset($currentLesson['exercises_data']) && is_array($currentLesson['exercises_data'])) {
+                                foreach ($currentLesson['exercises_data'] as $ex) {
+                                    if (isset($ex['type']) && ($ex['type'] === 'mc' || $ex['type'] === 'video')) {
+                                        $embedVideoInExercises = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (!$embedVideoInExercises):
+                            ?>
                             <div class="video-section">
                                 <div class="video-container">
                                     <div class="video-player" id="video-player">
@@ -869,16 +847,11 @@ require_once 'includes/header-user.php';
                                     </div>
                                 </div>
                             </div>
+                            <?php endif; ?>
 
                             <!-- Exercise Section -->
                             <div class="exercise-section">
-                                <div class="section-header">
-                                    <h3>練習題</h3>
-                                    <div class="exercise-info">
-                                        <span class="exercise-count">共 <?php echo e($currentLesson['exercises']); ?> 題</span>
-                                        <span class="exercise-progress" id="exercise-progress">0/<?php echo e($currentLesson['exercises']); ?></span>
-                                    </div>
-                                </div>
+                                
                                 
                                 <!-- Exercise Container -->
                                 <div class="exercise-container" id="exercise-container">
@@ -902,68 +875,94 @@ require_once 'includes/header-user.php';
                                         <div class="exercise-content">
                                             <?php foreach ($currentLesson['exercises_data'] as $index => $exercise): ?>
                                                 <div class="exercise-question <?php echo $index === 0 ? 'active' : ''; ?>" 
-                                                     id="exercise-<?php echo $index; ?>" data-exercise-id="<?php echo e($exercise['id']); ?>">
+                                                     id="exercise-<?php echo $index; ?>" data-exercise-id="<?php echo e($exercise['id']); ?>" data-exercise-type="<?php echo e($exercise['type']); ?>">
                                                     
                                                     <!-- Question Header -->
                                                     <div class="question-header">
                                                         <div class="question-number">
                                                             <span>第 <?php echo $index + 1; ?> 題</span>
-                                                            <span class="question-points"><?php echo e($exercise['points']); ?> 分</span>
                                                         </div>
-                                                        <div class="question-timer" id="timer-<?php echo $index; ?>">
-                                                            <i class="fas fa-clock"></i>
-                                                            <span>建議時間：2分鐘</span>
+                                                        <div class="exercise-info">
+                                                            <span class="exercise-count">共 <?php echo e($currentLesson['exercises']); ?> 題</span>
+                                                            <span class="exercise-progress" id="exercise-progress">0/<?php echo e($currentLesson['exercises']); ?></span>
                                                         </div>
                                                     </div>
                                                     
                                                     <!-- Question Content -->
                                                     <div class="question-content">
-                                                        <h4 class="question-text"><?php echo e($exercise['question']); ?></h4>
-                                                        
                                                         <?php if ($exercise['type'] === 'mc'): ?>
-                                                            <!-- Multiple Choice Options -->
-                                                            <div class="answer-options">
-                                                                <?php foreach ($exercise['options'] as $optionIndex => $option): ?>
-                                                                    <div class="option-item" data-option="<?php echo $optionIndex; ?>">
-                                                                        <input type="radio" 
-                                                                               name="answer-<?php echo $index; ?>" 
-                                                                               value="<?php echo $optionIndex; ?>" 
-                                                                               id="option-<?php echo $index; ?>-<?php echo $optionIndex; ?>"
-                                                                               class="option-input">
-                                                                        <label for="option-<?php echo $index; ?>-<?php echo $optionIndex; ?>" class="option-label">
-                                                                            <span class="option-letter"><?php echo chr(65 + $optionIndex); ?></span>
-                                                                            <span class="option-text"><?php echo e($option); ?></span>
-                                                                        </label>
-                                                                    </div>
-                                                                <?php endforeach; ?>
-                                                            </div>
-                                                        <?php elseif ($exercise['type'] === 'text'): ?>
-                                                            <!-- Text Input -->
-                                                            <div class="text-answer-container">
-                                                                <textarea 
-                                                                    id="text-answer-<?php echo $index; ?>" 
-                                                                    name="text-answer-<?php echo $index; ?>" 
-                                                                    class="text-answer-input" 
-                                                                    placeholder="<?php echo e($exercise['placeholder']); ?>"
-                                                                    rows="4"
-                                                                    data-exercise-index="<?php echo $index; ?>"></textarea>
-                                                                <div class="text-answer-hint">
-                                                                    <i class="fas fa-info-circle"></i>
-                                                                    <span>請詳細回答問題，答案將根據關鍵詞進行評分</span>
+                                                            <div class="video-section" style="padding: 1rem;">
+                                                                <div class="video-container">
+                                                                    <video controls width="100%">
+                                                                        <source src="<?php echo BASE_URL; ?>/assets/<?php echo e($currentLesson['video_url']); ?>" type="video/mp4">
+                                                                    </video>
                                                                 </div>
                                                             </div>
+                                                            <p style="margin: 1rem; color: #6b7280;">觀看影片後回答以下選擇題：</p>
+                                                             <h4 class="question-text"><?php echo e($exercise['question']); ?></h4>
+                                                             <!-- Multiple Choice Options -->
+                                                             <div class="answer-options">
+                                                                 <?php foreach ($exercise['options'] as $optionIndex => $option): ?>
+                                                                     <div class="option-item" data-option="<?php echo $optionIndex; ?>">
+                                                                         <input type="radio" 
+                                                                                name="answer-<?php echo $index; ?>" 
+                                                                                value="<?php echo $optionIndex; ?>" 
+                                                                                id="option-<?php echo $index; ?>-<?php echo $optionIndex; ?>"
+                                                                                class="option-input">
+                                                                         <label for="option-<?php echo $index; ?>-<?php echo $optionIndex; ?>" class="option-label">
+                                                                             <span class="option-letter"><?php echo chr(65 + $optionIndex); ?></span>
+                                                                             <span class="option-text"><?php echo e($option); ?></span>
+                                                                         </label>
+                                                                     </div>
+                                                                 <?php endforeach; ?>
+                                                             </div>
+                                                         <?php elseif ($exercise['type'] === 'text'): ?>
+                                                             <h4 class="question-text"><?php echo e($exercise['question']); ?></h4>
+                                                             <!-- Text Input -->
+                                                             <div class="text-answer-container">
+                                                                 <textarea 
+                                                                     id="text-answer-<?php echo $index; ?>" 
+                                                                     name="text-answer-<?php echo $index; ?>" 
+                                                                     class="text-answer-input" 
+                                                                     placeholder="<?php echo e($exercise['placeholder']); ?>"
+                                                                     rows="4"
+                                                                     data-exercise-index="<?php echo $index; ?>"></textarea>
+                                                                 <div class="text-answer-hint">
+                                                                     <i class="fas fa-info-circle"></i>
+                                                                     <span>請詳細回答問題，答案將根據關鍵詞進行評分</span>
+                                                                 </div>
+                                                             </div>
+                                                         <?php elseif ($exercise['type'] === 'video'): ?>
+                                                            <div class="video-section" style="padding: 1rem;">
+                                                                <div class="video-container">
+                                                                    <video controls width="100%">
+                                                                        <source src="<?php echo BASE_URL; ?>/assets/<?php echo e($exercise['media_url']); ?>" type="video/mp4">
+                                                                    </video>
+                                                                </div>
+                                                            </div>
+                                                            <p style="margin: 1rem; color: #6b7280;">觀看影片後，點擊完成前往下一題。</p>
+                                                        <?php elseif ($exercise['type'] === 'audio'): ?>
+                                                            <div style="padding: 1rem;">
+                                                                <audio controls style="width:100%">
+                                                                    <source src="<?php echo BASE_URL; ?>/assets/<?php echo e($exercise['media_url']); ?>" type="audio/mpeg">
+                                                                </audio>
+                                                            </div>
+                                                            <p style="margin: 1rem; color: #6b7280;">聆聽音檔後，點擊完成前往下一題。</p>
+                                                        <?php elseif ($exercise['type'] === 'text_block'): ?>
+                                                            <div style="padding: 1rem;">
+                                                                <div style="background:#f8f9fa; border:1px solid #e9ecef; border-radius:12px; padding:1rem; line-height:1.6; color:#374151;">
+                                                                    <?php echo nl2br(e($exercise['text'])); ?>
+                                                                </div>
+                                                            </div>
+                                                            <p style="margin: 1rem; color: #6b7280;">閱讀後，點擊完成前往下一題。</p>
                                                         <?php endif; ?>
                                                     </div>
                                                     
                                                     <!-- Question Actions -->
                                                     <div class="question-actions">
-                                                        <button class="btn btn-outline-secondary" id="hint-btn-<?php echo $index; ?>" disabled>
-                                                            <i class="fas fa-lightbulb me-1"></i>
-                                                            提示
-                                                        </button>
-                                                        <button class="btn btn-primary" id="submit-btn-<?php echo $index; ?>" disabled>
+                                                        <button class="btn btn-primary" id="submit-btn-<?php echo $index; ?>" <?php echo in_array($exercise['type'], ['video','audio','text_block']) ? '' : 'disabled'; ?>>
                                                             <i class="fas fa-check me-1"></i>
-                                                            提交答案
+                                                            <?php echo in_array($exercise['type'], ['video','audio','text_block']) ? '完成' : '提交答案'; ?>
                                                         </button>
                                                     </div>
                                                     
