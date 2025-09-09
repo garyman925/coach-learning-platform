@@ -2,9 +2,9 @@
 
 /* 頂部橫條 */
 .top-bar {
-    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-800) 100%);
-    color: white;
-    padding: var(--spacing-3) 0;
+    background: #f8f9fa;
+    color: #343a40;
+    padding: var(--spacing-6) 0;
     box-shadow: var(--shadow-sm);
 }
 
@@ -24,15 +24,14 @@
 }
 
 .logo img {
-    height: 40px;
+    height: 60px;
     width: auto;
-    filter: brightness(0) invert(1);
 }
 
 .slogan {
-    font-size: var(--text-sm);
+    font-size: var(--text-md);
     font-weight: var(--font-medium);
-    opacity: 0.9;
+    color: #6c757d;
 }
 
 /* 用戶操作 */
@@ -55,7 +54,7 @@
 .user-menu-toggle {
     background: none;
     border: none;
-    color: white;
+    color: #343a40;
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
@@ -66,7 +65,7 @@
 }
 
 .user-menu-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .user-name {
@@ -83,12 +82,13 @@
 .user-icon {
     width: 32px;
     height: 32px;
-    background: rgba(255, 255, 255, 0.2);
+    background: #e3e3e3;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
+    color: white;
     flex-shrink: 0;
 }
 
@@ -101,7 +101,7 @@
 
 .user-greeting {
     font-size: 12px;
-    opacity: 0.8;
+    color: #6c757d;
     font-weight: var(--font-normal);
     line-height: 1;
 }
@@ -109,6 +109,7 @@
 .user-name {
     font-weight: var(--font-medium);
     font-size: 14px;
+    color: #343a40;
     line-height: 1;
 }
 
@@ -160,7 +161,7 @@
 .language-toggle {
     background: none;
     border: none;
-    color: white;
+    color: #343a40;
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
@@ -171,7 +172,7 @@
 }
 
 .language-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .current-language {
@@ -244,7 +245,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: var(--spacing-4) 0;
+    padding: var(--spacing-2) 0;
 }
 
 /* 導航菜單 */
@@ -383,11 +384,11 @@
 
 .search-button {
     position: absolute;
-    right: var(--spacing-2);
+    right: 0;
     background: var(--primary-color);
     border: none;
     color: white;
-    padding: var(--spacing-2);
+    padding: var(--spacing-1);
     border-radius: var(--radius-full);
     cursor: pointer;
     transition: background-color var(--transition-fast);

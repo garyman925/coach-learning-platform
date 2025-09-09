@@ -119,12 +119,35 @@ class ServiceForms {
     }
 
     getRequiredErrorMessage(field) {
-        const label = field.previousElementSibling;
-        if (label && label.tagName === 'LABEL') {
-            const labelText = label.textContent.replace(' *', '');
-            return `請填寫${labelText}`;
+        // 根據欄位名稱或ID提供更友好的錯誤訊息
+        const fieldId = field.id;
+        const fieldName = field.name;
+        
+        // 特定欄位的友好名稱映射
+        const fieldNameMap = {
+            'contact-name': '姓名',
+            'name': '姓名',
+            'contact-email': '電郵',
+            'email': '電郵',
+            'contact-coach': '預約教練',
+            'coach': '預約教練',
+            'contact-date': '預計開始日期',
+            'preferred_date': '預計開始日期'
+        };
+        
+        // 優先使用ID，然後是name，最後是label
+        let displayName = fieldNameMap[fieldId] || fieldNameMap[fieldName];
+        
+        if (!displayName) {
+            const label = field.previousElementSibling;
+            if (label && label.tagName === 'LABEL') {
+                displayName = label.textContent.replace(' *', '');
+            } else {
+                displayName = field.getAttribute('placeholder') || field.name || '此欄位';
+            }
         }
-        return '此欄位為必填';
+        
+        return `${displayName}為必填項目`;
     }
 
     showFieldError(field, message) {
@@ -140,16 +163,43 @@ class ServiceForms {
             display: block;
         `;
         
-        field.parentNode.appendChild(errorDiv);
-        field.style.borderColor = '#dc3545';
+        // 檢查是否在 phone-input-group 中
+        const phoneInputGroup = field.closest('.phone-input-group');
+        if (phoneInputGroup) {
+            // 如果是在 phone-input-group 中，將錯誤訊息放在 phone-input-group 的父元素中
+            phoneInputGroup.parentNode.appendChild(errorDiv);
+            // 為 phone-input-group 中的所有 input 和 select 添加錯誤樣式
+            phoneInputGroup.querySelectorAll('input, select').forEach(input => {
+                input.style.borderColor = '#dc3545';
+            });
+        } else {
+            // 普通情況，放在 field 的父元素中
+            field.parentNode.appendChild(errorDiv);
+            field.style.borderColor = '#dc3545';
+        }
     }
 
     clearFieldError(field) {
-        const existingError = field.parentNode.querySelector('.field-error');
-        if (existingError) {
-            existingError.remove();
+        // 檢查是否在 phone-input-group 中
+        const phoneInputGroup = field.closest('.phone-input-group');
+        if (phoneInputGroup) {
+            // 如果是在 phone-input-group 中，從 phone-input-group 的父元素中查找錯誤訊息
+            const existingError = phoneInputGroup.parentNode.querySelector('.field-error');
+            if (existingError) {
+                existingError.remove();
+            }
+            // 清除 phone-input-group 中所有 input 和 select 的錯誤樣式
+            phoneInputGroup.querySelectorAll('input, select').forEach(input => {
+                input.style.borderColor = '';
+            });
+        } else {
+            // 普通情況
+            const existingError = field.parentNode.querySelector('.field-error');
+            if (existingError) {
+                existingError.remove();
+            }
+            field.style.borderColor = '';
         }
-        field.style.borderColor = '';
     }
 
     validateForm(form) {

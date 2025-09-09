@@ -15,6 +15,7 @@ RewriteRule ^(.*)/$ /$1 [L,R=301]
 # 頁面路由
 RewriteRule ^about/?$ pages/about.php [L]
 RewriteRule ^about-us/?$ pages/about.php [L]
+RewriteRule ^courses-overview/?$ course-overview.php [L]
 RewriteRule ^login-page/?$ login-page.php [L]
 RewriteRule ^courses/?$ pages/courses.php [L]
 RewriteRule ^courses/professional-coaching/?$ pages/courses/professional-coaching.php [L]

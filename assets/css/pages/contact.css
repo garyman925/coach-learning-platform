@@ -146,17 +146,18 @@
 }
 
 .contact-icon {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    border-radius: 50%;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
     display: flex;
+    margin: 0;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 2rem;
 }
+
 
 .contact-card h3 {
     font-size: 1.4rem;
@@ -166,7 +167,9 @@
 }
 
 .contact-details {
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .contact-main {
@@ -255,7 +258,7 @@
 .contact-form {
     background: transparent;
     border-radius: 16px;
-    padding: 2.5rem;
+    padding: 1.5rem;
     box-shadow: none;
     border: 2px solid rgba(255, 255, 255, 0.2);
     color: white;
@@ -299,16 +302,22 @@
     background: rgba(255, 255, 255, 0.15) !important;
 }
 
-.contact-page .form-group select option {
-    background: var(--primary-700) !important;
+/* Select 下拉選單樣式 */
+.contact-page .form-group select {
     color: white !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.contact-page .form-group select option {
+    background: white !important;
+    color: #333 !important;
+    padding: 0.5rem;
 }
 
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
-    margin-bottom: 1.5rem;
 }
 
 .form-group {
@@ -319,7 +328,7 @@
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
-    color: var(--text-primary);
+    color: #fff;
 }
 
 .form-group input,
@@ -344,6 +353,23 @@
 .form-group textarea {
     resize: vertical;
     min-height: 120px;
+}
+
+/* 電話號碼組合輸入框樣式 */
+.phone-input-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.phone-region {
+    flex: 0 0 auto;
+    min-width: 120px;
+    max-width: 150px;
+}
+
+.phone-input-group input[type="tel"] {
+    flex: 1;
 }
 
 /* Checkbox Styling */

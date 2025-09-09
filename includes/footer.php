@@ -9,7 +9,7 @@
                     <div class="footer-section">
                         <h3 class="footer-title">關於我們</h3>
                                                  <div class="footer-logo">
-                             <img src="<?php echo BASE_URL; ?>/assets/images/logos/logo-white.svg" alt="<?php echo SITE_NAME; ?>" width="120" height="32">
+                             <img src="<?php echo BASE_URL; ?>/assets/images/logos/logo-main-white-bg.png" alt="<?php echo SITE_NAME; ?>">
                          </div>
                         <p class="footer-description">
                             專業的教練培訓平台，致力於培養優秀的教練人才，為個人和企業提供高品質的教練服務。
@@ -64,28 +64,47 @@
                     
                     <!-- Contact Info -->
                     <div class="footer-section">
+                        
                         <h3 class="footer-title">聯系資訊</h3>
-                        <div class="contact-info">
+                        
+                        <div class="contact-details">
                             <div class="contact-item">
-                                <svg class="contact-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-                                </svg>
-                                <span>info@coachplatform.com</span>
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                    </svg>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>地址</h4>
+                                    <p>台北市信義區信義路五段7號</p>
+                                </div>
                             </div>
+                            
                             <div class="contact-item">
-                                <svg class="contact-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-                                </svg>
-                                <span>+886 2 1234 5678</span>
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                                    </svg>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>電話</h4>
+                                    <p>+886 2 2345 6789</p>
+                                </div>
                             </div>
+                            
                             <div class="contact-item">
-                                <svg class="contact-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-                                </svg>
-                                <span>台北市信義區信義路五段7號</span>
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                    </svg>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>電子郵件</h4>
+                                    <p>info@coachplatform.com</p>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 

@@ -23,30 +23,90 @@ include 'includes/header.php';
 
 <!-- Hero Section -->
 <section class="hero-section">
-    <div class="hero-slider">
+    <div class="hero-slider" id="heroSlider">
+        <!-- Slide 1: 教練咖啡時刻 -->
         <div class="hero-slide active" data-slide="1">
             <div class="hero-background">
-                <img src="<?php echo BASE_URL; ?>/assets/images/hero/hero-bg-1.png" alt="專業教練培訓" class="hero-image">
+                <img src="<?php echo BASE_URL; ?>/assets/images/hero/hero-bg-1.png" alt="教練咖啡時刻" class="hero-image">
                 <div class="hero-overlay"></div>
             </div>
             <div class="hero-content">
                 <div class="container">
                     <div class="hero-text">
                         <h1 class="hero-title">
-                            <span class="hero-title-line">專業教練培訓</span>
-                            <span class="hero-title-line">成就卓越人生</span>
+                            <span class="hero-title-line">教練咖啡時刻</span>
+                            <span class="hero-title-line">9月25日晚 20:00</span>
                         </h1>
                         <p class="hero-description">
-                            透過專業的教練培訓課程，幫助您掌握教練技能，成為優秀的教練人才
+                            鎖定席位 即時報名
                         </p>
                         <div class="hero-actions">
-                            <a href="/courses" class="btn btn-primary btn-large">探索課程</a>
-                            <a href="/contact" class="btn btn-outline btn-large">咨詢服務</a>
+                            <a href="/contact" class="btn btn-primary btn-large">立即報名</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Slide 2: ACTP 專業教練認證課程 -->
+        <div class="hero-slide" data-slide="2">
+            <div class="hero-background">
+                <img src="<?php echo BASE_URL; ?>/assets/images/hero/hero-bg-2.png" alt="ACTP 專業教練認證課程" class="hero-image">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <div class="container">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            <span class="hero-title-line">ACTP 專業教練認證課程</span>
+                            <span class="hero-title-line">即將開班</span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: 個人成長課程 -->
+        <div class="hero-slide" data-slide="3">
+            <div class="hero-background">
+                <img src="<?php echo BASE_URL; ?>/assets/images/hero/hero-bg-3.png" alt="個人成長課程" class="hero-image">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-content">
+                <div class="container">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            <span class="hero-title-line">個人成長課程</span>
+                            <span class="hero-title-line">開啟潛能之旅</span>
+                        </h1>
+                        <p class="hero-description">
+                            透過9型人格、親子教練等專業課程，幫助您深入了解自己，實現個人突破
+                        </p>
+                        <div class="hero-actions">
+                            <a href="/courses" class="btn btn-primary btn-large">查看課程</a>
+                            <a href="/about" class="btn btn-outline btn-large">關於我們</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+    <!-- Slider Controls -->
+    <div class="slider-controls">
+        <!-- Navigation Arrows -->
+        <button class="slider-arrow slider-arrow-prev" data-direction="prev" aria-label="上一張">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+        <button class="slider-arrow slider-arrow-next" data-direction="next" aria-label="下一張">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"/>
+            </svg>
+        </button>
+
+    </div>
     </div>
 </section>
 
@@ -69,7 +129,7 @@ include 'includes/header.php';
                  <p class="card-description">
                      與專業教練一對一交流，獲得個性化的指導和建議，解決您的具體問題
                  </p>
-                 <a href="/coach-services" class="btn btn-primary">立即預訂</a>
+                 <a href="#contact-form-section" class="btn btn-primary scroll-to-contact">立即預訂</a>
              </div>
             
                          <div class="action-card" data-animate="fadeInUp" data-delay="200">
@@ -82,7 +142,7 @@ include 'includes/header.php';
                  <p class="card-description">
                      參加專業的教練培訓課程，掌握教練技能，獲得國際認證，開啟教練職業生涯
                  </p>
-                 <a href="/courses" class="btn btn-primary">查看課程</a>
+                 <a href="<?php echo BASE_URL; ?>/courses-overview" class="btn btn-primary">查看課程</a>
              </div>
             
                          <div class="action-card" data-animate="fadeInUp" data-delay="400">
@@ -325,9 +385,9 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <div class="coach-section-footer">
+        <div class="coach-section-footer">btn btn-primary btn-large
             <p class="coach-footer-text">想要了解更多教練資訊？</p>
-            <a href="/coaches" class="btn btn-outline btn-large">查看所有教練</a>
+            <a href="/coaches" class="btn btn-primary btn-large">查看所有教練</a>
         </div>
     </div>
 </section>
@@ -357,7 +417,7 @@ include 'includes/header.php';
                         我們很高興地宣布，2024年專業教練認證課程正式開課！本課程將為學員提供全面的教練技能培訓...
                     </p>
                     <div class="news-actions">
-                        <a href="/news/coach-certification-2024" class="btn btn-outline btn-sm">閱讀更多</a>
+                        <a href="/news/coach-certification-2024" class="btn btn-sm">閱讀更多</a>
                         <a href="/courses/professional-coaching" class="btn btn-primary btn-sm">立即報名</a>
                     </div>
                 </div>
@@ -379,7 +439,7 @@ include 'includes/header.php';
                         針對企業管理者和HR專業人士的專題工作坊，學習如何運用教練技巧提升團隊效能和員工滿意度...
                     </p>
                     <div class="news-actions">
-                        <a href="/news/enterprise-coaching-workshop" class="btn btn-outline btn-sm">閱讀更多</a>
+                        <a href="/news/enterprise-coaching-workshop" class="btn btn-sm">閱讀更多</a>
                         <a href="/events/enterprise-workshop" class="btn btn-primary btn-sm">報名參加</a>
                     </div>
                 </div>
@@ -401,7 +461,7 @@ include 'includes/header.php';
                         基於家長反饋，我們對9型人格親子課程進行了全面升級，新增更多實用工具和案例分析...
                     </p>
                     <div class="news-actions">
-                        <a href="/news/enneagram-parenting-upgrade" class="btn btn-outline btn-sm">閱讀更多</a>
+                        <a href="/news/enneagram-parenting-upgrade" class="btn btn-sm">閱讀更多</a>
                         <a href="/courses/parenting-enneagram" class="btn btn-primary btn-sm">了解詳情</a>
                     </div>
                 </div>
@@ -410,58 +470,22 @@ include 'includes/header.php';
 
         <div class="news-section-footer">
             <p class="news-footer-text">想要獲取更多最新資訊？</p>
-            <a href="/news" class="btn btn-outline btn-large">查看所有新聞</a>
+            <a href="/news" class="btn btn-large">查看所有新聞</a>
         </div>
     </div>
 </section>
 
 <!-- Contact Form Section -->
-<section class="contact-form-section">
+<section class="contact-form-section" id="contact-form-section">
     <div class="container">
         <div class="contact-content">
             <div class="contact-info" data-animate="fadeInLeft">
-                <h2 class="contact-title">聯繫我們</h2>
+                <h2 class="contact-title">預約教練</h2>
                 <p class="contact-description">
                     有任何問題或需要諮詢？我們很樂意為您提供幫助。請填寫以下表單，我們會盡快回覆您。
                 </p>
                 
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                            </svg>
-                        </div>
-                        <div class="contact-text">
-                            <h4>地址</h4>
-                            <p>台北市信義區信義路五段7號</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                            </svg>
-                        </div>
-                        <div class="contact-text">
-                            <h4>電話</h4>
-                            <p>+886 2 2345 6789</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                            </svg>
-                        </div>
-                        <div class="contact-text">
-                            <h4>電子郵件</h4>
-                            <p>info@coachplatform.com</p>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
             
             <div class="contact-form-container" data-animate="fadeInRight">
@@ -478,25 +502,51 @@ include 'includes/header.php';
                     </div>
                     
                     <div class="form-group">
-                        <label for="contact-phone">電話號碼</label>
-                        <input type="tel" id="contact-phone" name="phone">
+                        <label for="contact-phone">聯系電話</label>
+                        <div class="phone-input-group">
+                            <select id="contact-phone-region" name="phone_region" class="phone-region">
+                                <option value="+852">香港 (+852)</option>
+                                <option value="+86">中國 (+86)</option>
+                                <option value="+886">台灣 (+886)</option>
+                                <option value="+65">新加坡 (+65)</option>
+                                <option value="+60">馬來西亞 (+60)</option>
+                                <option value="+1">美國/加拿大 (+1)</option>
+                                <option value="+44">英國 (+44)</option>
+                                <option value="+61">澳洲 (+61)</option>
+                                <option value="other">其他</option>
+                            </select>
+                            <input type="tel" id="contact-phone" name="phone" placeholder="請輸入電話號碼">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contact-wechat">微信號</label>
+                            <input type="text" id="contact-wechat" name="wechat" placeholder="請輸入微信號">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-whatsapp">WhatsApp</label>
+                            <input type="text" id="contact-whatsapp" name="whatsapp" placeholder="請輸入WhatsApp號碼">
+                        </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="contact-subject">諮詢主題 *</label>
-                        <select id="contact-subject" name="subject" required>
-                            <option value="">請選擇諮詢主題</option>
-                            <option value="course-inquiry">課程諮詢</option>
-                            <option value="coaching-service">教練服務</option>
-                            <option value="partnership">合作夥伴</option>
-                            <option value="general">一般諮詢</option>
-                            <option value="other">其他</option>
+                        <label for="contact-coach">預約教練 *</label>
+                        <select id="contact-coach" name="coach" required>
+                            <option value="Gloria Hung" selected>Gloria Hung</option>
+                            <option value="張教練">張教練</option>
+                            <option value="李教練">李教練</option>
+                            <option value="王教練">王教練</option>
+                            <option value="陳教練">陳教練</option>
+                            <option value="林教練">林教練</option>
+                            <option value="黃教練">黃教練</option>
+                            <option value="其他">其他</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="contact-message">訊息內容 *</label>
-                        <textarea id="contact-message" name="message" rows="5" required placeholder="請詳細描述您的需求或問題..."></textarea>
+                        <label for="contact-date">預開始日期 *</label>
+                        <input type="date" id="contact-date" name="preferred_date" required>
                     </div>
                     
                     <div class="form-actions">
@@ -508,6 +558,42 @@ include 'includes/header.php';
     </div>
 </section>
 
+<script>
+// 初始化 Hero Slider
+document.addEventListener('DOMContentLoaded', function() {
+    const heroSlider = document.getElementById('heroSlider');
+    
+    if (heroSlider) {
+        const slider = new Slider(heroSlider, {
+            autoplay: true,
+            autoplaySpeed: 1000000000, // 5秒切換
+            pauseOnHover: true,
+            showArrows: true,
+            showDots: false
+        });
+        
+        // 監聽滑動事件（可選）
+        heroSlider.addEventListener('slideChanged', function(e) {
+            console.log('Slide changed to:', e.detail.currentSlide + 1);
+        });
+    }
+    
+    // 平滑滾動到聯繫表單
+    const scrollToContactLinks = document.querySelectorAll('.scroll-to-contact');
+    scrollToContactLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetSection = document.getElementById('contact-form-section');
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+</script>
 
 <?php
 // 包含頁面頁腳

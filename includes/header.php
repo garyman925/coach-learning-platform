@@ -110,13 +110,13 @@ $currentLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : 'zh-TW
     <header class="site-header" role="banner">
         <!-- Top Bar -->
         <div class="top-bar">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="top-bar-content">
                                          <!-- Company Info -->
                      <div class="company-info">
                                                                            <div class="logo">
                              <a href="<?php echo BASE_URL; ?>/index.php" aria-label="<?php echo SITE_NAME; ?> 首頁">
-                                 <img src="<?php echo BASE_URL; ?>/assets/images/logos/logo-main.svg" alt="<?php echo SITE_NAME; ?>" width="200" height="60">
+                                 <img src="<?php echo BASE_URL; ?>/assets/images/logos/logo-main.png" alt="<?php echo SITE_NAME; ?>" width="200" height="60">
                              </a>
                          </div>
                         <div class="slogan">
@@ -165,7 +165,7 @@ $currentLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : 'zh-TW
                          <?php else: ?>
                              <!-- Guest user -->
                              <div class="auth-buttons">
-                                 <a href="<?php echo BASE_URL; ?>/login-page" class="btn btn-outline">登入</a>
+                                 <a href="<?php echo BASE_URL; ?>/login-page" class="btn btn-primary">登入</a>
                                  <button type="button" class="btn btn-primary" onclick="showRegisterModal()">註冊</button>
                              </div>
                          <?php endif; ?>
@@ -200,7 +200,7 @@ $currentLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : 'zh-TW
         
         <!-- Main Navigation -->
         <nav class="main-navigation" role="navigation" aria-label="主要導航">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="nav-content">
                     <!-- Mobile Menu Toggle -->
                     <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="main-menu">
@@ -218,6 +218,10 @@ $currentLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : 'zh-TW
                           
                           <li class="nav-item" role="none">
                               <a href="<?php echo BASE_URL; ?>/about" class="nav-link" role="menuitem">關於我們</a>
+                          </li>
+                         
+                         <li class="nav-item" role="none">
+                              <a href="<?php echo BASE_URL; ?>/courses-overview" class="nav-link" role="menuitem">課程介紹</a>
                           </li>
                          
                          <li class="nav-item has-dropdown" role="none">
@@ -267,6 +271,9 @@ $currentLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : 'zh-TW
                                   <a href="<?php echo BASE_URL; ?>/about" class="mobile-menu-link">關於我們</a>
                               </li>
                               <li class="mobile-menu-item">
+                                  <a href="<?php echo BASE_URL; ?>/courses-overview" class="mobile-menu-link">課程介紹</a>
+                              </li>
+                              <li class="mobile-menu-item">
                                   <a href="<?php echo BASE_URL; ?>/courses" class="mobile-menu-link">培訓課程</a>
                               </li>
                               <li class="mobile-menu-item">
@@ -287,9 +294,8 @@ $currentLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : 'zh-TW
                             <div class="search-input-wrapper">
                                 <input type="search" class="search-input" placeholder="搜尋課程或服務..." aria-label="搜尋">
                                 <button type="button" class="search-button" aria-label="搜尋" onclick="toggleSearch()">
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                                        <circle cx="8" cy="8" r="6"/>
-                                        <path d="M12.5 12.5L18 18"/>
+                                    <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor">
+                                        <path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M10 5C7.23858 5 5 7.23858 5 10C5 12.7614 7.23858 15 10 15C11.381 15 12.6296 14.4415 13.5355 13.5355C14.4415 12.6296 15 11.381 15 10C15 7.23858 12.7614 5 10 5ZM3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 11.5719 16.481 13.0239 15.6063 14.1921L20.7071 19.2929C21.0976 19.6834 21.0976 20.3166 20.7071 20.7071C20.3166 21.0976 19.6834 21.0976 19.2929 20.7071L14.1921 15.6063C13.0239 16.481 11.5719 17 10 17C6.13401 17 3 13.866 3 10Z" fill="#ffffff"/>
                                     </svg>
                                 </button>
                             </div>

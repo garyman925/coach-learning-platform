@@ -245,19 +245,6 @@
     margin-top: var(--spacing-8);
 }
 
-.contact-form {
-    background: white;
-    padding: var(--spacing-8);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md);
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-4);
-    margin-bottom: var(--spacing-4);
-}
 
 .form-group {
     margin-bottom: var(--spacing-4);
@@ -310,7 +297,6 @@
     background: white;
     padding: var(--spacing-6);
     border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-md);
     height: fit-content;
 }
 

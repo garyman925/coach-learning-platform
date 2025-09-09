@@ -58,7 +58,7 @@ $isLoggedIn = $userManagement->isLoggedIn();
             <!-- Logo 和返回主頁 -->
             <div class="user-header-left">
                 <div class="user-logo">
-                    <img src="<?php echo BASE_URL; ?>/assets/images/logos/logo-main.svg" alt="<?php echo SITE_NAME; ?>" class="logo-img">
+                    <img src="<?php echo BASE_URL; ?>/assets/images/logos/logo-main.png" alt="<?php echo SITE_NAME; ?>" class="logo-img">
                 </div>
             </div>
             

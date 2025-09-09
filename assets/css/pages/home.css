@@ -4,11 +4,45 @@
 .hero-section {
     position: relative;
     min-height: 100vh;
-    background: linear-gradient(135deg, var(--primary-900), var(--primary-800), var(--primary-600));
+    background: linear-gradient(135deg, var(--accent-600), var(--accent-800), var(--accent-600));
     display: flex;
     align-items: center;
     justify-content: end;
     overflow: hidden;
+}
+
+/* Hero Slider */
+.hero-slider {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(100%);
+}
+
+.hero-slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.hero-slide.prev {
+    transform: translateX(-100%);
+}
+
+.hero-slide.next {
+    transform: translateX(100%);
 }
 
 .hero-section::before {
@@ -70,13 +104,17 @@
 }
 
 .hero-content {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
     z-index: 3;
     text-align: center;
     color: white;
     max-width: 900px;
     margin: 0 auto;
     padding: var(--spacing-8) var(--spacing-4);
+    background: linear-gradient(transparent, rgba(0,0,0,0.3));
 }
 
 .hero-text {
@@ -84,7 +122,7 @@
 }
 
 .hero-title {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2.5rem, 5vw, 3rem);
     font-weight: 700;
     margin-bottom: var(--spacing-6);
     line-height: 1.1;
@@ -108,7 +146,7 @@
 
 .hero-description {
     font-size: clamp(1.125rem, 2.5vw, 1.25rem);
-    margin-bottom: var(--spacing-8);
+    margin-bottom: var(--spacing-6);
     opacity: 0.95;
     line-height: 1.6;
     max-width: 450px;
@@ -180,6 +218,61 @@
     box-shadow: var(--shadow-white);
 }
 
+/* Slider Controls */
+.slider-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    z-index: 10;
+    pointer-events: none;
+}
+
+.slider-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    pointer-events: auto;
+}
+
+.slider-arrow:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.slider-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.slider-arrow-prev {
+    left: 30px;
+}
+
+.slider-arrow-next {
+    right: 30px;
+}
+
+.slider-arrow svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.5;
+}
+
+
 /* 響應式設計 */
 @media (max-width: 1024px) {
     .hero-title {
@@ -188,6 +281,19 @@
     
     .hero-description {
         font-size: clamp(1rem, 2vw, 1.25rem);
+    }
+    
+    .slider-arrow {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .slider-arrow-prev {
+        left: 20px;
+    }
+    
+    .slider-arrow-next {
+        right: 20px;
     }
 }
 
@@ -209,6 +315,20 @@
         width: 100%;
         max-width: 280px;
     }
+    
+    .slider-arrow {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .slider-arrow-prev {
+        left: 15px;
+    }
+    
+    .slider-arrow-next {
+        right: 15px;
+    }
+    
     
     .section-title {
         font-size: clamp(1.75rem, 3.5vw, 2.5rem);
@@ -318,14 +438,8 @@
 .section-title {
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
-    color: var(--neutral-900);
+    color: var(--primary-color);
     margin-bottom: var(--spacing-4);
-    background: linear-gradient(135deg, var(--primary-700), var(--accent-600), var(--secondary-600));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 200% 200%;
-    animation: gradientShift 3s ease-in-out infinite;
     position: relative;
 }
 
@@ -337,7 +451,7 @@
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background: linear-gradient(90deg, var(--primary-500), var(--accent-500));
+    background: var(--secondary-500);
     border-radius: 2px;
     animation: pulse 2s ease-in-out infinite;
 }
@@ -381,7 +495,6 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-500), var(--accent-500));
     transform: scaleX(0);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -393,7 +506,6 @@
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent-500), var(--secondary-500));
     transform: scaleX(0);
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0.1s;
@@ -464,9 +576,7 @@
 .card-description {
     font-size: var(--text-base);
     color: var(--neutral-600);
-    line-height: 1.6;
-    margin-bottom: var(--spacing-6);
-    min-height: 4.5em;
+    min-height: 4em;
 }
 
 .action-card .btn {
@@ -477,7 +587,7 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+    background: var(--accent-500);
     color: white;
     border: none;
     box-shadow: var(--shadow-md);
@@ -501,7 +611,7 @@
 .action-card .btn:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
-    background: linear-gradient(135deg, var(--primary-600), var(--primary-700));
+    background: linear-gradient(135deg, var(--secondary-600), var(--secondary-700));
 }
 
 /* 滾動觸發動畫 */
@@ -1265,7 +1375,7 @@
     font-weight: 700;
     color: var(--neutral-900);
     margin-bottom: var(--spacing-4);
-    background: linear-gradient(135deg, var(--primary-600), var(--secondary-600));
+    background: var(--primary-color);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -1750,7 +1860,8 @@
 /* Contact Form Section */
 .contact-form-section {
     padding: 5rem 0;
-    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    background: url('../../images/contact/contact-cta-bg.png') center/cover,
+                linear-gradient(180deg, var(--accent-500) 0%, var(--accent-800) 100%);
     color: white;
     position: relative;
     overflow: hidden;
@@ -1782,7 +1893,7 @@
 .contact-title {
     font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     color: white;
 }
 
@@ -1794,30 +1905,12 @@
     color: white;
 }
 
-.contact-details {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
 .contact-item {
     display: flex;
     align-items: flex-start;
     gap: 1rem;
 }
 
-.contact-icon {
-    flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    display: flex;
-    margin: 0;
-    align-items: center;
-    justify-content: center;
-    color: white;
-}
 
 .contact-text h4 {
     font-size: 1.125rem;
@@ -1839,31 +1932,12 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
 
 .form-group {
     display: flex;
     flex-direction: column;
 }
 
-.form-group label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: white;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
 
 .form-group input,
 .form-group select,
@@ -1892,9 +1966,33 @@
     box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.1);
 }
 
+/* 電話號碼組合輸入框樣式 */
+.phone-input-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.phone-region {
+    flex: 0 0 auto;
+    min-width: 120px;
+    max-width: 150px;
+}
+
+.phone-input-group input[type="tel"] {
+    flex: 1;
+}
+
+/* Select 下拉選單樣式 */
+.form-group select {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
 .form-group select option {
-    background: var(--color-primary);
-    color: white;
+    background: white !important;
+    color: #333 !important;
+    padding: 0.5rem;
 }
 
 .form-actions {
