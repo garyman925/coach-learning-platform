@@ -6,9 +6,12 @@
         <div class="user-footer-container">
             <div class="user-footer-content">
                 <p>&copy; <?php echo date('Y'); ?> <?php echo SITE_NAME; ?>. 保留所有權利。</p>
-                <a href="<?php echo BASE_URL; ?>/" class="back-to-main-link">
-                    <i class="fas fa-home"></i> 返回主頁
-                </a>
+                <?php if (basename($_SERVER['PHP_SELF']) != 'my-courses.php'): ?>
+                    <a href="<?php echo (basename($_SERVER['PHP_SELF']) == 'course-learning.php') ? BASE_URL . '/my-courses' : BASE_URL . '/'; ?>" class="back-to-main-link">
+                        <i class="fas fa-<?php echo (basename($_SERVER['PHP_SELF']) == 'course-learning.php') ? 'book' : 'home'; ?>"></i> 
+                        <?php echo (basename($_SERVER['PHP_SELF']) == 'course-learning.php') ? '返回主目錄' : '返回主頁'; ?>
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
     </footer>

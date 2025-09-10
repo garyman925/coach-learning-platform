@@ -274,6 +274,11 @@
     font-size: 0.75rem;
 }
 
+.lesson-instructor {
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
 /* Learning Main */
 .learning-main {
     background: white;
@@ -290,11 +295,42 @@
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
 }
 
+.lesson-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
 .lesson-header .lesson-title {
     font-size: 1.8rem;
     font-weight: 700;
     color: #1f2937;
     margin-bottom: 0;
+    flex: 1;
+}
+
+.btn-back-to-courses {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-back-to-courses:hover {
+    background: var(--primary-600);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(var(--primary-color-rgb), 0.3);
 }
 
 .lesson-header .lesson-meta {
@@ -1574,8 +1610,19 @@
         padding: 1.5rem 1rem 1rem 1rem;
     }
     
+    .lesson-header-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
     .lesson-header .lesson-title {
         font-size: 1.5rem;
+        margin-bottom: 0;
+    }
+    
+    .btn-back-to-courses {
+        align-self: flex-end;
     }
     
     .lesson-header .lesson-meta {

@@ -49,7 +49,7 @@ $pageKeywords = '登入,用戶登入,教練平台,學習平台';
             <!-- Logo 和標題 -->
             <div class="auth-header">
                 <div class="auth-logo">
-                    <img src="<?php echo BASE_URL; ?>/assets/images/logos/logo-main.svg" alt="<?php echo SITE_NAME; ?>" class="logo-img">
+                    <img src="<?php echo BASE_URL; ?>/assets/images/logos/logo-main.png" alt="<?php echo SITE_NAME; ?>" class="logo-img">
                 </div>
                 <h1 class="auth-title">歡迎回來</h1>
                 <p class="auth-subtitle">登入您的帳戶以繼續學習</p>

@@ -24,6 +24,9 @@ $pageTitle = '課程學習 - ' . SITE_NAME;
 $pageDescription = '在線學習專業教練課程';
 $pageKeywords = '課程學習,在線教育,教練培訓,學習進度';
 $pageCSS = ['course-learning.css', 'pages/user-layout.css'];
+
+// 隱藏用戶導航列表
+$hideUserNav = true;
 $pageJS = ['course-learning.js', 'learning-progress.js'];
 
 // 獲取課程ID
@@ -31,6 +34,29 @@ $courseId = isset($_GET['course']) ? $_GET['course'] : '';
 
 // 模擬課程數據
 $courseData = [
+    'coffee-moment' => [
+        'id' => 'coffee-moment',
+        'title' => '教練咖啡時刻',
+        'description' => '專業教練交流活動，分享教練經驗和技巧。',
+        'instructor' => 'Gloria Hung',
+        'duration' => '2小時',
+        'lessons' => 1,
+        'progress' => 0,
+        'status' => 'enrolled',
+        'lessons_data' => [
+            [
+                'id' => 'coffee_session_1',
+                'title' => '教練咖啡時刻 - 專業交流',
+                'sidebar_title' => '熱身活動',
+                'header_title' => '教練咖啡時刻 - 專業交流活動',
+                'duration' => '2小時',
+                'video_url' => 'videos/coffee_moment.mp4',
+                'completed' => false,
+                'exercises' => 0,
+                'exercises_data' => []
+            ]
+        ]
+    ],
     'professional' => [
         'id' => 'professional',
         'title' => '專業教練認證課程',
@@ -641,15 +667,15 @@ require_once 'includes/header-user.php';
                                                     <?php endif; ?>
                                                 </div>
                                                 <div class="lesson-content">
-                                                    <h4 class="lesson-title"><?php echo e($lesson['title']); ?></h4>
+                                                    <h4 class="lesson-title"><?php echo e(isset($lesson['sidebar_title']) ? $lesson['sidebar_title'] : $lesson['title']); ?></h4>
                                                     <div class="lesson-meta">
                                                         <span class="lesson-duration">
                                                             <i class="fas fa-clock me-1"></i>
                                                             <?php echo e($lesson['duration']); ?>
                                                         </span>
-                                                        <span class="lesson-exercises">
-                                                            <i class="fas fa-question-circle me-1"></i>
-                                                            <?php echo e($lesson['exercises']); ?> 個練習
+                                                        <span class="lesson-instructor">
+                                                            <i class="fas fa-user me-1"></i>
+                                                            <?php echo e($currentCourse['instructor']); ?>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -666,25 +692,25 @@ require_once 'includes/header-user.php';
                         <div class="learning-main">
                             <!-- Current Lesson Header -->
                             <div class="lesson-header">
-                                <h2 class="lesson-title"><?php echo e($currentLesson['title']); ?></h2>
+                                <div class="lesson-header-top">
+                                    <h2 class="lesson-title"><?php echo e(isset($currentLesson['header_title']) ? $currentLesson['header_title'] : $currentLesson['title']); ?></h2>
+                                    <a href="<?php echo BASE_URL; ?>/my-courses" class="btn-back-to-courses">
+                                        <i class="fas fa-arrow-left me-2"></i>返回主目錄
+                                    </a>
+                                </div>
                                 <div class="lesson-meta">
                                     <span class="lesson-duration">
                                         <i class="fas fa-clock me-1"></i>
                                         <?php echo e($currentLesson['duration']); ?>
                                     </span>
-                                    <span class="lesson-exercises">
-                                        <i class="fas fa-question-circle me-1"></i>
-                                        <?php echo e($currentLesson['exercises']); ?> 個練習
+                                    <span class="lesson-instructor">
+                                        <i class="fas fa-user me-1"></i>
+                                        <?php echo e($currentCourse['instructor']); ?>
                                     </span>
                                     <?php if ($currentLesson['completed']): ?>
                                         <span class="lesson-status completed">
                                             <i class="fas fa-check-circle me-1"></i>
                                             已完成
-                                        </span>
-                                    <?php else: ?>
-                                        <span class="lesson-status pending">
-                                            <i class="fas fa-play-circle me-1"></i>
-                                            進行中
                                         </span>
                                     <?php endif; ?>
                                 </div>
@@ -1061,8 +1087,7 @@ require_once 'includes/header-user.php';
                                         </a>
                                     <?php else: ?>
                                         <button class="btn btn-success">
-                                            <i class="fas fa-certificate me-1"></i>
-                                            完成課程
+                                            完成練習
                                         </button>
                                     <?php endif; ?>
                                 </div>

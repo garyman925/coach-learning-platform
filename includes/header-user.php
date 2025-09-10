@@ -112,6 +112,7 @@ $isLoggedIn = $userManagement->isLoggedIn();
     </header>
     
     <!-- 用戶導航欄 -->
+    <?php if (!isset($hideUserNav) || !$hideUserNav): ?>
     <nav class="user-nav">
         <div class="user-nav-container">
             <!-- 移動端導航切換按鈕 -->
@@ -154,6 +155,7 @@ $isLoggedIn = $userManagement->isLoggedIn();
             </ul>
         </div>
     </nav>
+    <?php endif; ?>
     
     <!-- 主要內容區域 -->
     <main class="user-main">

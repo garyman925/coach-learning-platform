@@ -16,59 +16,29 @@ $username = $currentUser['username'];
 $pageTitle = '我的課程與服務 - ' . SITE_NAME;
 $pageDescription = '管理您的學習進度和課程服務';
 $pageKeywords = '我的課程,學習進度,課程服務,個人中心';
-$pageCSS = ['my-courses.css', 'pages/my-courses.css', 'pages/user-layout.css'];
+
+// 檢查是否為管理員（演示用）
+$isAdmin = true; // 暫時設為 true 用於演示
+$pageCSS = ['my-courses.css', 'pages/user-layout.css'];
 $pageJS = ['my-courses.js', 'learning-progress.js'];
 
 // 模擬用戶課程數據
 $userCourses = [
     [
-        'id' => 'professional',
-        'title' => '專業教練認證課程',
-        'instructor' => '張教練',
-        'status' => 'in_progress',
-        'progress' => 65,
-        'enrolled_date' => '2024-01-15',
-        'completion_date' => null,
-        'next_session' => '2024-02-15 14:00',
-        'total_sessions' => 12,
-        'completed_sessions' => 8,
-        'certificate' => false,
-        'rating' => null,
-        'notes' => '課程內容豐富，教練專業'
-    ],
-    [
-        'id' => 'team',
-        'title' => '團隊教練技巧',
-        'instructor' => '李教練',
-        'status' => 'completed',
-        'progress' => 100,
-        'enrolled_date' => '2023-11-20',
-        'completion_date' => '2024-01-10',
-        'next_session' => null,
-        'total_sessions' => 8,
-        'completed_sessions' => 8,
-        'certificate' => true,
-        'rating' => 5,
-        'notes' => '非常實用的課程，推薦！'
-    ],
-    // 家長教練基礎課程暫時隱藏
-    /*
-    [
-        'id' => 'parent',
-        'title' => '家長教練基礎',
-        'instructor' => '王教練',
+        'id' => 'coffee-moment',
+        'title' => '教練咖啡時刻',
+        'instructor' => 'Gloria Hung',
         'status' => 'enrolled',
         'progress' => 0,
-        'enrolled_date' => '2024-02-01',
+        'enrolled_date' => '2024-09-20',
         'completion_date' => null,
-        'next_session' => '2024-02-20 10:00',
-        'total_sessions' => 6,
+        'next_session' => '2024-09-25 20:00',
+        'total_sessions' => 1,
         'completed_sessions' => 0,
         'certificate' => false,
         'rating' => null,
-        'notes' => ''
+        'notes' => '專業教練交流活動'
     ]
-    */
 ];
 
 // 模擬用戶服務數據
@@ -188,17 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-user-tie"></i>
-                    </div>
-                    <div class="stat-content">
-                        <h3 class="stat-number"><?php echo $totalServices; ?></h3>
-                        <p class="stat-label">教練服務</p>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
         <!-- Navigation Tabs -->
@@ -244,58 +204,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <?php foreach ($userCourses as $course): ?>
                                     <div class="col-lg-3 col-md-6 mb-4">
                                         <div class="course-card">
-                                            <div class="course-header">
-                                                <div class="course-status status-<?php echo $course['status']; ?>">
-                                                    <?php
-                                                    $statusText = [
-                                                        'enrolled' => '已報名',
-                                                        'in_progress' => '進行中',
-                                                        'completed' => '已完成'
-                                                    ];
-                                                    echo isset($statusText[$course['status']]) ? $statusText[$course['status']] : $course['status'];
-                                                    ?>
-                                                </div>
-                                                <?php if ($course['certificate']): ?>
-                                                    <div class="course-certificate">
-                                                        <i class="fas fa-certificate"></i>
+                                            <!-- 課程圖片 -->
+                                            <div class="course-image">
+                                                <img src="<?php echo BASE_URL; ?>/assets/images/hero/hero-bg-1.png" alt="教練咖啡時刻" class="course-img">
+                                                <div class="course-overlay">
+                                                    <div class="course-event-info">
+                                                        <h6 class="course-event-title">教練咖啡時刻</h6>
+                                                        <p class="course-event-time">9月25日晚 20:00</p>
                                                     </div>
-                                                <?php endif; ?>
+                                                </div>
                                             </div>
                                             
                                             <div class="course-content">
+                                                <div class="course-tag">課程</div>
                                                 <h5 class="course-title"><?php echo e($course['title']); ?></h5>
-                                                <p class="course-instructor">
-                                                    <i class="fas fa-user me-2"></i><?php echo e($course['instructor']); ?>
-                                                </p>
+                                                <p class="course-instructor"><?php echo e($course['instructor']); ?></p>
+                                                <p class="course-description">專業教練培訓課程，幫助您提升教練技能和專業素養</p>
                                                 
-                                                <div class="course-progress">
-                                                    <div class="progress-info">
-                                                        <span>進度</span>
-                                                        <span><?php echo $course['progress']; ?>%</span>
-                                                    </div>
-                                                    <div class="progress">
-                                                        <div class="progress-bar" style="width: <?php echo $course['progress']; ?>%"></div>
-                                                    </div>
+                                                <div class="course-time">
+                                                    <i class="fas fa-clock me-2"></i><?php echo date('m月d日晚 H:i', strtotime($course['next_session'])); ?>
                                                 </div>
-                                                
-                                                <div class="course-sessions">
-                                                    <i class="fas fa-calendar-alt me-2"></i>
-                                                    已完成 <?php echo $course['completed_sessions']; ?>/<?php echo $course['total_sessions']; ?> 堂課
-                                                </div>
-                                                
-                                                <?php if ($course['next_session']): ?>
-                                                    <div class="course-next">
-                                                        <i class="fas fa-clock me-2"></i>
-                                                        下次課程：<?php echo date('m/d H:i', strtotime($course['next_session'])); ?>
-                                                    </div>
-                                                <?php endif; ?>
-                                                
-                                                <?php if ($course['notes']): ?>
-                                                    <div class="course-notes">
-                                                        <i class="fas fa-sticky-note me-2"></i>
-                                                        <?php echo e($course['notes']); ?>
-                                                    </div>
-                                                <?php endif; ?>
                                             </div>
                                             
                                             <div class="course-actions">
@@ -304,29 +232,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                                         <i class="fas fa-play me-2"></i>
                                                         <?php echo $course['progress'] > 0 ? '繼續學習' : '開始學習'; ?>
                                                     </a>
-                                                    <button class="btn btn-outline-danger btn-sm" onclick="cancelCourse('<?php echo $course['id']; ?>')">
-                                                        <i class="fas fa-times me-2"></i>取消課程
-                                                    </button>
                                                 <?php elseif ($course['status'] === 'completed'): ?>
-                                                    <a href="<?php echo BASE_URL; ?>/course-learning?course=<?php echo $course['id']; ?>" class="btn btn-outline-primary btn-sm">
+                                                    <a href="<?php echo BASE_URL; ?>/course-learning?course=<?php echo $course['id']; ?>" class="btn btn-primary btn-sm">
                                                         <i class="fas fa-redo me-2"></i>重新學習
                                                     </a>
-                                                    <?php if ($course['certificate']): ?>
-                                                        <button class="btn btn-success btn-sm" onclick="downloadCertificate('<?php echo $course['id']; ?>')">
-                                                            <i class="fas fa-download me-2"></i>下載證書
-                                                        </button>
-                                                    <?php endif; ?>
-                                                    <?php if (!$course['rating']): ?>
-                                                        <button class="btn btn-warning btn-sm" onclick="rateCourse('<?php echo $course['id']; ?>')">
-                                                            <i class="fas fa-star me-2"></i>評價課程
-                                                        </button>
-                                                    <?php else: ?>
-                                                        <div class="course-rating">
-                                                            <?php for ($i = 1; $i <= 5; $i++): ?>
-                                                                <i class="fas fa-star <?php echo $i <= $course['rating'] ? 'text-warning' : 'text-muted'; ?>"></i>
-                                                            <?php endfor; ?>
-                                                        </div>
-                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                                
+                                                <?php if ($isAdmin): ?>
+                                                    <button class="btn btn-outline-secondary btn-sm" onclick="showAttendancePopup('<?php echo $course['id']; ?>')">
+                                                        <i class="fas fa-users me-2"></i>查看打卡人數
+                                                    </button>
                                                 <?php endif; ?>
                                             </div>
                                         </div>
@@ -956,5 +871,80 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 alert(message);
             };
         }
+
+        // 打卡人數 Popup 功能
+        const mockAttendanceData = [
+            { name: "張三", time: "2024-01-15 09:30", status: "已完成" },
+            { name: "李四", time: "2024-01-15 09:45", status: "已完成" },
+            { name: "王五", time: "2024-01-15 10:00", status: "已完成" },
+            { name: "趙六", time: "2024-01-15 10:15", status: "已完成" },
+            { name: "陳七", time: "2024-01-15 10:30", status: "已完成" },
+            { name: "林八", time: "2024-01-15 10:45", status: "已完成" }
+        ];
+
+        function showAttendancePopup(courseId) {
+            const overlay = document.getElementById('attendanceOverlay');
+            const tableBody = document.getElementById('attendanceTableBody');
+            
+            // 填充假數據
+            tableBody.innerHTML = '';
+            mockAttendanceData.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.name}</td>
+                    <td>${student.time}</td>
+                    <td><span class="status-badge status-completed">${student.status}</span></td>
+                `;
+                tableBody.appendChild(row);
+            });
+            
+            // 顯示 popup
+            overlay.classList.add('show');
+            document.body.style.overflow = 'hidden'; // 防止背景滾動
+        }
+
+        function closeAttendancePopup() {
+            const overlay = document.getElementById('attendanceOverlay');
+            overlay.classList.remove('show');
+            document.body.style.overflow = ''; // 恢復滾動
+        }
+
+        // ESC 鍵關閉 popup
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAttendancePopup();
+            }
+        });
     </script>
+
+    <!-- 打卡人數 Popup -->
+    <div class="popup-overlay" id="attendanceOverlay" onclick="closeAttendancePopup()">
+        <div class="attendance-popup" onclick="event.stopPropagation()">
+            <div class="popup-header">
+                <h5 class="popup-title">
+                    課程打卡人數
+                </h5>
+                <button class="close-btn" onclick="closeAttendancePopup()" aria-label="關閉">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body">
+                <div class="table-container">
+                    <table class="attendance-table">
+                        <thead>
+                            <tr>
+                                <th>學生姓名</th>
+                                <th>打卡時間</th>
+                                <th>狀態</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTableBody">
+                            <!-- 動態載入數據 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 <?php require_once 'includes/footer-user.php'; ?>
