@@ -150,6 +150,7 @@ require_once 'includes/header-user.php';
                         <tr>
                             <th>學生姓名</th>
                             <th>最後提交</th>
+                            <th>累積打卡次數</th>
                             <th>狀態</th>
                             <th>操作</th>
                         </tr>
@@ -177,6 +178,14 @@ require_once 'includes/header-user.php';
                                 <?php else: ?>
                                     <span class="text-muted">尚未提交</span>
                                 <?php endif; ?>
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-info btn-sm checkin-count-btn" 
+                                        onclick="showCheckinHistory('<?php echo e($student['id']); ?>', '<?php echo e($student['name']); ?>')"
+                                        data-student-id="<?php echo e($student['id']); ?>">
+                                    <i class="fas fa-calendar-check me-1"></i>
+                                    <?php echo count($student['submissions']); ?> 次
+                                </button>
                             </td>
                             <td>
                                 <?php if (!empty($student['submissions'])): ?>
@@ -236,6 +245,28 @@ require_once 'includes/header-user.php';
                     <i class="fas fa-download me-1"></i>
                     下載全部
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 打卡歷史記錄彈窗 -->
+<div class="modal fade" id="checkinHistoryModal" tabindex="-1" aria-labelledby="checkinHistoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width: 100%;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="checkinHistoryModalLabel">
+                    打卡歷史記錄
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="checkinHistoryContent">
+                    <!-- 動態載入打卡歷史內容 -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
             </div>
         </div>
     </div>
@@ -388,4 +419,80 @@ function exportStudentData() {
     // 模擬匯出功能
     alert('匯出學生資料...');
 }
+
+// 顯示打卡歷史記錄
+function showCheckinHistory(studentId, studentName) {
+    // 更新彈窗標題
+    document.getElementById('checkinHistoryModalLabel').innerHTML = 
+        studentName + ' 的打卡歷史記錄';
+    
+    // 顯示載入狀態
+    document.getElementById('checkinHistoryContent').innerHTML = 
+        '<div class="text-center"><i class="fas fa-spinner fa-spin me-2"></i>載入打卡記錄中...</div>';
+    
+    // 顯示彈窗
+    const modal = new bootstrap.Modal(document.getElementById('checkinHistoryModal'));
+    modal.show();
+    
+    // 模擬載入打卡歷史內容
+    setTimeout(() => {
+        loadCheckinHistory(studentId, studentName);
+    }, 800);
+}
+
+// 載入打卡歷史記錄
+function loadCheckinHistory(studentId, studentName) {
+    // 模擬打卡歷史數據
+    const checkinHistory = [
+        {
+            date: '2024-09-25',
+            time: '14:30',
+            type: 'image',
+            filename: 'homework_photo_1.jpg',
+            status: 'submitted'
+        },
+        {
+            date: '2024-09-25',
+            time: '15:45',
+            type: 'video',
+            filename: 'homework_video_1.mp4',
+            status: 'submitted'
+        },
+        {
+            date: '2024-09-24',
+            time: '16:20',
+            type: 'text',
+            content: '完成了今天的練習，感覺很有收穫！',
+            status: 'submitted'
+        },
+        {
+            date: '2024-09-23',
+            time: '10:15',
+            type: 'audio',
+            filename: 'voice_note_1.mp3',
+            status: 'submitted'
+        }
+    ];
+    
+    let historyHTML = `
+        <div class="checkin-history">
+            <div class="history-timeline">
+    `;
+    
+    checkinHistory.forEach((record, index) => {
+        historyHTML += `
+            <div class="timeline-item-simple">
+                ${record.date} ${record.time} 完成打卡作業
+            </div>
+        `;
+    });
+    
+    historyHTML += `
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('checkinHistoryContent').innerHTML = historyHTML;
+}
+
 </script>
