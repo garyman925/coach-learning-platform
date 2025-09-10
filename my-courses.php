@@ -17,8 +17,12 @@ $pageTitle = '我的課程與服務 - ' . SITE_NAME;
 $pageDescription = '管理您的學習進度和課程服務';
 $pageKeywords = '我的課程,學習進度,課程服務,個人中心';
 
-// 檢查是否為管理員（演示用）
-$isAdmin = true; // 暫時設為 true 用於演示
+// 檢查是否為管理員（根據用戶郵件判斷）
+$currentUserEmail = $currentUser['email'] ?? '';
+$isAdmin = in_array($currentUserEmail, [
+    'admin@example.com',
+    'admin@coach-platform.com'
+]);
 $pageCSS = ['my-courses.css', 'pages/user-layout.css'];
 $pageJS = ['my-courses.js', 'learning-progress.js'];
 
@@ -227,14 +231,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             </div>
                                             
                                             <div class="course-actions">
-                                                <?php if ($course['status'] === 'enrolled' || $course['status'] === 'in_progress'): ?>
+                                                <?php if ($isAdmin): ?>
+                                                    <!-- Admin 用戶：顯示查看課程 -->
+                                                    <a href="<?php echo BASE_URL; ?>/course-learning?course=<?php echo $course['id']; ?>" class="btn btn-outline-primary btn-sm">
+                                                        <i class="fas fa-eye me-2"></i>查看課程
+                                                    </a>
+                                                <?php elseif ($course['status'] === 'completed'): ?>
+                                                    <!-- 一般用戶：課程已完成 -->
+                                                    <button class="btn btn-secondary btn-sm" disabled>
+                                                        <i class="fas fa-check me-2"></i>已完成
+                                                    </button>
+                                                <?php elseif ($course['status'] === 'enrolled' || $course['status'] === 'in_progress'): ?>
+                                                    <!-- 一般用戶：可以學習 -->
                                                     <a href="<?php echo BASE_URL; ?>/course-learning?course=<?php echo $course['id']; ?>" class="btn btn-primary btn-sm">
                                                         <i class="fas fa-play me-2"></i>
                                                         <?php echo $course['progress'] > 0 ? '繼續學習' : '開始學習'; ?>
-                                                    </a>
-                                                <?php elseif ($course['status'] === 'completed'): ?>
-                                                    <a href="<?php echo BASE_URL; ?>/course-learning?course=<?php echo $course['id']; ?>" class="btn btn-primary btn-sm">
-                                                        <i class="fas fa-redo me-2"></i>重新學習
                                                     </a>
                                                 <?php endif; ?>
                                                 

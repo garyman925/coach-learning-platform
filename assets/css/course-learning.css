@@ -1822,3 +1822,224 @@
         transform: translateX(0);
     }
 }
+
+/* 打卡題型樣式 */
+.checkin-exercise {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.checkin-exercise .video-section {
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.checkin-exercise .text-input-section {
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.checkin-exercise .file-upload-section {
+    background: #f8f9fa;
+}
+
+.upload-area {
+    border: 2px dashed #dee2e6;
+    border-radius: 12px;
+    padding: 2rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+    display: block;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+    background: rgba(250, 128, 42, 0.05);
+}
+
+.upload-area.dragover {
+    border-color: var(--primary-color);
+    background: rgba(250, 128, 42, 0.1);
+}
+
+.upload-content {
+    pointer-events: none;
+}
+
+.upload-content i {
+    color: var(--primary-color);
+}
+
+.upload-content p {
+    margin: 0;
+    font-weight: 500;
+    color: #6b7280;
+}
+
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.upload-area.has-file {
+    border-color: var(--success-color);
+    background: rgba(48, 203, 183, 0.05);
+}
+
+.upload-area.has-file .upload-content i {
+    color: var(--success-color);
+}
+
+.upload-area.has-file .upload-content p {
+    color: var(--success-color);
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .checkin-exercise .row {
+        flex-direction: column;
+    }
+    
+    .checkin-exercise .col-md-4 {
+        margin-bottom: 1rem;
+    }
+    
+    .upload-area {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* 成功提交 Popup 樣式 */
+.success-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(5px);
+}
+
+.success-popup-content {
+    background: #fff;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: popupSlideIn 0.5s ease-out;
+}
+
+.success-icon {
+    margin-bottom: 1.5rem;
+}
+
+.success-icon i {
+    font-size: 4rem;
+    color: var(--success-color);
+    animation: successPulse 1s ease-in-out;
+}
+
+.success-title {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.success-message {
+    color: #6b7280;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.success-countdown {
+    background: rgba(48, 203, 183, 0.1);
+    border: 2px solid var(--success-color);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    color: var(--success-color);
+    font-weight: 500;
+}
+
+.success-countdown #countdown-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.success-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.success-actions .btn {
+    padding: 0.75rem 2rem;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+/* 動畫效果 */
+@keyframes popupSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes successPulse {
+    0% {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .success-popup-content {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+    }
+    
+    .success-title {
+        font-size: 1.5rem;
+    }
+    
+    .success-message {
+        font-size: 1rem;
+    }
+    
+    .success-actions {
+        flex-direction: column;
+    }
+}

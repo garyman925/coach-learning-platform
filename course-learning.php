@@ -45,15 +45,26 @@ $courseData = [
         'status' => 'enrolled',
         'lessons_data' => [
             [
-                'id' => 'coffee_session_1',
-                'title' => '教練咖啡時刻 - 專業交流',
-                'sidebar_title' => '熱身活動',
-                'header_title' => '教練咖啡時刻 - 專業交流活動',
-                'duration' => '2小時',
-                'video_url' => 'videos/coffee_moment.mp4',
+                'id' => 'coffee_checkin',
+                'title' => '教練咖啡時刻 - 打卡',
+                'sidebar_title' => '打卡',
+                'header_title' => '教練咖啡時刻 - 打卡活動',
+                'duration' => '10分鐘',
+                'video_url' => 'coffee_check.mp4',
                 'completed' => false,
-                'exercises' => 0,
-                'exercises_data' => []
+                'exercises' => 1,
+                'exercises_data' => [
+                    [
+                        'id' => 'checkin_exercise',
+                        'type' => 'checkin',
+                        'title' => '打卡練習',
+                        'description' => '請觀看影片後，填寫您的想法並上傳相關資料',
+                        'video_url' => 'coffee_check.mp4',
+                        'text_placeholder' => '請分享您對教練咖啡時刻的想法和期待...',
+                        'file_upload_types' => ['image', 'video', 'audio'],
+                        'completed' => false
+                    ]
+                ]
             ]
         ]
     ],
@@ -71,7 +82,7 @@ $courseData = [
                 'id' => 'lesson_1',
                 'title' => '第一課：教練基礎概念',
                 'duration' => '45分鐘',
-                'video_url' => 'videos/lesson_1.mp4',
+                'video_url' => 'coffee_check.mp4',
                 'completed' => true,
                 'exercises' => 5,
                 'exercises_data' => [
@@ -79,7 +90,7 @@ $courseData = [
                     [
                         'id' => 'ex_1_v1',
                         'type' => 'video',
-                        'media_url' => 'videos/exercise_intro_1.mp4',
+                        'media_url' => 'coffee_check.mp4',
                         'question' => '請觀看以下短片，準備進入下一題。',
                         'explanation' => '',
                         'points' => 0
@@ -145,7 +156,7 @@ $courseData = [
                 'id' => 'lesson_2',
                 'title' => '第二課：有效溝通技巧',
                 'duration' => '50分鐘',
-                'video_url' => 'videos/lesson_2.mp4',
+                'video_url' => 'coffee_checkin.mp4',
                 'completed' => true,
                 'exercises' => 3,
                 'exercises_data' => [
@@ -192,7 +203,7 @@ $courseData = [
                 'id' => 'lesson_3',
                 'title' => '第三課：目標設定與規劃',
                 'duration' => '40分鐘',
-                'video_url' => 'videos/lesson_3.mp4',
+                'video_url' => 'coffee_checkin.mp4',
                 'completed' => false,
                 'exercises' => 3,
                 'exercises_data' => [
@@ -239,7 +250,7 @@ $courseData = [
                 'id' => 'lesson_4',
                 'title' => '第四課：領導力發展',
                 'duration' => '55分鐘',
-                'video_url' => 'videos/lesson_4.mp4',
+                'video_url' => 'coffee_checkin.mp4',
                 'completed' => false,
                 'exercises' => 3,
                 'exercises_data' => [
@@ -284,327 +295,7 @@ $courseData = [
             ]
         ]
     ],
-    // 家長教練基礎課程暫時隱藏
-    /*
-    'parent' => [
-        'id' => 'parent',
-        'title' => '家長教練基礎',
-        'description' => '專為家長設計的教練基礎課程，幫助家長掌握有效的教練技巧，提升親子溝通和家庭教育效果。',
-        'instructor' => '王教練',
-        'duration' => '6週',
-        'lessons' => 8,
-        'progress' => 0,
-        'status' => 'enrolled',
-        'lessons_data' => [
-            [
-                'id' => 'parent_lesson_1',
-                'title' => '第一課：家長教練的基本概念',
-                'duration' => '40分鐘',
-                'video_url' => 'videos/parent_lesson_1.mp4',
-                'completed' => false,
-                'exercises' => 2,
-                'exercises_data' => [
-                    [
-                        'id' => 'parent_ex_1_1',
-                        'type' => 'mc',
-                        'question' => '家長教練的核心目標是什麼？',
-                        'options' => [
-                            'A. 控制孩子的行為',
-                            'B. 幫助孩子發現自己的潛能',
-                            'C. 提供標準答案',
-                            'D. 批評孩子的錯誤'
-                        ],
-                        'correct_answer' => 1,
-                        'explanation' => '家長教練的核心目標是通過引導和提問，幫助孩子發現自己的潛能和解決問題的能力。',
-                        'points' => 10
-                    ],
-                    [
-                        'id' => 'parent_ex_1_2',
-                        'type' => 'text',
-                        'question' => '請簡述家長教練與傳統教育方式的區別？',
-                        'placeholder' => '請輸入您的答案...',
-                        'correct_answers' => ['引導', '提問', '自主', '發現', '潛能', '解決問題'],
-                        'explanation' => '家長教練注重引導和提問，讓孩子自主發現答案，而不是直接給出答案或控制行為。',
-                        'points' => 15
-                    ]
-                ]
-            ],
-            [
-                'id' => 'parent_lesson_2',
-                'title' => '第二課：有效的親子溝通技巧',
-                'duration' => '45分鐘',
-                'video_url' => 'videos/parent_lesson_2.mp4',
-                'completed' => false,
-                'exercises' => 3,
-                'exercises_data' => [
-                    [
-                        'id' => 'parent_ex_2_1',
-                        'type' => 'mc',
-                        'question' => '以下哪種溝通方式最符合教練式溝通？',
-                        'options' => [
-                            'A. "你應該這樣做"',
-                            'B. "你覺得這樣做會怎麼樣？"',
-                            'C. "聽我的就對了"',
-                            'D. "你錯了"'
-                        ],
-                        'correct_answer' => 1,
-                        'explanation' => '教練式溝通注重提問和引導，讓孩子自己思考和發現答案。',
-                        'points' => 10
-                    ],
-                    [
-                        'id' => 'parent_ex_2_2',
-                        'type' => 'mc',
-                        'question' => '傾聽在親子溝通中的重要性是什麼？',
-                        'options' => [
-                            'A. 讓孩子知道你在關注',
-                            'B. 了解孩子的真實想法',
-                            'C. 建立信任關係',
-                            'D. 以上都是'
-                        ],
-                        'correct_answer' => 3,
-                        'explanation' => '傾聽不僅能讓孩子感受到關注，還能了解真實想法，建立信任關係。',
-                        'points' => 10
-                    ],
-                    [
-                        'id' => 'parent_ex_2_3',
-                        'type' => 'text',
-                        'question' => '請描述一個有效的傾聽技巧？',
-                        'placeholder' => '請輸入您的答案...',
-                        'correct_answers' => ['眼神接觸', '點頭', '重複', '總結', '不插話', '專注'],
-                        'explanation' => '有效的傾聽包括眼神接觸、點頭示意、重複關鍵詞、總結內容、不插話等技巧。',
-                        'points' => 15
-                    ]
-                ]
-            ],
-            [
-                'id' => 'parent_lesson_3',
-                'title' => '第三課：設定親子目標',
-                'duration' => '35分鐘',
-                'video_url' => 'videos/parent_lesson_3.mp4',
-                'completed' => false,
-                'exercises' => 2,
-                'exercises_data' => [
-                    [
-                        'id' => 'parent_ex_3_1',
-                        'type' => 'mc',
-                        'question' => 'SMART目標中的S代表什麼？',
-                        'options' => [
-                            'A. Simple（簡單）',
-                            'B. Specific（具體）',
-                            'C. Smart（聰明）',
-                            'D. Strong（強壯）'
-                        ],
-                        'correct_answer' => 1,
-                        'explanation' => 'SMART目標中的S代表Specific（具體），目標要明確具體。',
-                        'points' => 10
-                    ],
-                    [
-                        'id' => 'parent_ex_3_2',
-                        'type' => 'text',
-                        'question' => '請為孩子設定一個SMART目標的例子？',
-                        'placeholder' => '請輸入您的答案...',
-                        'correct_answers' => ['具體', '可衡量', '可達成', '相關', '有時限'],
-                        'explanation' => 'SMART目標應該包含：具體、可衡量、可達成、相關、有時限五個要素。',
-                        'points' => 20
-                    ]
-                ]
-            ],
-            [
-                'id' => 'parent_lesson_4',
-                'title' => '第四課：處理親子衝突',
-                'duration' => '50分鐘',
-                'video_url' => 'videos/parent_lesson_4.mp4',
-                'completed' => false,
-                'exercises' => 2,
-                'exercises_data' => [
-                    [
-                        'id' => 'parent_ex_4_1',
-                        'type' => 'mc',
-                        'question' => '處理親子衝突的第一步是什麼？',
-                        'options' => [
-                            'A. 立即解決問題',
-                            'B. 冷靜下來',
-                            'C. 批評孩子',
-                            'D. 忽略問題'
-                        ],
-                        'correct_answer' => 1,
-                        'explanation' => '處理衝突的第一步是讓自己和對方都冷靜下來，避免情緒化反應。',
-                        'points' => 10
-                    ],
-                    [
-                        'id' => 'parent_ex_4_2',
-                        'type' => 'text',
-                        'question' => '請描述一個處理親子衝突的步驟？',
-                        'placeholder' => '請輸入您的答案...',
-                        'correct_answers' => ['冷靜', '傾聽', '理解', '溝通', '解決', '共識'],
-                        'explanation' => '處理衝突的步驟包括：冷靜、傾聽、理解對方、有效溝通、尋找解決方案、達成共識。',
-                        'points' => 15
-                    ]
-                ]
-            ],
-            [
-                'id' => 'parent_lesson_5',
-                'title' => '第五課：培養孩子的自主性',
-                'duration' => '40分鐘',
-                'video_url' => 'videos/parent_lesson_5.mp4',
-                'completed' => false,
-                'exercises' => 2,
-                'exercises_data' => [
-                    [
-                        'id' => 'parent_ex_5_1',
-                        'type' => 'mc',
-                        'question' => '培養孩子自主性的關鍵是什麼？',
-                        'options' => [
-                            'A. 完全放手不管',
-                            'B. 給予適當的選擇權',
-                            'C. 嚴格控制',
-                            'D. 替孩子做決定'
-                        ],
-                        'correct_answer' => 1,
-                        'explanation' => '培養自主性的關鍵是給予孩子適當的選擇權，讓他們學會自己做決定。',
-                        'points' => 10
-                    ],
-                    [
-                        'id' => 'parent_ex_5_2',
-                        'type' => 'text',
-                        'question' => '如何幫助孩子建立責任感？',
-                        'placeholder' => '請輸入您的答案...',
-                        'correct_answers' => ['責任', '後果', '選擇', '承擔', '學習'],
-                        'explanation' => '幫助孩子建立責任感需要讓他們理解選擇的後果，並承擔相應的責任。',
-                        'points' => 15
-                    ]
-                ]
-            ],
-            [
-                'id' => 'parent_lesson_6',
-                'title' => '第六課：建立積極的家庭氛圍',
-                'duration' => '45分鐘',
-                'video_url' => 'videos/parent_lesson_6.mp4',
-                'completed' => false,
-                'exercises' => 2,
-                'exercises_data' => [
-                    [
-                        'id' => 'parent_ex_6_1',
-                        'type' => 'mc',
-                        'question' => '積極家庭氛圍的核心是什麼？',
-                        'options' => [
-                            'A. 嚴格的家規',
-                            'B. 無條件的愛和支持',
-                            'C. 物質獎勵',
-                            'D. 完美主義'
-                        ],
-                        'correct_answer' => 1,
-                        'explanation' => '積極家庭氛圍的核心是無條件的愛和支持，讓孩子感受到安全和被接納。',
-                        'points' => 10
-                    ],
-                    [
-                        'id' => 'parent_ex_6_2',
-                        'type' => 'text',
-                        'question' => '如何創造積極的家庭氛圍？',
-                        'placeholder' => '請輸入您的答案...',
-                        'correct_answers' => ['愛', '支持', '鼓勵', '溝通', '尊重', '理解'],
-                        'explanation' => '創造積極家庭氛圍需要：表達愛意、提供支持、給予鼓勵、保持溝通、相互尊重、理解包容。',
-                        'points' => 15
-                    ]
-                ]
-            ],
-            [
-                'id' => 'parent_lesson_7',
-                'title' => '第七課：教練式提問技巧',
-                'duration' => '50分鐘',
-                'video_url' => 'videos/parent_lesson_7.mp4',
-                'completed' => false,
-                'exercises' => 3,
-                'exercises_data' => [
-                    [
-                        'id' => 'parent_ex_7_1',
-                        'type' => 'mc',
-                        'question' => '以下哪個是開放式問題？',
-                        'options' => [
-                            'A. "你今天開心嗎？"',
-                            'B. "你覺得今天發生了什麼有趣的事？"',
-                            'C. "你吃飯了嗎？"',
-                            'D. "你作業做完了嗎？"'
-                        ],
-                        'correct_answer' => 1,
-                        'explanation' => '開放式問題鼓勵孩子思考和表達，而不是簡單的是非回答。',
-                        'points' => 10
-                    ],
-                    [
-                        'id' => 'parent_ex_7_2',
-                        'type' => 'mc',
-                        'question' => '教練式提問的目的是什麼？',
-                        'options' => [
-                            'A. 獲取信息',
-                            'B. 幫助孩子自己發現答案',
-                            'C. 測試孩子',
-                            'D. 控制對話'
-                        ],
-                        'correct_answer' => 1,
-                        'explanation' => '教練式提問的目的是幫助孩子自己思考和發現答案，而不是直接給出答案。',
-                        'points' => 10
-                    ],
-                    [
-                        'id' => 'parent_ex_7_3',
-                        'type' => 'text',
-                        'question' => '請舉例說明一個有效的教練式問題？',
-                        'placeholder' => '請輸入您的答案...',
-                        'correct_answers' => ['你覺得', '你認為', '你如何', '什麼', '如何', '為什麼'],
-                        'explanation' => '有效的教練式問題通常以「你覺得」、「你認為」、「你如何」等開頭，鼓勵孩子思考。',
-                        'points' => 15
-                    ]
-                ]
-            ],
-            [
-                'id' => 'parent_lesson_8',
-                'title' => '第八課：實踐與總結',
-                'duration' => '60分鐘',
-                'video_url' => 'videos/parent_lesson_8.mp4',
-                'completed' => false,
-                'exercises' => 1,
-                'exercises_data' => [
-                    [
-                        'id' => 'parent_ex_8_1',
-                        'type' => 'text',
-                        'question' => '請總結你在本課程中學到的最重要的三點？',
-                        'placeholder' => '請輸入您的答案...',
-                        'correct_answers' => ['教練', '溝通', '引導', '提問', '傾聽', '目標', '衝突', '自主'],
-                        'explanation' => '本課程涵蓋了家長教練的基本概念、溝通技巧、目標設定、衝突處理、自主性培養、家庭氛圍和提問技巧等核心內容。',
-                        'points' => 30
-                    ]
-                ]
-            ]
-        ]
-    ],
-    */
-    'team' => [
-        'id' => 'team',
-        'title' => '團隊教練培訓課程',
-        'description' => '專注於團隊建設、協作和領導的教練培訓課程。',
-        'instructor' => '李教練',
-        'duration' => '6週',
-        'lessons' => 8,
-        'progress' => 25,
-        'status' => 'in_progress',
-        'lessons_data' => [
-            [
-                'id' => 'lesson_1',
-                'title' => '第一課：團隊動力學',
-                'duration' => '40分鐘',
-                'video_url' => 'videos/team_lesson_1.mp4',
-                'completed' => true,
-                'exercises' => 2
-            ],
-            [
-                'id' => 'lesson_2',
-                'title' => '第二課：團隊協作技巧',
-                'duration' => '45分鐘',
-                'video_url' => 'videos/team_lesson_2.mp4',
-                'completed' => false,
-                'exercises' => 3
-            ]
-        ]
-    ]
+    
 ];
 
 // 獲取當前課程數據
@@ -671,7 +362,7 @@ require_once 'includes/header-user.php';
                                                     <div class="lesson-meta">
                                                         <span class="lesson-duration">
                                                             <i class="fas fa-clock me-1"></i>
-                                                            <?php echo e($lesson['duration']); ?>
+                                                            <?php echo e($currentCourse['duration']); ?>
                                                         </span>
                                                         <span class="lesson-instructor">
                                                             <i class="fas fa-user me-1"></i>
@@ -701,7 +392,7 @@ require_once 'includes/header-user.php';
                                 <div class="lesson-meta">
                                     <span class="lesson-duration">
                                         <i class="fas fa-clock me-1"></i>
-                                        <?php echo e($currentLesson['duration']); ?>
+                                        <?php echo e($currentCourse['duration']); ?>
                                     </span>
                                     <span class="lesson-instructor">
                                         <i class="fas fa-user me-1"></i>
@@ -727,15 +418,13 @@ require_once 'includes/header-user.php';
                                     }
                                 }
                             }
-                            if (!$embedVideoInExercises):
+                            if (!$embedVideoInExercises && !isset($currentLesson['exercises_data'][0]['type']) || (isset($currentLesson['exercises_data'][0]['type']) && $currentLesson['exercises_data'][0]['type'] !== 'checkin')):
                             ?>
                             <div class="video-section">
                                 <div class="video-container">
                                     <div class="video-player" id="video-player">
                                         <video id="lesson-video" preload="metadata" poster="<?php echo BASE_URL; ?>/assets/images/video-poster.jpg">
-                                            <!-- 演示用視頻源 - 可以替換為實際視頻文件 -->
-                                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                                            <!-- 備用本地視頻源 -->
+                                            <!-- 課程視頻源 -->
                                             <source src="<?php echo BASE_URL; ?>/assets/videos/<?php echo e($currentLesson['video_url']); ?>" type="video/mp4">
                                             您的瀏覽器不支持視頻播放。
                                         </video>
@@ -903,8 +592,8 @@ require_once 'includes/header-user.php';
                                                 <div class="exercise-question <?php echo $index === 0 ? 'active' : ''; ?>" 
                                                      id="exercise-<?php echo $index; ?>" data-exercise-id="<?php echo e($exercise['id']); ?>" data-exercise-type="<?php echo e($exercise['type']); ?>">
                                                     
-                                                    <!-- Question Header -->
-                                                    <div class="question-header">
+                                                    <!-- Question Header - 隱藏 -->
+                                                    <div class="question-header" style="display: none;">
                                                         <div class="question-number">
                                                             <span>第 <?php echo $index + 1; ?> 題</span>
                                                         </div>
@@ -981,16 +670,62 @@ require_once 'includes/header-user.php';
                                                                 </div>
                                                             </div>
                                                             <p style="margin: 1rem; color: #6b7280;">閱讀後，點擊完成前往下一題。</p>
+                                                        <?php elseif ($exercise['type'] === 'checkin'): ?>
+                                                            <!-- 打卡題型 -->
+                                                            <div class="checkin-exercise">
+                                                                <!-- 影片部分 -->
+                                                                <div class="video-section" style="padding: 1rem;">
+                                                                    <div class="video-container">
+                                                                        <video controls width="100%">
+                                                                            <source src="<?php echo BASE_URL; ?>/assets/videos/<?php echo e($exercise['video_url']); ?>" type="video/mp4">
+                                                                        </video>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <!-- 文字填寫部分 -->
+                                                                <div class="text-input-section" style="padding: 1rem;">
+                                                                    <h5 class="mb-3">請分享您的想法：</h5>
+                                                                    <textarea class="form-control" rows="4" placeholder="<?php echo e($exercise['text_placeholder']); ?>" id="checkin-text-<?php echo $index; ?>"></textarea>
+                                                                </div>
+                                                                
+                                                                <!-- 文件上傳部分 -->
+                                                                <div class="file-upload-section" style="padding: 1rem;">
+                                                                    <h5 class="mb-3">上傳資料：</h5>
+                                                                    <div class="row">
+                                                                        <div class="col-md-4">
+                                                                            <label class="upload-area" data-type="image" for="image-upload-<?php echo $index; ?>">
+                                                                                <div class="upload-content">
+                                                                                    <i class="fas fa-image fa-2x mb-2"></i>
+                                                                                    <p>上傳照片</p>
+                                                                                </div>
+                                                                                <input type="file" accept="image/*" class="file-input" id="image-upload-<?php echo $index; ?>">
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label class="upload-area" data-type="video" for="video-upload-<?php echo $index; ?>">
+                                                                                <div class="upload-content">
+                                                                                    <i class="fas fa-video fa-2x mb-2"></i>
+                                                                                    <p>上傳影片</p>
+                                                                                </div>
+                                                                                <input type="file" accept="video/*" class="file-input" id="video-upload-<?php echo $index; ?>">
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <label class="upload-area" data-type="audio" for="audio-upload-<?php echo $index; ?>">
+                                                                                <div class="upload-content">
+                                                                                    <i class="fas fa-microphone fa-2x mb-2"></i>
+                                                                                    <p>上傳錄音</p>
+                                                                                </div>
+                                                                                <input type="file" accept="audio/*" class="file-input" id="audio-upload-<?php echo $index; ?>">
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         <?php endif; ?>
                                                     </div>
                                                     
-                                                    <!-- Question Actions -->
-                                                    <div class="question-actions">
-                                                        <button class="btn btn-primary" id="submit-btn-<?php echo $index; ?>" <?php echo in_array($exercise['type'], ['video','audio','text_block']) ? '' : 'disabled'; ?>>
-                                                            <i class="fas fa-check me-1"></i>
-                                                            <?php echo in_array($exercise['type'], ['video','audio','text_block']) ? '完成' : '提交答案'; ?>
-                                                        </button>
-                                                    </div>
+                                                    <!-- Question Actions - 已移除提交按鈕 -->
                                                     
                                                     <!-- Answer Feedback -->
                                                     <div class="answer-feedback" id="feedback-<?php echo $index; ?>" style="display: none;">
@@ -1066,6 +801,9 @@ require_once 'includes/header-user.php';
                                     $currentIndex = array_search($currentLessonId, array_column($currentCourse['lessons_data'], 'id'));
                                     $prevLesson = $currentIndex > 0 ? $currentCourse['lessons_data'][$currentIndex - 1] : null;
                                     $nextLesson = $currentIndex < count($currentCourse['lessons_data']) - 1 ? $currentCourse['lessons_data'][$currentIndex + 1] : null;
+                                    
+                                    // 檢查當前課程是否有下一題
+                                    $hasNextExercise = isset($currentLesson['exercises_data']) && count($currentLesson['exercises_data']) > 1;
                                     ?>
                                     
                                     <?php if ($prevLesson): ?>
@@ -1080,14 +818,20 @@ require_once 'includes/header-user.php';
                                         </button>
                                     <?php endif; ?>
                                     
-                                    <?php if ($nextLesson): ?>
+                                    <?php if ($hasNextExercise): ?>
+                                        <button class="btn btn-primary" id="next-exercise-btn">
+                                            前往下一題
+                                            <i class="fas fa-chevron-right ms-1"></i>
+                                        </button>
+                                    <?php elseif ($nextLesson): ?>
                                         <a href="<?php echo BASE_URL; ?>/course-learning?course=<?php echo $courseId; ?>&lesson=<?php echo $nextLesson['id']; ?>" class="btn btn-primary">
                                             下一課：<?php echo e($nextLesson['title']); ?>
                                             <i class="fas fa-chevron-right ms-1"></i>
                                         </a>
                                     <?php else: ?>
-                                        <button class="btn btn-success">
-                                            完成練習
+                                        <button class="btn btn-success" id="submit-assignment-btn">
+                                            <i class="fas fa-paper-plane me-1"></i>
+                                            遞交作業給教練
                                         </button>
                                     <?php endif; ?>
                                 </div>
@@ -1099,5 +843,181 @@ require_once 'includes/header-user.php';
         </section>
     </main>
 
+    <!-- 讚賞 Popup -->
+    <div id="success-popup" class="success-popup-overlay" style="display: none;">
+        <div class="success-popup-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 class="success-title">作業提交成功！</h3>
+            <p class="success-message">感謝您的用心完成，教練將會仔細查看您的作業內容。</p>
+            <div class="success-countdown">
+                <span id="countdown-text">5</span> 秒後自動返回主目錄
+            </div>
+            <div class="success-actions">
+                <button class="btn btn-primary" id="return-now-btn">立即返回</button>
+            </div>
+        </div>
+    </div>
+
 <?php require_once 'includes/footer-user.php'; ?>
-    <!-- JavaScript 由 footer-user.php 處理 -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing upload areas...');
+    
+    // 處理文件選擇事件
+    const fileInputs = document.querySelectorAll('.file-input');
+    console.log('Found file inputs:', fileInputs.length);
+    
+    fileInputs.forEach(function(fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const uploadArea = this.closest('.upload-area');
+                if (uploadArea) {
+                    // 添加已選擇文件的視覺反饋
+                    uploadArea.classList.add('has-file');
+                    
+                    // 更新顯示文字
+                    const uploadContent = uploadArea.querySelector('.upload-content p');
+                    if (uploadContent) {
+                        uploadContent.textContent = '已選擇: ' + file.name;
+                    }
+                    
+                    console.log('選擇的文件:', file.name, '類型:', file.type);
+                }
+            }
+        });
+    });
+    
+    // 處理拖拽功能
+    const uploadAreas = document.querySelectorAll('.upload-area');
+    
+    uploadAreas.forEach(function(uploadArea) {
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const fileInput = this.querySelector('.file-input');
+                if (fileInput) {
+                    // 模擬文件選擇
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(files[0]);
+                    fileInput.files = dataTransfer.files;
+                    
+                    // 觸發 change 事件
+                    const event = new Event('change', { bubbles: true });
+                    fileInput.dispatchEvent(event);
+                }
+            }
+        });
+    });
+    
+    // 處理下一題按鈕
+    const nextExerciseBtn = document.getElementById('next-exercise-btn');
+    if (nextExerciseBtn) {
+        nextExerciseBtn.addEventListener('click', function() {
+            // 這裡可以添加切換到下一題的邏輯
+            console.log('前往下一題');
+            // 暫時顯示提示
+            alert('前往下一題功能待實現');
+        });
+    }
+    
+    // 處理遞交作業按鈕
+    const submitAssignmentBtn = document.getElementById('submit-assignment-btn');
+    if (submitAssignmentBtn) {
+        submitAssignmentBtn.addEventListener('click', function() {
+            // 這裡可以添加遞交作業的邏輯
+            console.log('遞交作業給教練');
+            
+            // 收集表單數據
+            const textInput = document.querySelector('#checkin-text-0');
+            const imageInput = document.querySelector('#image-upload-0');
+            const videoInput = document.querySelector('#video-upload-0');
+            const audioInput = document.querySelector('#audio-upload-0');
+            
+            let submissionData = {
+                text: textInput ? textInput.value : '',
+                files: {
+                    image: imageInput ? imageInput.files[0] : null,
+                    video: videoInput ? videoInput.files[0] : null,
+                    audio: audioInput ? audioInput.files[0] : null
+                }
+            };
+            
+            console.log('提交的數據:', submissionData);
+            
+            // 顯示成功 popup
+            showSuccessPopup();
+            
+            // 可以添加實際的提交邏輯，例如發送到服務器
+        });
+    }
+    
+    // 顯示成功 popup 的函數
+    function showSuccessPopup() {
+        const popup = document.getElementById('success-popup');
+        const countdownText = document.getElementById('countdown-text');
+        const returnNowBtn = document.getElementById('return-now-btn');
+        
+        // 顯示 popup
+        popup.style.display = 'flex';
+        
+        // 防止背景滾動
+        document.body.style.overflow = 'hidden';
+        
+        // 倒計時功能
+        let countdown = 5;
+        countdownText.textContent = countdown;
+        
+        const countdownInterval = setInterval(function() {
+            countdown--;
+            countdownText.textContent = countdown;
+            
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                // 自動跳轉到 my-courses.php
+                window.location.href = '<?php echo BASE_URL; ?>/my-courses';
+            }
+        }, 1000);
+        
+        // 立即返回按鈕
+        returnNowBtn.addEventListener('click', function() {
+            clearInterval(countdownInterval);
+            window.location.href = '<?php echo BASE_URL; ?>/my-courses';
+        });
+        
+        // ESC 鍵關閉 popup
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                clearInterval(countdownInterval);
+                popup.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // 點擊 overlay 關閉 popup
+        popup.addEventListener('click', function(e) {
+            if (e.target === popup) {
+                clearInterval(countdownInterval);
+                popup.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+});
+</script>

@@ -13,8 +13,12 @@ if (!$userManagement->isLoggedIn()) {
 }
 $currentUser = $userManagement->getCurrentUser();
 
-// 檢查是否為管理員
-$isAdmin = true; // 暫時設為 true 用於演示
+// 檢查是否為管理員（根據用戶郵件判斷）
+$currentUserEmail = $currentUser['email'] ?? '';
+$isAdmin = in_array($currentUserEmail, [
+    'admin@example.com',
+    'admin@coach-platform.com'
+]);
 $message = '';
 $messageType = '';
 
