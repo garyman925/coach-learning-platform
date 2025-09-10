@@ -11,7 +11,7 @@ $message = '';
 $messageType = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
+    $email = trim(isset($_POST['email']) ? $_POST['email'] : '');
     
     if (empty($email)) {
         $message = '請輸入電子郵件地址';
@@ -25,7 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         if ($user) {
             // 生成重置令牌（模擬）
-            $resetToken = bin2hex(random_bytes(32));
+            // 兼容 PHP 5.4：使用 openssl_random_pseudo_bytes 替代 random_bytes
+            if (function_exists('openssl_random_pseudo_bytes')) {
+                $resetToken = bin2hex(openssl_random_pseudo_bytes(32));
+            } else {
+                // 如果 openssl 不可用，使用其他方法生成隨機字符串
+                $resetToken = bin2hex(pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()) . pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()));
+            }
             $expiryTime = time() + 3600; // 1小時後過期
             
             // 在實際應用中，這裡會發送郵件
@@ -92,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     name="email" 
                                     class="form-input" 
                                     placeholder="請輸入您的電子郵件地址"
-                                    value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
+                                    value="<?php echo htmlspecialchars(isset($_POST['email']) ? $_POST['email'] : ''); ?>"
                                     required
                                 >
                             </div>

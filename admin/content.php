@@ -52,10 +52,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $contents = getMockContents();
 
 // 搜索和篩選
-$search = $_GET['search'] ?? '';
-$type = $_GET['type'] ?? '';
-$status = $_GET['status'] ?? '';
-$category = $_GET['category'] ?? '';
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$type = isset($_GET['type']) ? $_GET['type'] : '';
+$status = isset($_GET['status']) ? $_GET['status'] : '';
+$category = isset($_GET['category']) ? $_GET['category'] : '';
 
 // 篩選內容
 if ($search || $type || $status || $category) {

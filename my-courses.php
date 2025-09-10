@@ -18,7 +18,7 @@ $pageDescription = '管理您的學習進度和課程服務';
 $pageKeywords = '我的課程,學習進度,課程服務,個人中心';
 
 // 檢查是否為管理員（根據用戶郵件判斷）
-$currentUserEmail = $currentUser['email'] ?? '';
+$currentUserEmail = isset($currentUser['email']) ? $currentUser['email'] : '';
 $isAdmin = in_array($currentUserEmail, [
     'admin@example.com',
     'admin@coach-platform.com'

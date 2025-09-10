@@ -798,7 +798,12 @@ require_once 'includes/header-user.php';
                             <div class="lesson-navigation">
                                 <div class="nav-buttons">
                                     <?php
-                                    $currentIndex = array_search($currentLessonId, array_column($currentCourse['lessons_data'], 'id'));
+                                    // 兼容 PHP 5.4：手動實現 array_column 功能
+                                    $lessonIds = array();
+                                    foreach ($currentCourse['lessons_data'] as $lesson) {
+                                        $lessonIds[] = $lesson['id'];
+                                    }
+                                    $currentIndex = array_search($currentLessonId, $lessonIds);
                                     $prevLesson = $currentIndex > 0 ? $currentCourse['lessons_data'][$currentIndex - 1] : null;
                                     $nextLesson = $currentIndex < count($currentCourse['lessons_data']) - 1 ? $currentCourse['lessons_data'][$currentIndex + 1] : null;
                                     

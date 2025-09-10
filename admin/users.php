@@ -53,9 +53,9 @@ $usersResult = $userManagement->getAllUsers();
 $users = $usersResult['success'] ? $usersResult['users'] : [];
 
 // 搜索和篩選
-$search = $_GET['search'] ?? '';
-$role = $_GET['role'] ?? '';
-$status = $_GET['status'] ?? '';
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$role = isset($_GET['role']) ? $_GET['role'] : '';
+$status = isset($_GET['status']) ? $_GET['status'] : '';
 
 // 篩選用戶
 if ($search || $role || $status) {
@@ -569,7 +569,7 @@ $pageKeywords = '用戶管理,管理員,後台';
                                                         'inactive' => '非活躍',
                                                         'suspended' => '暫停'
                                                     ];
-                                                    echo $statusLabels[$user['status']] ?? $user['status'];
+                                                    echo isset($statusLabels[$user['status']]) ? $statusLabels[$user['status']] : $user['status'];
                                                     ?>
                                                 </span>
                                             </td>

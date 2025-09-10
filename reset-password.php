@@ -7,8 +7,8 @@ require_once 'includes/user-management.php';
 $userManagement = new UserManagement();
 
 // 檢查重置令牌
-$token = $_GET['token'] ?? '';
-$email = $_GET['email'] ?? '';
+$token = isset($_GET['token']) ? $_GET['token'] : '';
+$email = isset($_GET['email']) ? $_GET['email'] : '';
 
 $isValidToken = false;
 $message = '';
@@ -36,8 +36,8 @@ if ($token && $email) {
 
 // 處理新密碼設置
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isValidToken) {
-    $newPassword = $_POST['new_password'] ?? '';
-    $confirmPassword = $_POST['confirm_password'] ?? '';
+    $newPassword = isset($_POST['new_password']) ? $_POST['new_password'] : '';
+    $confirmPassword = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
     
     if (empty($newPassword) || empty($confirmPassword)) {
         $message = '請填寫所有必填欄位';

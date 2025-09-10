@@ -22,8 +22,8 @@ function getUserDisplayName($user) {
         return $user['username'];
     }
     
-    $firstName = $user['profile']['first_name'] ?? '';
-    $lastName = $user['profile']['last_name'] ?? '';
+    $firstName = isset($user['profile']['first_name']) ? $user['profile']['first_name'] : '';
+    $lastName = isset($user['profile']['last_name']) ? $user['profile']['last_name'] : '';
     
     if ($firstName || $lastName) {
         return trim($firstName . ' ' . $lastName);

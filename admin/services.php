@@ -52,9 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $services = getMockServices();
 
 // 搜索和篩選
-$search = $_GET['search'] ?? '';
-$category = $_GET['category'] ?? '';
-$status = $_GET['status'] ?? '';
+$search = isset($_GET['search']) ? $_GET['search'] : '';
+$category = isset($_GET['category']) ? $_GET['category'] : '';
+$status = isset($_GET['status']) ? $_GET['status'] : '';
 
 // 篩選服務
 if ($search || $category || $status) {

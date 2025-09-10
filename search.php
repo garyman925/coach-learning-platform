@@ -13,11 +13,11 @@ $currentUser = $userManagement->getCurrentUser();
 $username = $currentUser['username'];
 
 // 獲取搜索參數
-$query = $_GET['q'] ?? '';
-$type = $_GET['type'] ?? 'all';
-$category = $_GET['category'] ?? '';
-$sort = $_GET['sort'] ?? 'relevance';
-$page = max(1, intval($_GET['page'] ?? 1));
+$query = isset($_GET['q']) ? $_GET['q'] : '';
+$type = isset($_GET['type']) ? $_GET['type'] : 'all';
+$category = isset($_GET['category']) ? $_GET['category'] : '';
+$sort = isset($_GET['sort']) ? $_GET['sort'] : 'relevance';
+$page = max(1, intval(isset($_GET['page']) ? $_GET['page'] : 1));
 $limit = 12;
 $offset = ($page - 1) * $limit;
 
@@ -265,8 +265,8 @@ function getUserDisplayName($user) {
         return $user['username'];
     }
     
-    $firstName = $user['profile']['first_name'] ?? '';
-    $lastName = $user['profile']['last_name'] ?? '';
+    $firstName = isset($user['profile']['first_name']) ? $user['profile']['first_name'] : '';
+    $lastName = isset($user['profile']['last_name']) ? $user['profile']['last_name'] : '';
     
     if ($firstName || $lastName) {
         return trim($firstName . ' ' . $lastName);

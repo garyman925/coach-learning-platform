@@ -22,8 +22,8 @@ $formData = [];
 
 // 處理登入表單提交
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username'] ?? '');
-    $password = $_POST['password'] ?? '';
+    $username = trim(isset($_POST['username']) ? $_POST['username'] : '');
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
     $rememberMe = isset($_POST['remember_me']);
     
     // 保存用戶名（用於錯誤時重新填充）
@@ -417,7 +417,7 @@ $pageKeywords = '用戶登入,會員登入,教練學習平台';
                 <form method="POST" id="loginForm">
                     <div class="form-group">
                         <label for="username">用戶名或電子郵箱 <span class="required">*</span></label>
-                        <input type="text" id="username" name="username" value="<?php echo e($formData['username'] ?? ''); ?>" required>
+                        <input type="text" id="username" name="username" value="<?php echo e(isset($formData['username']) ? $formData['username'] : ''); ?>" required>
                     </div>
                     
                     <div class="form-group">

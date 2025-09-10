@@ -22,7 +22,13 @@ function e($string) {
  */
 function generateCSRFToken() {
     if (!isset($_SESSION[CSRF_TOKEN_NAME])) {
-        $_SESSION[CSRF_TOKEN_NAME] = bin2hex(random_bytes(32));
+        // 兼容 PHP 5.4：使用 openssl_random_pseudo_bytes 替代 random_bytes
+        if (function_exists('openssl_random_pseudo_bytes')) {
+            $_SESSION[CSRF_TOKEN_NAME] = bin2hex(openssl_random_pseudo_bytes(32));
+        } else {
+            // 如果 openssl 不可用，使用其他方法生成隨機字符串
+            $_SESSION[CSRF_TOKEN_NAME] = bin2hex(pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()) . pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()));
+        }
     }
     return $_SESSION[CSRF_TOKEN_NAME];
 }
@@ -32,7 +38,8 @@ function generateCSRFToken() {
  */
 function validateCSRFToken($token) {
     return isset($_SESSION[CSRF_TOKEN_NAME]) && 
-           hash_equals($_SESSION[CSRF_TOKEN_NAME], $token);
+           // 兼容 PHP 5.4：手動實現 hash_equals 功能
+           (isset($_SESSION[CSRF_TOKEN_NAME]) && $_SESSION[CSRF_TOKEN_NAME] === $token);
 }
 
 /**

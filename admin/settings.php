@@ -542,7 +542,7 @@ function clearSystemCache() {
                         </div>
                         <div class="info-item">
                             <div class="info-label">伺服器軟體</div>
-                            <div class="info-value"><?php echo $_SERVER['SERVER_SOFTWARE'] ?? 'Unknown'; ?></div>
+                            <div class="info-value"><?php echo isset($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] : 'Unknown'; ?></div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">資料庫狀態</div>

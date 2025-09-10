@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['video_file'])) {
     $maxSize = 100 * 1024 * 1024; // 100MB
     
     $file = $_FILES['video_file'];
-    $fileName = $_POST['video_name'] ?? $file['name'];
+    $fileName = isset($_POST['video_name']) ? $_POST['video_name'] : $file['name'];
     
     if ($file['error'] === UPLOAD_ERR_OK) {
         if (in_array($file['type'], $allowedTypes) && $file['size'] <= $maxSize) {
