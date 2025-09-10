@@ -438,7 +438,7 @@
 .section-title {
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--accent-color);
     margin-bottom: var(--spacing-4);
     position: relative;
 }
@@ -451,7 +451,7 @@
     transform: translateX(-50%);
     width: 60px;
     height: 3px;
-    background: var(--secondary-500);
+    background: var(--accent-500);
     border-radius: 2px;
     animation: pulse 2s ease-in-out infinite;
 }
@@ -887,14 +887,6 @@
     gap: var(--spacing-2);
 }
 
-.coach-specialty {
-    background: var(--color-primary-100);
-    color: var(--color-primary-700);
-    padding: var(--spacing-1) var(--spacing-3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-xs);
-    font-weight: var(--font-medium);
-}
 
 /* 行動呼籲區域 */
 .cta-section {
@@ -1123,11 +1115,10 @@
     margin-bottom: var(--spacing-16);
 }
 
-.news-title {
+.news-header .news-title {
     font-size: var(--text-3xl);
     font-weight: var(--font-bold);
     color: var(--color-gray-900);
-    margin-bottom: var(--spacing-4);
 }
 
 .news-description {
@@ -1172,13 +1163,6 @@
     margin-bottom: var(--spacing-2);
 }
 
-.news-title {
-    font-size: var(--text-lg);
-    font-weight: var(--font-bold);
-    color: var(--color-gray-900);
-    margin-bottom: var(--spacing-3);
-    line-height: var(--line-height-tight);
-}
 
 .news-excerpt {
     color: var(--color-gray-600);
@@ -1373,12 +1357,8 @@
 .coach-introduction-section .section-title {
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
-    color: var(--neutral-900);
+    color: var(--accent-color);
     margin-bottom: var(--spacing-4);
-    background: var(--primary-color);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 .coach-introduction-section .section-description {
@@ -1514,15 +1494,6 @@
     margin-bottom: var(--spacing-2);
 }
 
-.coach-specialty {
-    font-size: var(--text-xs);
-    color: var(--neutral-600);
-    background: var(--neutral-100);
-    padding: var(--spacing-1) var(--spacing-2);
-    border-radius: var(--radius-sm);
-    margin-bottom: var(--spacing-3);
-    display: inline-block;
-}
 
 .coach-description {
     font-size: var(--text-sm);
@@ -1560,19 +1531,18 @@
 .coach-actions .btn {
     flex: 1;
     justify-content: center;
-    font-size: var(--text-xs);
     padding: var(--spacing-2) var(--spacing-3);
 }
 
 .coach-actions .btn-outline {
-    background-color: var(--primary-color);
+    background-color: var(--accent-color);
     color: white;
-    border-color: var(--primary-color);
+    border-color: var(--accent-color);
 }
 
 .coach-actions .btn-outline:hover {
-    background-color: var(--primary-600);
-    border-color: var(--primary-600);
+    background-color: var(--accent-600);
+    border-color: var(--accent-600);
     color: white;
 }
 
@@ -1739,6 +1709,17 @@
     margin-top: 3rem;
 }
 
+.news-grid.single-news {
+    display: flex;
+    justify-content: center;
+    margin: 3rem auto 0;
+}
+
+.news-grid.single-news .news-card {
+    width: 100%;
+    max-width: 500px;
+}
+
 .news-card {
     background: white;
     border-radius: 16px;
@@ -1791,7 +1772,6 @@
 .news-meta {
     display: flex;
     gap: 1rem;
-    margin-bottom: 1rem;
     font-size: 0.875rem;
     color: var(--color-text-muted);
 }
@@ -1822,7 +1802,6 @@
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--color-text-primary);
-    margin-bottom: 1rem;
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -1833,7 +1812,6 @@
 .news-excerpt {
     color: var(--color-text-secondary);
     line-height: 1.6;
-    margin-bottom: 1.5rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;

@@ -165,8 +165,8 @@ $currentLanguage = isset($_SESSION['language']) ? $_SESSION['language'] : 'zh-TW
                          <?php else: ?>
                              <!-- Guest user -->
                              <div class="auth-buttons">
-                                 <a href="<?php echo BASE_URL; ?>/login-page" class="btn btn-primary">登入</a>
-                                 <button type="button" class="btn btn-primary" onclick="showRegisterModal()">註冊</button>
+                                 <a href="<?php echo BASE_URL; ?>/login-page" class="btn btn-accent">登入</a>
+                                 <button type="button" class="btn btn-accent" onclick="showRegisterModal()">註冊</button>
                              </div>
                          <?php endif; ?>
                         

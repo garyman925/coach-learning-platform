@@ -41,7 +41,7 @@ include 'includes/header.php';
                             鎖定席位 即時報名
                         </p>
                         <div class="hero-actions">
-                            <a href="/contact" class="btn btn-primary btn-large">立即報名</a>
+                            <a href="/contact" class="btn btn-accent btn-large">立即報名</a>
                         </div>
                     </div>
                 </div>
@@ -189,7 +189,6 @@ include 'includes/header.php';
                         <div class="coach-info">
                             <h3 class="coach-name">張教練</h3>
                             <p class="coach-title">資深專業教練</p>
-                            <p class="coach-specialty">領導力發展、團隊建設</p>
                             <p class="coach-description">
                                 擁有15年企業教練經驗，專精於領導力發展和團隊效能提升。
                             </p>
@@ -199,7 +198,7 @@ include 'includes/header.php';
                             </div>
                             <div class="coach-actions">
                                 <a href="/coaches/zhang" class="btn btn-outline btn-sm">查看詳情</a>
-                                <a href="/booking?coach=zhang" class="btn btn-primary btn-sm">預約諮詢</a>
+                                <a href="/booking?coach=zhang" class="btn btn-accent btn-sm">預約諮詢</a>
                             </div>
                         </div>
                     </div>
@@ -221,7 +220,6 @@ include 'includes/header.php';
                         <div class="coach-info">
                             <h3 class="coach-name">李教練</h3>
                             <p class="coach-title">9型人格專家</p>
-                            <p class="coach-specialty">9型人格分析、親子關係</p>
                             <p class="coach-description">
                                 專注於9型人格理論研究和應用，幫助個人和家庭建立更好的關係。
                             </p>
@@ -231,7 +229,7 @@ include 'includes/header.php';
                             </div>
                             <div class="coach-actions">
                                 <a href="/coaches/li" class="btn btn-outline btn-sm">查看詳情</a>
-                                <a href="/booking?coach=li" class="btn btn-primary btn-sm">預約諮詢</a>
+                                <a href="/booking?coach=li" class="btn btn-accent btn-sm">預約諮詢</a>
                             </div>
                         </div>
                     </div>
@@ -253,7 +251,6 @@ include 'includes/header.php';
                         <div class="coach-info">
                             <h3 class="coach-name">王教練</h3>
                             <p class="coach-title">企業教練顧問</p>
-                            <p class="coach-specialty">企業轉型、組織發展</p>
                             <p class="coach-description">
                                 專注於企業組織發展和變革管理，協助企業建立高效能團隊。
                             </p>
@@ -263,7 +260,7 @@ include 'includes/header.php';
                             </div>
                             <div class="coach-actions">
                                 <a href="/coaches/wang" class="btn btn-outline btn-sm">查看詳情</a>
-                                <a href="/booking?coach=wang" class="btn btn-primary btn-sm">預約諮詢</a>
+                                <a href="/booking?coach=wang" class="btn btn-accent btn-sm">預約諮詢</a>
                             </div>
                         </div>
                     </div>
@@ -285,7 +282,6 @@ include 'includes/header.php';
                         <div class="coach-info">
                             <h3 class="coach-name">陳教練</h3>
                             <p class="coach-title">親子教練專家</p>
-                            <p class="coach-specialty">親子溝通、情緒管理</p>
                             <p class="coach-description">
                                 專注於親子關係改善，幫助家長建立更好的溝通模式。
                             </p>
@@ -295,7 +291,7 @@ include 'includes/header.php';
                             </div>
                             <div class="coach-actions">
                                 <a href="/coaches/chen" class="btn btn-outline btn-sm">查看詳情</a>
-                                <a href="/booking?coach=chen" class="btn btn-primary btn-sm">預約諮詢</a>
+                                <a href="/booking?coach=chen" class="btn btn-accent btn-sm">預約諮詢</a>
                             </div>
                         </div>
                     </div>
@@ -317,7 +313,6 @@ include 'includes/header.php';
                         <div class="coach-info">
                             <h3 class="coach-name">林教練</h3>
                             <p class="coach-title">團隊教練顧問</p>
-                            <p class="coach-specialty">團隊建設、衝突解決</p>
                             <p class="coach-description">
                                 專精於團隊效能提升，協助企業建立高績效團隊文化。
                             </p>
@@ -327,7 +322,7 @@ include 'includes/header.php';
                             </div>
                             <div class="coach-actions">
                                 <a href="/coaches/lin" class="btn btn-outline btn-sm">查看詳情</a>
-                                <a href="/booking?coach=lin" class="btn btn-primary btn-sm">預約諮詢</a>
+                                <a href="/booking?coach=lin" class="btn btn-accent btn-sm">預約諮詢</a>
                             </div>
                         </div>
                     </div>
@@ -349,7 +344,6 @@ include 'includes/header.php';
                         <div class="coach-info">
                             <h3 class="coach-name">黃教練</h3>
                             <p class="coach-title">職涯發展教練</p>
-                            <p class="coach-specialty">職涯規劃、技能提升</p>
                             <p class="coach-description">
                                 幫助個人找到職業方向，提升職場競爭力和個人價值。
                             </p>
@@ -359,7 +353,7 @@ include 'includes/header.php';
                             </div>
                             <div class="coach-actions">
                                 <a href="/coaches/huang" class="btn btn-outline btn-sm">查看詳情</a>
-                                <a href="/booking?coach=huang" class="btn btn-primary btn-sm">預約諮詢</a>
+                                <a href="/booking?coach=huang" class="btn btn-accent btn-sm">預約諮詢</a>
                             </div>
                         </div>
                     </div>
@@ -385,10 +379,6 @@ include 'includes/header.php';
             </div>
         </div>
 
-        <div class="coach-section-footer">btn btn-primary btn-large
-            <p class="coach-footer-text">想要了解更多教練資訊？</p>
-            <a href="/coaches" class="btn btn-primary btn-large">查看所有教練</a>
-        </div>
     </div>
 </section>
 
@@ -400,78 +390,28 @@ include 'includes/header.php';
             <p class="section-description">了解我們的最新課程、活動和行業動態</p>
         </div>
         
-        <div class="news-grid">
+        <div class="news-grid single-news">
             <!-- News Item 1 -->
             <article class="news-card" data-animate="fadeInUp">
                 <div class="news-image">
-                    <img src="assets/images/news/news-1.svg" alt="專業教練認證課程開課" loading="lazy">
-                    <div class="news-category">課程資訊</div>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span class="news-date">2024年1月15日</span>
-                        <span class="news-author">教練平台</span>
-                    </div>
-                    <h3 class="news-title">2024年專業教練認證課程正式開課</h3>
-                    <p class="news-excerpt">
-                        我們很高興地宣布，2024年專業教練認證課程正式開課！本課程將為學員提供全面的教練技能培訓...
-                    </p>
-                    <div class="news-actions">
-                        <a href="/news/coach-certification-2024" class="btn btn-sm">閱讀更多</a>
-                        <a href="/courses/professional-coaching" class="btn btn-primary btn-sm">立即報名</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- News Item 2 -->
-            <article class="news-card" data-animate="fadeInUp" data-delay="200">
-                <div class="news-image">
-                    <img src="assets/images/news/news-2.svg" alt="企業教練工作坊" loading="lazy">
+                    <img src="<?php echo BASE_URL; ?>/assets/images/hero/hero-bg-1.png" alt="教練咖啡時刻" loading="lazy">
                     <div class="news-category">活動預告</div>
                 </div>
                 <div class="news-content">
                     <div class="news-meta">
-                        <span class="news-date">2024年1月20日</span>
-                        <span class="news-author">教練平台</span>
+                        <span class="news-date">9月25日晚 20:00</span>
                     </div>
-                    <h3 class="news-title">企業教練工作坊：提升團隊效能</h3>
+                    <h3 class="news-title">教練咖啡時刻</h3>
                     <p class="news-excerpt">
-                        針對企業管理者和HR專業人士的專題工作坊，學習如何運用教練技巧提升團隊效能和員工滿意度...
+                        與專業教練面對面交流，分享教練心得與經驗，建立專業人脈網絡，開啟您的教練之旅...
                     </p>
                     <div class="news-actions">
-                        <a href="/news/enterprise-coaching-workshop" class="btn btn-sm">閱讀更多</a>
-                        <a href="/events/enterprise-workshop" class="btn btn-primary btn-sm">報名參加</a>
-                    </div>
-                </div>
-            </article>
-
-            <!-- News Item 3 -->
-            <article class="news-card" data-animate="fadeInUp" data-delay="400">
-                <div class="news-image">
-                    <img src="assets/images/news/news-3.svg" alt="9型人格親子課程" loading="lazy">
-                    <div class="news-category">課程更新</div>
-                </div>
-                <div class="news-content">
-                    <div class="news-meta">
-                        <span class="news-date">2024年1月25日</span>
-                        <span class="news-author">教練平台</span>
-                    </div>
-                    <h3 class="news-title">9型人格親子課程全新升級</h3>
-                    <p class="news-excerpt">
-                        基於家長反饋，我們對9型人格親子課程進行了全面升級，新增更多實用工具和案例分析...
-                    </p>
-                    <div class="news-actions">
-                        <a href="/news/enneagram-parenting-upgrade" class="btn btn-sm">閱讀更多</a>
-                        <a href="/courses/parenting-enneagram" class="btn btn-primary btn-sm">了解詳情</a>
+                        <a href="#contact-form-section" class="btn btn-accent btn-sm scroll-to-contact">立即報名</a>
                     </div>
                 </div>
             </article>
         </div>
 
-        <div class="news-section-footer">
-            <p class="news-footer-text">想要獲取更多最新資訊？</p>
-            <a href="/news" class="btn btn-large">查看所有新聞</a>
-        </div>
     </div>
 </section>
 
@@ -550,7 +490,7 @@ include 'includes/header.php';
                     </div>
                     
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary btn-large">發送訊息</button>
+                        <button type="submit" class="btn btn-accent btn-large">發送訊息</button>
                     </div>
                 </form>
             </div>
@@ -592,6 +532,53 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+    
+    // 處理聯繫表單提交
+    const contactForm = document.getElementById('homepage-contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 禁用所有輸入框和按鈕
+            const inputs = contactForm.querySelectorAll('input, select, button');
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+            
+            // 顯示感謝訊息
+            const formContainer = document.querySelector('.contact-form-container');
+            if (formContainer) {
+                formContainer.innerHTML = `
+                    <div class="success-message" style="
+                        text-align: center;
+                        padding: 3rem 2rem;
+                        background: rgba(255, 255, 255, 0.1);
+                        border-radius: 16px;
+                        backdrop-filter: blur(10px);
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                    ">
+                        <div style="
+                            font-size: 3rem;
+                            margin-bottom: 1.5rem;
+                            color: #4ade80;
+                        ">✓</div>
+                        <h3 style="
+                            font-size: 1.5rem;
+                            font-weight: 600;
+                            color: white;
+                            margin-bottom: 1rem;
+                        ">提交成功！</h3>
+                        <p style="
+                            font-size: 1.1rem;
+                            color: rgba(255, 255, 255, 0.9);
+                            line-height: 1.6;
+                            margin: 0;
+                        ">感謝您預定我們的服務，教練會在24小時內聯繫您。</p>
+                    </div>
+                `;
+            }
+        });
+    }
 });
 </script>
 

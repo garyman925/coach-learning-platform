@@ -385,7 +385,7 @@
 .search-button {
     position: absolute;
     right: 0;
-    background: var(--primary-color);
+    background: var(--accent-color);
     border: none;
     color: white;
     padding: var(--spacing-1);
