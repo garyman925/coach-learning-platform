@@ -57,6 +57,13 @@ $studentData = [
                         'status' => 'submitted',
                         'file_size' => '15.7 MB'
                     ]
+                ],
+                'checkin_status' => [
+                    'checkin_1' => true,
+                    'checkin_2' => true,
+                    'checkin_3' => false,
+                    'checkin_4' => false,
+                    'checkin_5' => false
                 ]
             ],
             [
@@ -74,6 +81,13 @@ $studentData = [
                         'status' => 'submitted',
                         'file_size' => '5.2 MB'
                     ]
+                ],
+                'checkin_status' => [
+                    'checkin_1' => true,
+                    'checkin_2' => false,
+                    'checkin_3' => false,
+                    'checkin_4' => false,
+                    'checkin_5' => false
                 ]
             ],
             [
@@ -81,7 +95,14 @@ $studentData = [
                 'name' => '王大偉',
                 'email' => 'wang@example.com',
                 'phone' => '0933-111-222',
-                'submissions' => []
+                'submissions' => [],
+                'checkin_status' => [
+                    'checkin_1' => false,
+                    'checkin_2' => false,
+                    'checkin_3' => false,
+                    'checkin_4' => false,
+                    'checkin_5' => false
+                ]
             ]
         ]
     ],
@@ -126,99 +147,189 @@ require_once 'includes/header-user.php';
         <p class="page-description">管理學生作業提交和查看學習進度</p>
     </div>
 
-    <!-- 課程選擇器 -->
-    <div class="course-selector-section">
-        <div class="row">
-            <div class="col-md-4">
-                <label for="courseSelect" class="form-label">選擇課程</label>
-                <select class="form-select" id="courseSelect" onchange="loadCourseStudents(this.value)">
-                    <option value="coffee-moment" <?php echo ($selectedCourse == 'coffee-moment') ? 'selected' : ''; ?>>
-                        教練咖啡時刻
-                    </option>
-                </select>
+    <!-- 主要內容區域 -->
+    <div class="main-content-wrapper">
+        <!-- 左側 Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-content">
+                <div class="sidebar-buttons">
+                    <button class="sidebar-btn active" id="courseBtn" onclick="showCourseView()">
+                        <i class="fas fa-book me-2"></i>你的課程
+                    </button>
+                    <button class="sidebar-btn" id="studentBtn" onclick="showStudentView()">
+                        <i class="fas fa-users me-2"></i>你的學生
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- 學生列表 -->
-    <div class="students-section">
+        <!-- 右側主要內容 -->
+        <div class="main-content">
+            <!-- 課程視圖 -->
+            <div id="courseView" class="content-view">
+                <div class="students-section">
+                    <!-- 課程選擇器 -->
+                    <div class="course-selector">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="courseSelect" class="form-label">選擇課程</label>
+                                <select class="form-select" id="courseSelect" onchange="loadCourseStudents(this.value)">
+                                    <option value="coffee-moment" <?php echo ($selectedCourse == 'coffee-moment') ? 'selected' : ''; ?>>
+                                        教練咖啡時刻
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="students-table-container">
+                        <div class="table-responsive">
+                            <table class="table table-hover students-table">
+                                <thead>
+                                    <tr>
+                                        <th>學生姓名</th>
+                                        <th>最後提交</th>
+                                        <th>已完成打卡活動</th>
+                                        <th>狀態</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($currentCourseData['students'] as $student): ?>
+                                    <tr class="student-row" data-student-id="<?php echo e($student['id']); ?>">
+                                        <td>
+                                            <div class="student-info">
+                                                <div class="student-avatar">
+                                                    <i class="fas fa-user"></i>
+                                                </div>
+                                                <div class="student-details">
+                                                    <div class="student-name"><?php echo e($student['name']); ?></div>
+                                                    <div class="student-id">ID: <?php echo e($student['id']); ?></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <?php if (!empty($student['submissions'])): ?>
+                                                <?php 
+                                                $latestSubmission = end($student['submissions']);
+                                                echo e($latestSubmission['upload_time']);
+                                                ?>
+                                            <?php else: ?>
+                                                <span class="text-muted">尚未提交</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <div class="checkin-activities">
+                                                <?php 
+                                                // 檢查是否有任何打卡活動完成
+                                                $hasCompletedCheckin = false;
+                                                if (isset($student['checkin_status'])) {
+                                                    foreach ($student['checkin_status'] as $status) {
+                                                        if ($status) {
+                                                            $hasCompletedCheckin = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                                <span class="activity-status">
+                                                    <?php if ($hasCompletedCheckin): ?>
+                                                        <i class="fas fa-check-circle text-success"></i>
+                                                    <?php else: ?>
+                                                        <i class="fas fa-times-circle text-muted"></i>
+                                                    <?php endif; ?>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <?php if (!empty($student['submissions'])): ?>
+                                                <span class="status-badge status-submitted">
+                                                    <i class="fas fa-check-circle me-1"></i>
+                                                    已提交
+                                                </span>
+                                            <?php else: ?>
+                                                <span class="status-badge status-pending">
+                                                    <i class="fas fa-clock me-1"></i>
+                                                    待提交
+                                                </span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td>
+                                            <div class="action-buttons">
+                                                <?php if (!empty($student['submissions'])): ?>
+                                                    <button class="btn btn-primary btn-sm" onclick="viewStudentSubmissions('<?php echo e($student['id']); ?>', '<?php echo e($student['name']); ?>')">
+                                                        <i class="fas fa-eye me-1"></i>
+                                                        查看作業
+                                                    </button>
+                                                <?php else: ?>
+                                                    <button class="btn btn-outline-secondary btn-sm" disabled>
+                                                        <i class="fas fa-eye-slash me-1"></i>
+                                                        無作業
+                                                    </button>
+                                                <?php endif; ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="students-table-container">
-            <div class="table-responsive">
-                <table class="table table-hover students-table">
-                    <thead>
-                        <tr>
-                            <th>學生姓名</th>
-                            <th>最後提交</th>
-                            <th>累積打卡次數</th>
-                            <th>狀態</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($currentCourseData['students'] as $student): ?>
-                        <tr class="student-row" data-student-id="<?php echo e($student['id']); ?>">
-                            <td>
-                                <div class="student-info">
-                                    <div class="student-avatar">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                    <div class="student-details">
-                                        <div class="student-name"><?php echo e($student['name']); ?></div>
-                                        <div class="student-id">ID: <?php echo e($student['id']); ?></div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <?php if (!empty($student['submissions'])): ?>
-                                    <?php 
-                                    $latestSubmission = end($student['submissions']);
-                                    echo e($latestSubmission['upload_time']);
-                                    ?>
-                                <?php else: ?>
-                                    <span class="text-muted">尚未提交</span>
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <button class="btn btn-outline-info btn-sm checkin-count-btn" 
-                                        onclick="showCheckinHistory('<?php echo e($student['id']); ?>', '<?php echo e($student['name']); ?>')"
-                                        data-student-id="<?php echo e($student['id']); ?>">
-                                    <i class="fas fa-calendar-check me-1"></i>
-                                    <?php echo count($student['submissions']); ?> 次
-                                </button>
-                            </td>
-                            <td>
-                                <?php if (!empty($student['submissions'])): ?>
-                                    <span class="status-badge status-submitted">
-                                        <i class="fas fa-check-circle me-1"></i>
-                                        已提交
-                                    </span>
-                                <?php else: ?>
-                                    <span class="status-badge status-pending">
-                                        <i class="fas fa-clock me-1"></i>
-                                        待提交
-                                    </span>
-                                <?php endif; ?>
-                            </td>
-                            <td>
-                                <div class="action-buttons">
-                                    <?php if (!empty($student['submissions'])): ?>
-                                        <button class="btn btn-primary btn-sm" onclick="viewStudentSubmissions('<?php echo e($student['id']); ?>', '<?php echo e($student['name']); ?>')">
-                                            <i class="fas fa-eye me-1"></i>
-                                            查看作業
-                                        </button>
-                                    <?php else: ?>
-                                        <button class="btn btn-outline-secondary btn-sm" disabled>
-                                            <i class="fas fa-eye-slash me-1"></i>
-                                            無作業
-                                        </button>
-                                    <?php endif; ?>
-                                </div>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+            <!-- 學生視圖 -->
+            <div id="studentView" class="content-view" style="display: none;">
+                <div class="students-section">
+                    <div class="students-table-container">
+                        <div class="table-responsive">
+                            <table class="table table-hover students-table">
+                                <thead>
+                                    <tr>
+                                        <th>學生姓名</th>
+                                        <th>累積打卡次數</th>
+                                        <th>最後打卡時間</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($currentCourseData['students'] as $student): ?>
+                                    <tr class="student-row" data-student-id="<?php echo e($student['id']); ?>">
+                                        <td>
+                                            <div class="student-info">
+                                                <div class="student-avatar">
+                                                    <i class="fas fa-user"></i>
+                                                </div>
+                                                <div class="student-details">
+                                                    <div class="student-name"><?php echo e($student['name']); ?></div>
+                                                    <div class="student-id">ID: <?php echo e($student['id']); ?></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="checkin-count-btn" 
+                                                    onclick="showStudentCheckinHistory('<?php echo e($student['id']); ?>', '<?php echo e($student['name']); ?>')"
+                                                    data-student-id="<?php echo e($student['id']); ?>">
+                                                <i class="fas fa-calendar-check me-1"></i>
+                                                <?php echo count($student['submissions']); ?> 次
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <?php if (!empty($student['submissions'])): ?>
+                                                <?php 
+                                                $latestSubmission = end($student['submissions']);
+                                                echo e($latestSubmission['upload_time']);
+                                                ?>
+                                            <?php else: ?>
+                                                <span class="text-muted">尚未打卡</span>
+                                            <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -272,6 +383,28 @@ require_once 'includes/header-user.php';
     </div>
 </div>
 
+<!-- 學生打卡歷史記錄彈窗 -->
+<div class="modal fade" id="studentCheckinHistoryModal" tabindex="-1" aria-labelledby="studentCheckinHistoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="width: 100%;">
+            <div class="modal-header">
+                <h5 class="modal-title" id="studentCheckinHistoryModalLabel">
+                    打卡歷史記錄
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="studentCheckinHistoryContent">
+                    <!-- 動態載入打卡歷史內容 -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php require_once 'includes/footer-user.php'; ?>
 
 <script>
@@ -280,6 +413,98 @@ function loadCourseStudents(courseId) {
     // 重新載入頁面並帶上課程參數
     window.location.href = '<?php echo BASE_URL; ?>/student-management?course=' + courseId;
 }
+
+// 視圖切換功能
+function showCourseView() {
+    document.getElementById('courseView').style.display = 'block';
+    document.getElementById('studentView').style.display = 'none';
+    
+    // 更新按鈕狀態
+    document.getElementById('courseBtn').classList.add('active');
+    document.getElementById('studentBtn').classList.remove('active');
+}
+
+function showStudentView() {
+    document.getElementById('courseView').style.display = 'none';
+    document.getElementById('studentView').style.display = 'block';
+    
+    // 更新按鈕狀態
+    document.getElementById('courseBtn').classList.remove('active');
+    document.getElementById('studentBtn').classList.add('active');
+}
+
+// 顯示學生打卡歷史記錄
+function showStudentCheckinHistory(studentId, studentName) {
+    // 更新彈窗標題
+    document.getElementById('studentCheckinHistoryModalLabel').innerHTML = 
+        studentName + ' 的打卡歷史記錄';
+    
+    // 顯示載入狀態
+    document.getElementById('studentCheckinHistoryContent').innerHTML = 
+        '<div class="text-center"><i class="fas fa-spinner fa-spin me-2"></i>載入打卡記錄中...</div>';
+    
+    // 顯示彈窗
+    const modal = new bootstrap.Modal(document.getElementById('studentCheckinHistoryModal'));
+    modal.show();
+    
+    // 模擬載入打卡歷史內容
+    setTimeout(() => {
+        loadStudentCheckinHistory(studentId, studentName);
+    }, 800);
+}
+
+// 載入學生打卡歷史記錄
+function loadStudentCheckinHistory(studentId, studentName) {
+    // 模擬打卡歷史數據
+    const checkinHistory = [
+        {
+            date: '2025/9/25',
+            time: '13:30',
+            course: '教練咖啡時刻'
+        },
+        {
+            date: '2025/9/30',
+            time: '14:30',
+            course: '教練咖啡時刻2'
+        },
+        {
+            date: '2025/10/2',
+            time: '10:15',
+            course: '教練咖啡時刻'
+        },
+        {
+            date: '2025/10/5',
+            time: '16:45',
+            course: '教練咖啡時刻2'
+        }
+    ];
+    
+    let historyHTML = `
+        <div class="student-checkin-history">
+            <div class="history-timeline">
+    `;
+    
+    checkinHistory.forEach((record, index) => {
+        historyHTML += `
+            <div class="timeline-item-simple">
+                ${record.date} ${record.time} ${record.course}
+            </div>
+        `;
+    });
+    
+    historyHTML += `
+            </div>
+        </div>
+    `;
+    
+    document.getElementById('studentCheckinHistoryContent').innerHTML = historyHTML;
+}
+
+// 頁面載入時初始化
+document.addEventListener('DOMContentLoaded', function() {
+    // 默認顯示課程視圖
+    showCourseView();
+});
 
 function viewStudentSubmissions(studentId, studentName) {
     // 更新彈窗標題
