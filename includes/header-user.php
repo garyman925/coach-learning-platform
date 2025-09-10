@@ -134,6 +134,14 @@ $isLoggedIn = $userManagement->isLoggedIn();
                         <span>個人資料</span>
                     </a>
                 </li>
+                <?php if (isset($isAdmin) && $isAdmin): ?>
+                <li class="user-nav-item">
+                    <a href="<?php echo BASE_URL; ?>/student-management" class="user-nav-link <?php echo (basename($_SERVER['PHP_SELF']) == 'student-management.php') ? 'active' : ''; ?>">
+                        <i class="fas fa-users-cog"></i>
+                        <span>學生管理</span>
+                    </a>
+                </li>
+                <?php endif; ?>
                 <!-- 社區互動導航項目暫時隱藏 -->
                 <!--
                 <li class="user-nav-item">

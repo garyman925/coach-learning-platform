@@ -12,9 +12,6 @@ if (!$userManagement->isLoggedIn()) {
     exit;
 }
 $currentUser = $userManagement->getCurrentUser();
-
-// 檢查是否為管理員
-$isAdmin = true; // 暫時設為 true 用於演示
 $message = '';
 $messageType = '';
 
@@ -33,7 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'first_name' => trim(isset($_POST['first_name']) ? $_POST['first_name'] : ''),
             'last_name' => trim(isset($_POST['last_name']) ? $_POST['last_name'] : ''),
             'phone' => trim(isset($_POST['phone']) ? $_POST['phone'] : ''),
-            'email' => trim(isset($_POST['email']) ? $_POST['email'] : '')
+            'bio' => trim(isset($_POST['bio']) ? $_POST['bio'] : ''),
+            'company' => trim(isset($_POST['company']) ? $_POST['company'] : ''),
+            'position' => trim(isset($_POST['position']) ? $_POST['position'] : ''),
+            'website' => trim(isset($_POST['website']) ? $_POST['website'] : ''),
+            'location' => trim(isset($_POST['location']) ? $_POST['location'] : ''),
+            'interests' => trim(isset($_POST['interests']) ? $_POST['interests'] : '')
         ];
         
         $result = $userManagement->updateUserProfile($currentUser['username'], $profileData);
@@ -62,9 +64,17 @@ require_once 'includes/header-user.php';
         <section class="page-hero">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-12">
+                    <div class="col-lg-8">
                         <h1 class="page-title">個人資料管理</h1>
                         <p class="page-subtitle">管理您的個人資料</p>
+                    </div>
+                    <div class="col-lg-4 text-end">
+                        <div class="user-avatar">
+                            <img src="<?php echo e(isset($userProfile['avatar']) ? $userProfile['avatar'] : 'assets/images/default-avatar.svg'); ?>" 
+                                 alt="<?php echo e($currentUser['username']); ?>" 
+                                 class="avatar-img">
+                            <div class="avatar-status online"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -82,13 +92,49 @@ require_once 'includes/header-user.php';
                 <?php endif; ?>
 
                 <div class="row">
+                    <!-- 側邊欄 -->
+                    <div class="col-lg-3">
+                        <div class="profile-sidebar">
+                            <div class="sidebar-section">
+                                <ul class="nav nav-pills flex-column">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" href="#profile" data-bs-toggle="pill">
+                                            <i class="fas fa-user me-2"></i>個人資料
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <div class="sidebar-section">
+                                <h5>帳戶狀態</h5>
+                                <div class="account-status">
+                                    <div class="status-item">
+                                        <span class="status-label">會員等級</span>
+                                        <span class="status-value"><?php echo e($currentUser['role'] === 'admin' ? '管理員' : '一般會員'); ?></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">註冊時間</span>
+                                        <span class="status-value"><?php echo e(date('Y-m-d', strtotime($currentUser['created_at']))); ?></span>
+                                    </div>
+                                    <div class="status-item">
+                                        <span class="status-label">最後登入</span>
+                                        <span class="status-value"><?php echo e($currentUser['last_login'] ? date('Y-m-d H:i', strtotime($currentUser['last_login'])) : '從未登入'); ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- 主要內容 -->
-                    <div class="col-12">
+                    <div class="col-lg-9">
                         <div class="tab-content">
                             <!-- 個人資料標籤 -->
                             <div class="tab-pane fade show active" id="profile">
                                 <div class="content-card">
-
+                                    <div class="card-header">
+                                        <h4><i class="fas fa-user me-2"></i>個人資料</h4>
+                                        <p>更新您的個人資訊</p>
+                                    </div>
                                     <div class="card-body">
                                         <form method="POST" class="profile-form">
                                             <div class="row">
@@ -121,13 +167,50 @@ require_once 'includes/header-user.php';
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="email">電郵</label>
-                                                        <input type="email" id="email" name="email" 
+                                                        <label for="location">所在地</label>
+                                                        <input type="text" id="location" name="location" 
                                                                class="form-control" 
-                                                               value="<?php echo e($currentUser['email']); ?>" readonly>
-                                                        <small class="form-text text-muted">電郵無法修改</small>
+                                                               value="<?php echo e(isset($userProfile['location']) ? $userProfile['location'] : ''); ?>">
                                                     </div>
                                                 </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="company">公司/組織</label>
+                                                        <input type="text" id="company" name="company" 
+                                                               class="form-control" 
+                                                               value="<?php echo e(isset($userProfile['company']) ? $userProfile['company'] : ''); ?>">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="position">職位</label>
+                                                        <input type="text" id="position" name="position" 
+                                                               class="form-control" 
+                                                               value="<?php echo e(isset($userProfile['position']) ? $userProfile['position'] : ''); ?>">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="website">個人網站</label>
+                                                <input type="url" id="website" name="website" 
+                                                       class="form-control" 
+                                                       value="<?php echo e(isset($userProfile['website']) ? $userProfile['website'] : ''); ?>">
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="bio">個人簡介</label>
+                                                <textarea id="bio" name="bio" class="form-control" rows="4" 
+                                                          placeholder="請簡短介紹您自己..."><?php echo e(isset($userProfile['bio']) ? $userProfile['bio'] : ''); ?></textarea>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="interests">興趣專長</label>
+                                                <textarea id="interests" name="interests" class="form-control" rows="3" 
+                                                          placeholder="請列出您的興趣和專長..."><?php echo e(isset($userProfile['interests']) ? $userProfile['interests'] : ''); ?></textarea>
                                             </div>
                                             
                                             <div class="form-actions">
@@ -142,30 +225,6 @@ require_once 'includes/header-user.php';
                                     </div>
                                 </div>
                             </div>
-                            
-                            <?php if ($isAdmin): ?>
-                            <!-- 學生管理標籤 -->
-                            <div class="tab-pane fade" id="student-management">
-                                <div class="content-card">
-                                    <div class="card-header">
-                                        <h4><i class="fas fa-users-cog me-2"></i>學生管理</h4>
-                                        <p>管理學生作業提交和查看學習進度</p>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="text-center">
-                                            <div class="mb-4">
-                                                <i class="fas fa-users-cog text-primary" style="font-size: 3rem;"></i>
-                                            </div>
-                                            <h5>學生管理功能</h5>
-                                            <p class="text-muted mb-4">您可以使用學生管理功能來查看和管理學生的作業提交情況。</p>
-                                            <a href="<?php echo BASE_URL; ?>/student-management" class="btn btn-primary">
-                                                <i class="fas fa-external-link-alt me-2"></i>前往學生管理頁面
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

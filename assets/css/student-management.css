@@ -1,0 +1,443 @@
+/**
+ * 學生管理頁面樣式
+ */
+
+/* 學生管理容器 */
+.student-management-container {
+    padding: 1rem 0;
+}
+
+/* 頁面標題區域 */
+.page-header {
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.page-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.page-description {
+    color: var(--text-muted);
+    margin-bottom: 0;
+}
+
+/* 課程選擇器區域 */
+.course-selector-section {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.course-selector-section .form-label {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+}
+
+.course-selector-section .form-select {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.course-selector-section .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(250, 128, 42, 0.25);
+}
+
+.course-info {
+    padding: 1rem;
+    background: var(--light-bg);
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-color);
+}
+
+.course-name {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.student-count {
+    color: var(--text-muted);
+    margin-bottom: 0;
+    font-size: 0.9rem;
+}
+
+/* 學生列表區域 */
+.students-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--light-bg);
+}
+
+.section-title {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.section-actions .btn {
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* 學生表格 */
+.students-table-container {
+    padding: 0;
+}
+
+.students-table {
+    margin-bottom: 0;
+}
+
+.students-table thead th {
+    background: var(--light-bg);
+    border-bottom: 2px solid var(--border-color);
+    font-weight: 600;
+    color: var(--text-dark);
+    padding: 1rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.students-table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.students-table tbody tr:hover {
+    background: var(--light-bg);
+}
+
+/* 學生信息 */
+.student-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.student-avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.student-details {
+    flex: 1;
+}
+
+.student-name {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.25rem;
+}
+
+.student-id {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* 聯絡信息 */
+.contact-info {
+    font-size: 0.9rem;
+}
+
+.contact-info .email,
+.contact-info .phone {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.25rem;
+    color: var(--text-muted);
+}
+
+.contact-info .email i,
+.contact-info .phone i {
+    width: 16px;
+    color: var(--primary-color);
+}
+
+/* 提交數量 */
+.submission-count {
+    background: var(--light-bg);
+    color: var(--text-dark);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* 狀態標籤 */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-badge.status-submitted {
+    background: rgba(48, 203, 183, 0.1);
+    color: #30cbb7;
+    border: 1px solid rgba(48, 203, 183, 0.2);
+}
+
+.status-badge.status-pending {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+/* 操作按鈕 */
+.action-buttons .btn {
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+}
+
+/* 作業預覽彈窗 */
+.modal-xl {
+    max-width: 90%;
+}
+
+/* 讓彈窗置中顯示 */
+#submissionsModal .modal-dialog {
+    margin: 1.75rem auto;
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 3.5rem);
+}
+
+#submissionsModal .modal-content {
+    width: 100%;
+    margin: auto;
+}
+
+.modal-header {
+    background: var(--light-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.modal-body {
+    padding: 1rem;
+}
+
+/* 作業列表 */
+.submissions-list {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.submission-item {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.submission-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5rem;
+    background: var(--light-bg);
+}
+
+.submission-info {
+    flex: 1;
+}
+
+.submission-name {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.submission-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.submission-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.submission-preview {
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    background: white;
+}
+
+/* 預覽內容 */
+.image-preview img {
+    max-height: 400px;
+    object-fit: contain;
+}
+
+.video-preview video {
+    max-height: 400px;
+}
+
+.audio-preview audio {
+    width: 100%;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .student-management-container {
+        padding: 1rem 0;
+    }
+    
+    .course-selector-section {
+        padding: 1rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .students-table-container {
+        overflow-x: auto;
+    }
+    
+    .students-table {
+        min-width: 600px;
+    }
+    
+    .student-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .student-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+    
+    .submission-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .submission-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    
+    .modal-xl {
+        max-width: 95%;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .course-selector-section .row {
+        flex-direction: column;
+    }
+    
+    .course-info {
+        margin-top: 1rem;
+    }
+    
+    .students-table thead th,
+    .students-table tbody td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .action-buttons .btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/* 動畫效果 */
+.student-management-container {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.submission-item {
+    transition: all 0.3s ease;
+}
+
+.submission-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 自定義滾動條 */
+.submissions-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.submissions-list::-webkit-scrollbar-track {
+    background: var(--light-bg);
+    border-radius: 3px;
+}
+
+.submissions-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+.submissions-list::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
